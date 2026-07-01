@@ -1,0 +1,11 @@
+#:kami{:worlds [:kami/scene],
+       :provider-namespaces ["kami.providers.giemon"],
+       :families [:giemon],
+       :kind :wasm-component-provider,
+       :authority-repos ["orgs/kotoba-lang/giemon"],
+       :exit-criteria [:giemon-cljc-authority-adapter-loads-scene-ir],
+       :adapter :wasm-component-model,
+       :split-to "orgs/kotoba-lang/giemon",
+       :legacy-crates ["kami-app-giemon" "kami-app-giemon-factory"],
+       :dependency-repos ["orgs/kotoba-lang/robotics"],
+       :authority [:kotoba-clj :edn]}
