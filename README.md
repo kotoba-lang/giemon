@@ -20,6 +20,13 @@ Giemon-Kaigo-specific wrapper over it.
 No network, no I/O. Portable `.cljc` across JVM / ClojureScript / SCI /
 GraalVM.
 
+## Test
+
+```bash
+clojure -M:test
+clojure -M:lint
+```
+
 ## Maturity
 
 | | |
