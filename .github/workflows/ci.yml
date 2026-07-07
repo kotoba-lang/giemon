@@ -5,6 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: git clone --depth 1 https://github.com/kotoba-lang/html.git ../html
+      - run: git clone --depth 1 https://github.com/kotoba-lang/css.git ../css
+      - run: git clone --depth 1 https://github.com/kotoba-lang/robotics.git ../robotics
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
