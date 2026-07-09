@@ -16,6 +16,18 @@
   (let [csv (export/torque->csv arm-spec)]
     (is (str/includes? csv "j1,10,20,10"))))
 
+(deftest csv-export-quotes-a-bare-carriage-return
+  ;; RFC 4180 requires quoting a field containing CR, LF, or a comma --
+  ;; \r alone is also a line terminator every standard CSV reader
+  ;; recognizes, but the check here only ever covered \n. Verified
+  ;; against Python's csv module: an unquoted bare \r split the row into
+  ;; two corrupted rows on read-back.
+  (let [spec {:arm/chain
+              [{:joint/name (str "j" (char 13) "1")
+                :joint/limit {:effort 10} :joint/actuator {:cont-nm 20}}]}
+        csv (export/torque->csv spec)]
+    (is (str/includes? csv "\"j\r1\""))))
+
 (deftest products->json-test
   (let [json (export/products->json)]
     (is (str/includes? json "\"product\":\"Giemon Otete\""))))
