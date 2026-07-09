@@ -25,3 +25,15 @@
     (let [json (export/torque->json arm-spec)]
       (is (str/includes? json "\"joint\":\"j1\""))
       (is (str/includes? json "\"headroom_nm\":10")))))
+
+(deftest json-export-escapes-every-c0-control-character
+  ;; RFC 8259 requires EVERY control character U+0000-U+001F to be
+  ;; escaped, not just \ " and \n -- a joint name (caller-supplied via
+  ;; arm-spec) containing a raw tab or other control byte would
+  ;; otherwise be copied through raw, producing invalid JSON (verified
+  ;; against Python's strict json module).
+  (let [spec {:arm/chain
+              [{:joint/name (str "j" (char 9) "1" (char 1) "x")
+                :joint/limit {:effort 10} :joint/actuator {:cont-nm 20}}]}
+        json (export/torque->json spec)]
+    (is (str/includes? json "\"joint\":\"j\\t1\\u0001x\""))))
