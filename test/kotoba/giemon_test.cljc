@@ -10,7 +10,9 @@
   (testing "hitogata is 17-axis and in-design"
     (is (= 17 (:product/dof (giemon/product :hitogata))))
     (is (= :in-design (:product/status (giemon/product :hitogata)))))
-  (testing "caterpillar is in-design"
-    (is (= :in-design (:product/status (giemon/product :caterpillar)))))
+  (testing "caterpillar is in-design and not vaporware-orderable"
+    (let [p (giemon/product :caterpillar)]
+      (is (= :in-design (:product/status p)))
+      (is (string? (:product/fixture p)))))
   (testing "unknown product returns nil"
     (is (nil? (giemon/product :nope)))))

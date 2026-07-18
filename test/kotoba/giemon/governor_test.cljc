@@ -25,3 +25,23 @@
       (is (= :safety-critical (:action/safety a)))
       (is (rob/requires-sign-off? a))
       (is (= :emit (:action/kind a))))))
+
+(deftest ops-mission-test
+  (let [m (gov/ops-mission "M2" :caterpillar "外壁清掃")]
+    (is (= "caterpillar" (:mission/robot m)))
+    (is (= :planned (:mission/status m)))))
+
+(deftest ops-action-defaults-test
+  (testing "caterpillar ops action defaults to :high (materially stricter than kaigo's :low for the same product)"
+    (let [a (gov/ops-action "A3" "M2" :caterpillar :move)]
+      (is (= :high (:action/safety a)))))
+  (testing "explicit safety overrides the product default"
+    (let [a (gov/ops-action "A3" "M2" :caterpillar :move :safety :medium)]
+      (is (= :medium (:action/safety a))))))
+
+(deftest chemical-dispense-alert-test
+  (testing "chemical dispense alert is always safety-critical and requires sign-off"
+    (let [a (gov/chemical-dispense-alert "A4" "M2" :params {:fluid-l 3.0})]
+      (is (= :safety-critical (:action/safety a)))
+      (is (rob/requires-sign-off? a))
+      (is (= :emit (:action/kind a))))))

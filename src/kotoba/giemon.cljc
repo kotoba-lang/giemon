@@ -32,7 +32,8 @@
     :product/kind :dual-track-ugv
     :product/length-mm 380
     :product/status :in-design
-    :product/kaigo-role "自律見守り UGV"}})
+    :product/kaigo-role "自律見守り UGV"
+    :product/fixture "fixtures/giemon_caterpillar_facade/giemon_caterpillar_facade.edn"}})
 
 (defn product
   "Look up a product by id (:otete / :hitogata / :caterpillar). nil if
