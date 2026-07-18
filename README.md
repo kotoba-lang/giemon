@@ -42,6 +42,7 @@ clojure -M:lint
 ```clojure
 (require '[kotoba.giemon :as giemon]
          '[kotoba.giemon.arm :as arm]
+         '[kotoba.giemon.chassis :as chassis]
          '[kotoba.giemon.governor :as gov]
          '[kotoba.giemon.viewer :as viewer])
 
@@ -58,9 +59,19 @@ clojure -M:lint
 (arm/bom giemon-arm6 :harmonic-shoulder)   ; :all-qdd with j2's :override applied
 (arm/underrated-joints giemon-arm6 (arm/bom giemon-arm6 :harmonic-shoulder))
 
+;; dual-track UGV chassis kinematics + chassis-mounted cleaning boom
+;; (fixtures/giemon_caterpillar_facade/ — :caterpillar stays :in-design,
+;; this fixture existing does not make it orderable, ADR-2607062210)
+(chassis/track-speeds->twist 0.264 0.8 1.0)             ; track separation, left/right speed
+(chassis/boom-underrated-joints giemon-caterpillar-facade)
+
 ;; Kaigo mission/action, delegating the safety gate to kotoba-lang/robotics
 (gov/kaigo-action "A1" "M1" :otete :move)
 (gov/fall-detected-alert "A2" "M1" :params {:location "hallway"})
+
+;; ops (commercial/municipal cleaning-service) mission/action, same gate
+(gov/ops-action "A3" "M2" :caterpillar :move)            ; defaults to :high, not kaigo's :low
+(gov/chemical-dispense-alert "A4" "M2" :params {:fluid-l 3.0})
 
 ;; scene-IR for the giemon.gftd.ai / kaigo.gftd.ai 3D viewer
 (viewer/arm-scene-ir giemon-arm6 [0.0 0.2 -0.3 0.0 0.5 0.0])
@@ -71,8 +82,30 @@ clojure -M:lint
 `fixtures/giemon_arm6/` — the canonical 6-DOF Otete arm articulation, as
 both EDN (`giemon_arm6.edn`, the source of truth) and URDF
 (`giemon_arm6.urdf`, a parity oracle: `from_edn(edn) == parse_urdf(urdf)`).
-Moved here from `kotoba-lang/kami-engine` — Hitogata and Caterpillar have
-no articulation fixture yet (still `:in-design`, ADR-2605142200).
+Moved here from `kotoba-lang/kami-engine` — Hitogata still has no
+articulation fixture yet (still `:in-design`, ADR-2605142200).
+
+`fixtures/giemon_caterpillar_facade/` — a **design-stage, not-yet-orderable**
+dual-track UGV chassis + chassis-mounted cleaning boom (`:chassis/boom`
+reuses `kotoba.giemon.arm`'s revolute-joint-chain contract unchanged), as
+both EDN (source of truth) and a boom-scoped URDF parity oracle. Base
+chassis dimensions/parts are sourced from `kotoba-lang/kami-app-giemon`'s
+real Caterpillar geometry (`:chassis/base-geometry`, cited verbatim in its
+original render-frame, not yet axis-remapped — see `:chassis/realization
+:unresolved`). Caterpillar itself remains `:product/status :in-design` in
+the product registry — this fixture existing does not make it orderable
+(ADR-2607062210's honest-default principle).
+
+Both `fixtures/*.edn` files (and `resources/kami/provider/split_contract.edn`)
+are stored as Datomic/Datascript tx-data (`scripts/edn-datomize.bb
+wrap-generic`, schema in `schema.edn`, both generated — do not hand-edit):
+a single-entity `[{:db/id -1 ...}]` vector whose non-scalar values are
+`pr-str`'d blobs. Callers reconstitute the original nested map before
+passing it to `kotoba.giemon.arm`/`kotoba.giemon.chassis` (see
+`test/kotoba/giemon/arm_edn_test.clj` / `chassis_edn_test.clj`'s
+`unblob`/`reconstitute-*` helpers) — production code itself stays
+oblivious to this on-disk encoding, per the "caller reads/parses the EDN
+fixture, no I/O here" contract above.
 
 ## Operator console (UI/UX)
 
@@ -94,6 +127,7 @@ torque headroom, built on
 
 (export/products->csv)
 (export/torque->csv giemon-arm6)
+(export/bom->csv giemon-arm6)   ; raw :arm/chain actuator BOM incl. :price-jpy/:buy
 ```
 
 ## Provider catalog

@@ -33,3 +33,36 @@
   sign-off before any dispatch (ADR-2605142300)."
   [id mission-id & {:keys [params]}]
   (rob/action id mission-id :emit :safety-critical :params params))
+
+(def ops-roles
+  "Per-product commercial/municipal cleaning-service role and default
+  action safety posture, parallel to `kaigo-roles` but for non-Kaigo ops
+  missions. :caterpillar defaults to :high (NOT kaigo-roles' :low for the
+  same product id): the facade/street-cleaning configuration dispenses
+  chemical fluid and operates near pedestrians/buildings in public space,
+  materially more hazardous than the indoor elder-watch UGV framing
+  kaigo-roles assumes for the same product."
+  {:caterpillar {:role "街並み・外壁清掃 UGV" :default-safety :high}})
+
+(defn ops-mission
+  "A Giemon ops (commercial/municipal cleaning-service) mission for
+  `product`, parallel to `kaigo-mission`."
+  [id product objective & opts]
+  (apply rob/mission id (name product) objective opts))
+
+(defn ops-action
+  "A Giemon ops action for `product`. Defaults `:safety` to the product's
+  posture in `ops-roles` unless explicitly given, parallel to
+  `kaigo-action`."
+  [id mission-id product kind & {:keys [safety params]}]
+  (rob/action id mission-id kind
+              (or safety (get-in ops-roles [product :default-safety] :medium))
+              :params params))
+
+(defn chemical-dispense-alert
+  "Chemical-fluid-dispense escalation (Caterpillar facade-cleaning
+  wet-spray variant) — always `:safety-critical`, so
+  `kotoba.robotics/gate` always routes it to human sign-off before any
+  dispatch, mirroring `fall-detected-alert`'s hardcoded posture."
+  [id mission-id & {:keys [params]}]
+  (rob/action id mission-id :emit :safety-critical :params params))

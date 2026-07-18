@@ -77,3 +77,45 @@
                         "\"rated_nm\":" (:torque/rated t) ","
                         "\"headroom_nm\":" (:torque/headroom t) "}")))
        "]"))
+
+(defn- chain-bom-rows
+  "Raw per-joint BOM rows straight from `arm-spec`'s `:arm/chain`
+  `:joint/actuator` entries — unlike `arm/chain-actuators`'s trimmed
+  `:joint/:model/:cont-nm/:peak-nm` projection, this keeps `:price-jpy`
+  and `:buy` so `bom->csv`/`bom->json` can export them."
+  [arm-spec]
+  (into []
+        (keep (fn [joint]
+                (when-let [a (:joint/actuator joint)]
+                  {:joint (:joint/name joint)
+                   :model (:model a)
+                   :cont-nm (:cont-nm a)
+                   :peak-nm (:peak-nm a)
+                   :price-jpy (:price-jpy a)
+                   :buy (:buy a)})))
+        (:arm/chain arm-spec)))
+
+(defn bom->csv
+  "CSV export of `arm-spec`'s actuator BOM straight from the raw
+  `:arm/chain` data (not `arm/chain-actuators`'s trimmed projection), so
+  `:price-jpy` and `:buy` survive the export."
+  [arm-spec]
+  (str/join "\n"
+    (cons (csv-row ["joint" "model" "cont_nm" "peak_nm" "price_jpy" "buy"])
+          (for [r (chain-bom-rows arm-spec)]
+            (csv-row [(:joint r) (:model r) (:cont-nm r) (:peak-nm r)
+                      (:price-jpy r) (:buy r)])))))
+
+(defn bom->json
+  "JSON export of the same raw actuator BOM as `bom->csv`."
+  [arm-spec]
+  (str "["
+       (str/join ","
+                 (for [r (chain-bom-rows arm-spec)]
+                   (str "{\"joint\":\"" (json-str (:joint r)) "\","
+                        "\"model\":\"" (json-str (:model r)) "\","
+                        "\"cont_nm\":" (or (:cont-nm r) "null") ","
+                        "\"peak_nm\":" (or (:peak-nm r) "null") ","
+                        "\"price_jpy\":" (or (:price-jpy r) "null") ","
+                        "\"buy\":\"" (json-str (:buy r)) "\"}")))
+       "]"))
