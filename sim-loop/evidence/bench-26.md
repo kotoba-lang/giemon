@@ -1,0 +1,44 @@
+# bench-26 (日次連番 26、決定的記録・タイムスタンプなし)
+
+## テスト実行
+
+- robotics (`cd orgs/kotoba-lang/robotics && clojure -M:test`):
+  Ran 14 tests containing 50 assertions. 0 failures, 0 errors.
+  (bench-4〜25 と同一数字、26 連続同値)
+- giemon (`cd orgs/kotoba-lang/giemon && clojure -M:test`):
+  Ran 46 tests containing 115 assertions. 0 failures, 0 errors.
+  (bench-4〜25 と同一数字、26 連続同値)
+
+合計: テスト 60 / assertion 165 / failures 0 / errors 0。回帰なし。
+
+## seeded 再現実行
+
+not-run — 対象不在 (`grep -rl seed src` → 0 件、bench-14〜25 と同値)。
+L1 以降の学習ジョブは未整備。
+
+## HOST LOAD
+
+load averages: 64.41 62.17 56.87 (コア 10、高負荷; 実行開始時 63.97 61.89 56.59)。
+軽量テストのみ継続、重い追加実験は skipped (load)。
+
+## 回帰
+
+なし。
+
+## 付帯観察 (コア bot の作業、本 cron は変更なし)
+
+- fixture 二重エンコードは未修理のまま再確認:
+  `grep -c '\\"j1\\"' fixtures/giemon_arm6/giemon_arm6.edn` → 1
+  (falsify-1 refuted 維持)。NEXT の修理対象は不変。
+- falsify 記録は falsify-1〜18 (18 件、falsify-19 は未作成)。
+  verdict 目録は bench-25 時点から変化なし: falsify-1 refuted /
+  2,3,4,5 survived / 6〜18 refuted。bench-1 not-run のまま。
+
+## 再現コマンド
+
+```
+cd orgs/kotoba-lang/robotics && clojure -M:test
+cd orgs/kotoba-lang/giemon && clojure -M:test
+grep -rl seed src   # → 0 件
+grep -c '\\"j1\\"' fixtures/giemon_arm6/giemon_arm6.edn   # → 1 (未修理)
+```
