@@ -1,0 +1,27 @@
+;; falsify-018 probe part 4 — the false-PASS direction: duplicate joint
+;; names where the LAST entry has the strong actuator. Last-wins map means
+;; the weak (first) row inherits the strong rating -> underrated empty.
+;; Usage: clojure -M -e '(load-file "sim-loop/evidence/probe_bom_false_pass.clj")'
+(require '[kotoba.giemon.arm :as arm])
+(require '[clojure.edn :as edn] '[clojure.java.io :as io])
+
+(defn- unblob [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+(def fixture
+  (into {} (map (fn [[k v]] [k (unblob v)]))
+        (dissoc (first (edn/read-string (slurp (io/file "fixtures" "giemon_arm6" "giemon_arm6.edn"))))
+                :db/id)))
+
+;; weak-first: row1 j2 cont-nm 10 (underrated for effort 40), row2 j2 cont-nm 100
+(def weak-j2  (let [j2 (second (:arm/chain fixture))]
+                (assoc-in j2 [:joint/actuator :cont-nm] 10)))
+(def strong-j2 (let [j2 (second (:arm/chain fixture))]
+                 (assoc-in j2 [:joint/actuator :cont-nm] 100)))
+(def fp {:arm/chain [weak-j2 strong-j2]})
+(println "P1 false-pass headroom" (pr-str (doall (arm/torque-headroom fp))))
+(println "P2 false-pass underrated" (pr-str (doall (arm/underrated-joints fp))))
+(println "P3 weak-alone underrated" (pr-str (doall (arm/underrated-joints {:arm/chain [weak-j2]}))))
+(println "SUMMARY probe_bom_false_pass done")

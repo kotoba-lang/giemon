@@ -1,0 +1,33 @@
+;; falsify-018 probe part 3 (final) — real fixture, blob reconstitution the
+;; same way arm_edn_test does it, then duplicate-name attack on j2.
+;; Usage: clojure -M -e '(load-file "sim-loop/evidence/probe_bom_real_fixture.clj")'
+(require '[kotoba.giemon.arm :as arm])
+(require '[clojure.edn :as edn]
+         '[clojure.java.io :as io])
+
+(defn- unblob [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(def fixture
+  (into {} (map (fn [[k v]] [k (unblob v)]))
+        (dissoc (first (edn/read-string (slurp (io/file "fixtures" "giemon_arm6" "giemon_arm6.edn"))))
+                :db/id)))
+
+(defn show [label v] (println label (pr-str v)))
+
+(show "R1 fixture joints        " (mapv :joint/name (:arm/chain fixture)))
+(show "R2 fixture headroom      " (doall (arm/torque-headroom fixture)))
+(show "R3 fixture underrated    " (doall (arm/underrated-joints fixture)))
+
+;; duplicate-name attack: append a WEAKER copy of the real j2 (cont-nm 10)
+(def dup-j2 (let [j2 (second (:arm/chain fixture))]
+              (assoc-in j2 [:joint/actuator :cont-nm] 10)))
+(def fixture-dup (update fixture :arm/chain #(vec (concat % [dup-j2]))))
+(show "R4 dup-fixture joints    " (mapv :joint/name (:arm/chain fixture-dup)))
+(show "R5 dup headroom j2 rows  "
+      (doall (filter #(= "j2" (:joint/name %)) (arm/torque-headroom fixture-dup))))
+(show "R6 dup underrated        " (doall (arm/underrated-joints fixture-dup)))
+(println "SUMMARY probe_bom_real_fixture done")

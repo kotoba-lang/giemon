@@ -1,0 +1,11 @@
+True True
+## NEXT
+
+- NEXT: H22 — torque-headroom の `:joint/limit` 欠落面の機械測定 probe を
+  1 件だけ追加する — effort 欠落 joint が headroom で required nil /
+  headroom nil となり neg? フィルタを素通りするか (false-pass 第 3 面)、
+  limit 全欠落の挙動、bom / export / ui への伝播を input 空間列挙する。
+  (fixture 修正・torque 照合層実装・normalize 閾値ガード等のコード修正は
+  コア (giemon-sim) 側の対象であり本 bot は実施しない。)
+
+
