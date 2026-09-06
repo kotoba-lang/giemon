@@ -1,0 +1,78 @@
+# falsify-019 — torque-headroom の actuator 欠落 joint 静的无視 (false-pass)
+
+## 仮説 (1 iteration = 1 hypothesis)
+H21: 「`kotoba.giemon.arm` の `torque-headroom` / `underrated-joints` は
+chain 内の全 joint を検証対象とし、joint に `:joint/actuator` が欠落している
+(chain 再構築 / importer の取りこぼし) 場合でも、その joint は検証から
+静かに抜け落ちることはない — 欠落は false-pass にならない」。
+反証対象の背景: falsify-018 は by-name 重複 (last-wins) を潰した。
+残る契約面は「actuator が **存在しない** joint の扱い」—
+`torque-headroom` の `:when a` フィルタ (arm.cljc:109) が
+欠落行をスキップするのは仕様通りか、安全検証として false-pass か。
+
+## 実測
+probe: `sim-loop/evidence/probe_missing_actuator_skip.clj`
+(in-memory EDN で kotoba.giemon.arm を直接呼ぶ、実装は読むだけ)。
+
+主要数字:
+```
+(a) j2 の :joint/actuator を欠落 (j1=40/40, j2=effort 40 actuator 無し, j3=30/40):
+  torque-headroom => 2 行のみ (j1, j3)。j2 の行は存在しない
+  rows returned = 2 / chain joints = 3
+  underrated-joints => ()
+  → effort 40 の設計要求を持つ j2 が検証対象から静かに消える
+
+(a2) 欠落したのが最弱 joint の場合 (j2: effort 60, actuator 無し→本来絶対不合格):
+  underrated-joints => ()
+  → 「actuator 未割当で worst な joint」が未検出。完全 false-pass
+
+(b) :cont-nm nil のみ (actuator map はある):
+  NullPointerException (loud、falsify-018(d) と同じ) — 欠落と nil で
+  挙動が非対称: nil は落ちは重複は誤対応、**完全欠落だけが静かに通る**
+
+(c) control (全 joint に actuator、j2 を 10 に under-rate):
+  underrated-joints => [{j2 required 40 rated 10 headroom -30}] (正しく検出)
+  → スキップは under-rate 検出機構の失敗ではなく、:when a フィルタの副作用
+
+(d) :arm/realization 無しの arm に bom を呼ぶ => nil (エラーなし)
+```
+
+決定的確認: 同一 probe を 2 回実行 (/tmp/f19a.txt vs /tmp/f19b.txt)、
+cmp 一致 (diff 0 行)。
+
+到達性: 現 fixture (giemon_arm6) は全 6 joint に actuator があり顕在化しない。
+赤は「actuator を 1 つも持たない joint は torque 検証の母集団から
+静かに外れる」という契約として、DR / variant / importer が chain を
+再構築する将来経路 (actuator 貼り忘れ・取りこぼし) で発火する。
+falsify-018(g) の重複 false-pass と並び、underrated-joints が
+安全側ではなく危険側に落ちる方向。
+
+## verdict
+**refuted** — H21 の「欠落 joint は静かに抜け落ちない」は破れた。
+actuator 欠落 joint は headroom 行から消え (3 joint → 2 行)、
+欠落 joint が最弱 (effort 60, actuator 無し) でも underrated-joints は
+空を返す (false-pass)。nil cont-nm は NPE で loud なのに対し、
+完全欠落のみが例外なしで通過する非対称な契約。
+
+## コア (giemon-sim) への 1 行メッセージ
+falsify-019: H21 refuted — torque-headroom は :joint/actuator 欠落 joint を
+:when a フィルタで検証母集団から静かに外し (3 joint → 2 行)、欠落 joint が
+最弱でも underrated-joints は () を返す (false-pass)。nil cont-nm は NPE で
+loud な一方、完全欠落だけが例外なしで通る。chain joint 数と headroom 行数の
+一致チェック (または欠落時 error) が要修理 (現 fixture は全 joint に
+actuator があり顕在化せず)。
+
+## 再現手順
+```
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
+clojure -M -e '(load-file "sim-loop/evidence/probe_missing_actuator_skip.clj")'
+```
+2 回実行して測定出力が一致することを確認済み (/tmp/f19a vs /tmp/f19b、cmp 一致)。
+
+## 補足
+- コード修正なし (probe は evidence 配下の測定専用、実装は読むだけ)。
+- 決定的・タイムスタンプなしで記載。
+- HOST LOAD 中程度 (6.39 7.09 8.82) につき軽量 REPL 数値 probe のみで完了
+  (falsify cheaply、数値積分・長時間 sim は省略)。
+- ツール環境メモ: terminal stdout が空で返る障害が継続中のため、出力は
+  /tmp ファイルへのリダイレクト + read_file で取得した (falsify-018 と同じ回避策)。

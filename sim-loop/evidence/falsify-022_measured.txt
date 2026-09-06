@@ -1,0 +1,76 @@
+H24 — within-limits? limit 欠落面 input 空間列挙 (falsify-022)
+angles: [-10.0 -2.2 0.0 2.2 10.0]
+
+---  V0-limit-ok  limit= {:lower -2.2, :upper 2.2, :effort 40, :velocity 3}
+      -10.0  => false
+       -2.2  => true
+        0.0  => true
+        2.2  => true
+       10.0  => false
+---  V6-upper-str  limit= {:lower -2.2, :upper "2.2", :effort 40, :velocity 3}
+      -10.0  => false
+       -2.2  => THROWS: ClassCastException - class java.lang.String cannot be cast to class java.lang.Number (java.lang.String and java.lang.Number are in module java.base of loader 'bootstrap')
+        0.0  => THROWS: ClassCastException - class java.lang.String cannot be cast to class java.lang.Number (java.lang.String and java.lang.Number are in module java.base of loader 'bootstrap')
+        2.2  => THROWS: ClassCastException - class java.lang.String cannot be cast to class java.lang.Number (java.lang.String and java.lang.Number are in module java.base of loader 'bootstrap')
+       10.0  => THROWS: ClassCastException - class java.lang.String cannot be cast to class java.lang.Number (java.lang.String and java.lang.Number are in module java.base of loader 'bootstrap')
+---  V5-upper-nil  limit= {:lower -2.2, :upper nil, :effort 40, :velocity 3}
+      -10.0  => false
+       -2.2  => false
+        0.0  => false
+        2.2  => false
+       10.0  => false
+---  V8-inverted  limit= {:lower 2.2, :upper -2.2}
+      -10.0  => false
+       -2.2  => false
+        0.0  => false
+        2.2  => false
+       10.0  => false
+---  V2-lower-missing  limit= {:upper 2.2, :effort 40, :velocity 3}
+      -10.0  => false
+       -2.2  => false
+        0.0  => false
+        2.2  => false
+       10.0  => false
+---  V1-limit-missing  limit= nil
+      -10.0  => false
+       -2.2  => false
+        0.0  => false
+        2.2  => false
+       10.0  => false
+---  V3-upper-missing  limit= {:lower -2.2, :effort 40, :velocity 3}
+      -10.0  => false
+       -2.2  => false
+        0.0  => false
+        2.2  => false
+       10.0  => false
+---  V4-lower-nil  limit= {:lower nil, :upper 2.2, :effort 40, :velocity 3}
+      -10.0  => false
+       -2.2  => false
+        0.0  => false
+        2.2  => false
+       10.0  => false
+---  V7-lower-str  limit= {:lower "-2.2", :upper 2.2, :effort 40, :velocity 3}
+      -10.0  => THROWS: ClassCastException - class java.lang.String cannot be cast to class java.lang.Number (java.lang.String and java.lang.Number are in module java.base of loader 'bootstrap')
+       -2.2  => THROWS: ClassCastException - class java.lang.String cannot be cast to class java.lang.Number (java.lang.String and java.lang.Number are in module java.base of loader 'bootstrap')
+        0.0  => THROWS: ClassCastException - class java.lang.String cannot be cast to class java.lang.Number (java.lang.String and java.lang.Number are in module java.base of loader 'bootstrap')
+        2.2  => THROWS: ClassCastException - class java.lang.String cannot be cast to class java.lang.Number (java.lang.String and java.lang.Number are in module java.base of loader 'bootstrap')
+       10.0  => THROWS: ClassCastException - class java.lang.String cannot be cast to class java.lang.Number (java.lang.String and java.lang.Number are in module java.base of loader 'bootstrap')
+
+== true(受理) を返した (変種 x 角) の一覧: false-pass の可否 ==
+  [none なら false-pass は走らない]
+    ACCEPTED: V0-limit-ok at -2.2
+    ACCEPTED: V0-limit-ok at 0.0
+    ACCEPTED: V0-limit-ok at 2.2
+== 各変種の受理角数 ==
+     V0-limit-ok -> accepted 3 / 5
+     V6-upper-str -> accepted 0 / 5
+     V5-upper-nil -> accepted 0 / 5
+     V8-inverted -> accepted 0 / 5
+     V2-lower-missing -> accepted 0 / 5
+     V1-limit-missing -> accepted 0 / 5
+     V3-upper-missing -> accepted 0 / 5
+     V4-lower-nil -> accepted 0 / 5
+     V7-lower-str -> accepted 0 / 5
+DONE
+rc=0
+cmp_rc=0

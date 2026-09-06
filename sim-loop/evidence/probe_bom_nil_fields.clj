@@ -1,0 +1,31 @@
+;; falsify-018 probe part 2 — nil-field isolation, each case in its own
+;; subprocess-safe block. Run each form separately if one throws.
+;; Usage: clojure -M -e '(load-file "sim-loop/evidence/probe_bom_nil_fields.clj")'
+(require '[kotoba.giemon.arm :as arm])
+
+(defn show [label thunk]
+  (println label (try (pr-str (doall (thunk))) (catch Throwable e (str "THROWN " (class e) " " (.getMessage e))))))
+
+(defn chain1 [j] {:arm/chain [j]})
+
+;; effort 40, cont-nm nil
+(show "D1 cont-nm=nil  "
+      #(arm/torque-headroom (chain1 {:joint/name "j1" :joint/limit {:effort 40}
+                                     :joint/actuator {:model "N" :cont-nm nil}})))
+;; effort nil, cont-nm 40
+(show "D2 effort=nil   "
+      #(arm/torque-headroom (chain1 {:joint/name "j1" :joint/limit {:effort nil}
+                                     :joint/actuator {:model "M" :cont-nm 40}})))
+;; :joint/limit missing entirely
+(show "D3 no-limit-key "
+      #(arm/torque-headroom (chain1 {:joint/name "j1"
+                                     :joint/actuator {:model "N" :cont-nm 40}})))
+;; :joint/limit :effort as a string (type confusion)
+(show "D4 effort=string"
+      #(arm/torque-headroom (chain1 {:joint/name "j1" :joint/limit {:effort "40"}
+                                     :joint/actuator {:model "N" :cont-nm 40}})))
+;; cont-nm as string
+(show "D5 cont-nm=str  "
+      #(arm/torque-headroom (chain1 {:joint/name "j1" :joint/limit {:effort 40}
+                                     :joint/actuator {:model "N" :cont-nm "40"}})))
+(println "SUMMARY probe_bom_nil_fields done")
