@@ -1,5 +1,5 @@
 (ns kotoba.giemon.export-test
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [clojure.test :refer [deftest is testing]]
             [kotoba.giemon.export :as export]))
 
