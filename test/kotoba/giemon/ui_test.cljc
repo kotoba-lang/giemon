@@ -1,6 +1,6 @@
 (ns kotoba.giemon.ui-test
   (:require [clojure.test :refer [deftest is testing]]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [kotoba.giemon.ui :as ui]))
 
 (def arm-spec

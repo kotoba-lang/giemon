@@ -1,7 +1,7 @@
 (ns kotoba.giemon.export
   "CSV/JSON export for the Giemon product registry and Otete arm torque
   headroom — audit-grade evidence, read-only. No network, no I/O."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [kotoba.giemon :as giemon]
             [kotoba.giemon.arm :as arm]))
 
