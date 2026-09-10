@@ -1,0 +1,56 @@
+;; falsify-024 probe — H26: FK (`forward-kinematics`) は angles 列と chain 長の
+;; 不一致を検証しない (角度列形状検証面の不在)。
+;; Read-only: 実 fixture giemon_arm6 を reconstitute して arm/forward-kinematics へ、
+;; 角度列を (a)0 個 (b)1 欠落 (c)正規 6 個 (d)1 過剰 (e)型混在 string で直接渡し、
+;; 戻り :xf/pos 件数・ゼロ充填・例外の有無を決定的に列挙する。コード修正なし。
+;; NOTE (bench-070): 実行バックエンド (terminal) 応答不能のため本 probe は未実行。
+;; verdict は arm.cljc 22-41 の行レベル静的読取に根拠づく (負荷非依存・決定的)。
+;; 実行環境回復後に clojure -M -e '(load-file "sim-loop/evidence/probe_fk_length_mismatch.clj")'
+;; で実測し 2 回実行 byte 一致を確認すること。
+(require '[clojure.edn :as edn]
+         '[clojure.java.io :as io]
+         '[kotoba.giemon.arm :as arm])
+
+(defn- unblob [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- reconstitute-arm [tx-data]
+  (into {} (map (fn [[k v]] [k (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
+(def real-arm
+  (reconstitute-arm
+   (edn/read-string (slurp (io/file "fixtures" "giemon_arm6" "giemon_arm6.edn")))))
+
+(def j-count (count (:arm/chain real-arm)))
+(def in-range-angles
+  (mapv (fn [j] (/ (+ (:lower (:joint/limit j)) (:upper (:joint/limit j))) 2.0))
+        (:arm/chain real-arm)))
+
+(defn fk-pos [arm angles]
+  (try
+    {:returned (into [] (map :xf/pos) (arm/forward-kinematics arm angles))
+     :count (count (arm/forward-kinematics arm angles))}
+    (catch Exception e
+      {:THROWS (.getSimpleName (class e))
+       :msg (.getMessage e)})))
+
+(println "H26 — FK angles/chain 長不一致の無検証 probe (falsify-024)")
+(println "joint-count:" j-count)
+(println "--- (a) 0 angles (6 欠落) → ゼロ充填? ---")
+(println "   " (pr-str (fk-pos real-arm [])))
+(println "--- (b) 5 angles (1 欠落) → 6 joint 目ゼロ充填? ---")
+(println "   " (pr-str (fk-pos real-arm (subvec in-range-angles 0 (dec j-count)))))
+(println "--- (c) 正規 6 angles → 正常 6 ポーズ? ---")
+(println "   " (pr-str (fk-pos real-arm in-range-angles)))
+(println "--- (d) 7 angles (1 過剰) → 末尾無視? ---")
+(println "   " (pr-str (fk-pos real-arm (conj in-range-angles 99.0))))
+(println "--- (e) 型混在 string 角 (j1) → CCE LOUD? ---")
+(println "   " (pr-str (fk-pos real-arm (assoc in-range-angles 0 "1.5"))))
+(println "== 判定 ==")
+(println "  長さ不一致 (a/b/d) で :THROWS が無い = 長さ形状検証面の不在 (silent false-pass)")
+(println "  (e) string は型崩れ起因の CCE loud (長さ検査ではない)")
+(println "DONE")

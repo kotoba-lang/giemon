@@ -1,0 +1,60 @@
+(ns probe-h33
+  (:require [kotoba.giemon.arm :as arm]))
+
+;; Arm fixture identical to test/kotoba/giemon/arm_test.cljc (two-joint-arm)
+(def two-arm
+  {:arm/chain
+   [{:joint/name "j1" :joint/origin [0.0 0.0 1.0] :joint/axis [0.0 0.0 1.0]
+     :joint/limit {:lower -3.0 :upper 3.0 :effort 10} :joint/actuator {:cont-nm 20}}
+    {:joint/name "j2" :joint/origin [0.0 0.0 1.0] :joint/axis [0.0 1.0 0.0]
+     :joint/limit {:lower -1.0 :upper 1.0 :effort 30} :joint/actuator {:cont-nm 25}}]})
+
+;; ===== RUN A — current runtime (no guard) =====
+(println "=== A: current forward-kinematics (no guard) ===")
+(def p0 (arm/forward-kinematics two-arm [0.0 0.0])) ; angles present
+(def e0 (arm/forward-kinematics two-arm []))        ; angles MISSING (empty)
+(println "joint-count:" (arm/joint-count two-arm))
+(println "count p0:" (count p0) " count e0:" (count e0))
+(println "arm_test.cljc 20-22 assertion (= fx [0 0] fx []) :" (= p0 e0))
+(def rot (-> e0 first :xf/rot))
+(println "e0 first :xf/rot rows:" (count rot) " cols:" (count (first rot)))
+(println "e0 first :xf/pos:" (pr-str (-> e0 first :xf/pos)))
+
+;; ===== B — insert H26 FK count guard (mock, pure probe) =====
+(defn guarded-fk [arm angles]
+  (let [expected (arm/joint-count arm)
+        given    (count angles)]
+    (when-not (= expected given)
+      (throw (ex-info (str "FK angle-count guard: expected " expected " angles, got " given)
+                      {:expected expected :given given})))
+    (arm/forward-kinematics arm angles)))
+
+(println "=== B: H26 FK count guard inserted ===")
+(println "guard on [0.0 0.0] ->")
+(try (guarded-fk two-arm [0.0 0.0])
+     (println "  no throw, 2 == 2: OK")
+     (catch Throwable t (println "  THREW:" (.getMessage t))))
+(println "guard on [] ->")
+(try (guarded-fk two-arm [])
+     (println "  no throw (silent zero-fill survives)")
+     (catch Throwable t (println "  THREW:" (.getMessage t))))
+
+;; ===== C — does the guard FLIP the test-20-22 green assertion? =====
+(println "=== C: arm_test.cljc 20-22 under guard ===")
+(try
+  (let [x (guarded-fk two-arm [0.0 0.0])
+        y (guarded-fk two-arm [])]
+    (println "assert (= guarded [0 0] guarded []) ->" (= x y) " (test stays green)"))
+  (catch Throwable t
+    (println "assert THROWS (test 20-22 becomes LOUD):" (.getMessage t))))
+
+;; ===== D — output-shape-only guard (alternative, non-interfering) =====
+(defn shape-guard [arm angles]
+  (doseq [xf (arm/forward-kinematics arm angles)
+          :when (not= 3 (count (:xf/rot xf)))] (throw (ex-info "bad rot" {})))
+  (arm/forward-kinematics arm angles))
+(println "=== D: output-shape-only guard (alternative) ===")
+(let [s0 (shape-guard two-arm [0.0 0.0])
+      s1 (shape-guard two-arm [])]
+  (println "shape-guard equality ([0 0] vs []):" (= s0 s1) " -- shape-only guard does NOT flag empty (zero-fill 3x3 is shape-valid)"))
+(println "DONE")

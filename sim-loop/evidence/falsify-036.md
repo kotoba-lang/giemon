@@ -1,0 +1,45 @@
+# falsify-036 — H37 (前 walk NEXT 採択の FK angle-count guard repair がコア実装済みか)
+
+- 連続番号: 036 (falsify-035 の後続)
+- 日次: 260907
+- 仮説 (H37, maturity NEXT「FK angle guard repair 採択継続」の実施有無を再検証):
+  コア側が採択中の FK 角度 count/shape guard 修復を **実装済み** である
+  (= `arm.cljc` `forward-kinematics` に角度数不照合で loud 失敗 (例外/非 zero exit)
+  する guard があり、かつ `arm_test.cljc` 20-22 の silent zero-fill 緑 assertion が
+  loud 化または期待値変更込みで書き換わっている)。
+- 実測 (静的読取 + 実行系 1 本。foreground stdout 応答不能のため `/tmp` redirect →
+  read_file で回収、捏造なし):
+  - **静的**: `src/kotoba/giemon/arm.cljc` L38 `angle (or (first angles) 0.0)` —
+    count/shape guard なし、不足 angle は silent zero-fill のまま。
+    `test/kotoba/giemon/arm_test.cljc` L20-22「missing angles default to 0.0」は
+    `(is (= (arm/forward-kinematics two-joint-arm [0.0 0.0])
+            (arm/forward-kinematics two-joint-arm []))))` の緑零fill assertion が
+    無変更で存続。git HEAD d0d3cb4 不変、tracked diff 空 (`git diff HEAD --stat` 空 /
+    `git diff --cached --stat` 空、IN-FLIGHT は sim-loop/ 系のみ)。
+  - **実行系**: `clojure -M:test -n kotoba.giemon.arm-test` を実測で完走 →
+    **Ran 5 tests / 11 assertions / 0 failures / 0 errors, exit 0**。test 20-22 は
+    依然 green で pass — 修復が入っていれば loud 失敗 (非 zero exit) になるはずの
+    箇所が silent zero-fill のまま緑。guard 実装の行動的痕跡なし。
+  - 測定時 HOST LOAD: 開始前 15.15 / 14.92 / 16.64 (ncpu=10 の約1.5倍)、実行後
+    26.75 / 30.62 / 24.26 (約2.4-3倍)。軽量 single-namespace 実行 1 本は EXIT 0 で
+    完遂 (falsify-032/033/035 と同じ `/tmp` redirect workaround)。
+- verdict: **refuted** — 仮説 (「FK angle-count guard repair が実装済み」) は不成立。
+  `forward-kinematics` は guard なし silent zero-fill のまま、test 20-22 も緑零fill
+  assertion が無変更で、実行系でも 0 failures/0 errors の緑を実測。修復は未実施
+  (falsify-034/H35 の判定を本 walk で独立再確認、同じ結論)。
+- 再現手順:
+  ```sh
+  cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
+  sed -n '38p' src/kotoba/giemon/arm.cljc         # → `(or (first angles) 0.0)` (no guard)
+  sed -n '20,22p' test/kotoba/giemon/arm_test.cljc # → silent zero-fill equality 存続
+  git diff HEAD --stat                            # → 空 (コアに変更なし)
+  clojure -M:test -n kotoba.giemon.arm-test > /tmp/o.txt 2>&1; echo $?
+  # (terminal foreground stdout 空 障害を回避して /tmp redirect → read_file で回収)
+  # → "Ran 5 tests containing 11 assertions. 0 failures, 0 errors." exit 0
+  ```
+- 検証内訳 (本 walk の 1 仮説・1 実測判定): 1 仮説 (H37) / 測定 2 (静的読取 2 ファイル
+  + git diff、実行系 arm-test 1 本) / 判定 refuted (修復未実施)。コアへの実装依頼、
+  コード修正なし。
+- コアへの 1 行: NEXT 採択の FK angle-count guard は依然未実装 (arm.cljc L38 は
+  silent zero-fill のまま、arm-test は 5/11/0/0 緑で test 20-22 も緑零fill存続) —
+  実施有無を確認する walk の作業、実装・変更なし。
