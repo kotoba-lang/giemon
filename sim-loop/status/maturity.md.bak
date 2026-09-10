@@ -1,0 +1,212 @@
+# giemon sim-loop 成熟度 ( status/maturity.md - 正本)
+
+集計元: sim-loop/evidence/ bench-001〜150 / falsify-001～045 (決定的計算)。
+bench-064～101 は連続 load 超過 + 実行バックエンド応答不能で test スイート・seeded
+再現・各 H 本測定を一律 skipped したが、falsify-024～030 (H26～H32) は純静的読取で
+それぞれ refuted、falsify-031～033 (H33, FK guard 実行系 A/B) は /tmp redirect
+workaround の決定的測定で決着 ( falsify-031 refuted: FK guard は arm_test.cljc 20-22 の
+silent zero-fill 緑 assertion と干渉。falsify-032 refuted: 高負荷下で決定性は生き残る。falsify-033
+refuted: 孤立挿入は存在せず、test 20-22 期待値変更込み repair が必須)。
+基準値は bench-066 確定 ( robotics 14/50/0、giemon 46/115/0)。bench-099～101 は load
+超過で skip ( unmeasured  honist 据え置き)。bench-102～108 は負荷帯 ~1.5-3x で実測
+完走・基準値一致、unmeasured は回帰 assert せず honest。
+falsify-034 (H35) refuted — FK angle-count guard repair 未実装 (arm.cljc L38
+silent zero-fill、arm_test.cljc 20-22 緑 zero-fill 無変更)。
+falsify-035 (H36) refuted — URDF<->EDN parity、全 6 joint x  7 link の全数値が
+1e-12 内で完全一致し無破れ;;ただ監査ツール probe_parity_arm6.py が現行 blob で
+PARSE-ERR -> exit 1 (陳腐化)。
+falsify-036 (H37) refuted — FK guard repair 依然未実装 (実測 arm-test 5/11/0/0 緑)。
+falsify-037 (H38) refuted — 陳腐化の真因は slice anchor バグ (name 起点捕捉が
+先行する axis を除外。現行 blob は二重 backslash 無し、単一 fold で escape 完全復元)。
+parity 本丸結論は不変。falsify-038 (H39) refuted — damping/摩擦 仮説: EDN `:joint/damping` 6 件・URDF damping
+6 件は 1 対 1 同値で parity 無破れだが、コア (src/ test/) は `:joint/damping` を
+0 件も読まない (言及は chassis.cljc L14 コメント "ground friction" のみ)。純キネマ
+ティクス契約のため DR の damping worst-case 振りは FK / torque-headroom に観測不能 —
+摩擦・粘性の動力学面は現コアに存在しない。。
+falsify-039 (H40) refuted — FK guard 未配線:`within-limits?` は定義済
+   (arm.cljc L15-20、arm_test.cljc L29-30 単体) が FK 経路 ( forward-kinematics
+   L22-41 / end-effector) 内部からは呼出 0 回、越境 angles は silent 受理で pose を返す
+   (docstring L27-28 自白、L38 silent zero-fill と同根の既知点)。governor 層
+   (governor.cljc) は安全クラス分類専用で arm limit/torque に無接続 —「no
+   LLM-to-actuator shortcut」は FK  層で未成立 ( falsy-001 の gate<->torque 照合未接続と整合)。
+falsify-040 (H41) refuted — FK guard repair 依然未着手 (`within-limits?` は arm.cljc L15 定義/
+   L28 doc のみ、FK  本体 L22-41 呼出 0 回、grep 実測で falsify-039 と同値、HEAD d0d3cb4 不変・
+   tracked diff 空、governor 無接続のまま — FK  経路は越境 angles を silent  受理、新規破れ・回帰なし)。
+bench-109～114 (6 連続実測) — 負荷帯 ~1.0～3x で test スイート実測完走 ( robotics
+14/50/0、giemon 46/115/0、exit 0。HEAD giemon d0d3cb4 / robotics 9459ca0 全回不変・
+tracked diff 空) — 基準値完全一致、回帰なし measured assert。新規 falsy なし、
+未決 falsy 残存なし (H25～H41 全決着)。bench-115 / bench-116 は load 超過
+(~3.3× / ~3.6×) で unmeasured (honest 据え置き) とし、bench-117 (負荷 ~1.5×) で
+実測完走・基準値一致・回帰なし measured 復帰 (同 HEAD giemon d0d3cb4、tracked diff 空)。
+bench-118 / bench-119 (連続実測、負荷 ~1.1×) — test スイート実測完走 ( robotics
+14/50/0、giemon 46/115/0、exit 0。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked
+diff 空) — 基準値完全一致、回帰なし measured assert。新規 falsy なし (H25～H41 全決着・
+未決残存なし、code 無変更で新仮説判定なし)。
+bench-120 (load 超過) — HOST LOAD 15min ~24.18 が ncpu=10 の ~2.4× で Load gate
+(15min ≥ 2×ncpu=20) 超過し unmeasured (honest 据え置き)。HEAD giemon d0d3cb4 /
+robotics 9459ca0 不変・tracked diff 空、新規 falsy なし (H25～H41 全決着)。回帰
+assert せず基準値 ( bench-066 / bench-119) を据え置き、コード変更なし。。
+
+bench-121 (load 超過) — HOST LOAD 15min ~25.11 が ncpu=10 の ~2.5× で Load gate
+(15min ≥ 2×ncpu=20) 超過し unmeasured (honest 据え置き)。HEAD giemon d0d3cb4 /
+robotics 9459ca0 不変・tracked diff 空、新規 falsy なし (H25～H41 全決着)。回帰
+assert せず基準値 ( bench-066 / bench-120) を据え置き、コード変更なし。
+
+
+bench-122  (実測完走、負荷 ~1.9x) — HOST LOAD 15min ~18.95 が ncpu=10 の Load gate
+(15min >= 2xncpu=20) 未満の負荷帯で test スイート実測完走 ( robotics 14/50/0、giemon
+46/115/0、exit 0。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空) — 基準値
+( bench-066 確定 / bench-111 最新実測) と完全一致、回帰なし measured assert。新規 falsy なし
+(H25～H41 全決着・未決残存なし、code 無変更で新仮説判定なし)。
+
+## 現在段階
+L0 — sim-loop 学習ジョブ未実装のため L1 昇格条件未達 ( seed / L1+ 学習ジョブ 0 件、
+テスト・git 差分空、、seeded 再現 N/A)。Honest-default: :in-design (Hitogata/Caterpillar) の成果は
+スコアに参入しない。。
+
+
+
+## 7 軸スコア ( ADR-2608052000, 決定的計算)
+集計: H1～H46 全決着、未決 falsy ゼロ。
+
+
+
+1. **Test health — green (measured)** — bench-148 (最新実測): robotics 14/50/0、giemon 46/115/0、
+   両者 exit 0。bench-066 基準と一致 ( bench-133～146・bench-149 は load 超過で unmeasured、honest
+   据え置き)。
+2. **Regression — none (measured)** — bench-148 実測で基準値と一致、回帰なし。
+
+
+
+   bench-133～146・bench-149 は unmeasured (load) で回帰 assert せず。
+3. **Reproducibility — L0 (構造的制限)** — seeded 再現は学習ジョブ未実装のため N/A。。
+4. **Oracle / parity — 生存 (measured)** — falsy-035: parity 無破れ。falsy-038:
+   damping 面も EDN/URDF 1 対 1 同値で無破れ;;監査ツールは slice anchor バグで
+   exit 1 (陳腐化、oracle 自体は健全)。
+5. **Soundness / fidelity — 潜在修理点あり** — falsy-034/036: arm に角度 guard なし
+   silent zero-fill、、falsy-039 / falsy-040: FK 経路は越境 angles を silent  受理 (`within-limits?`
+   は定義済だが FK 内呼出 0 回)、governor 層は arm limit/torque に無接続。。
+   falsy-038: コアは `:joint/damping` を読まない純キネマティクス契約で、摩擦面の
+   検証面なし — いずれも実装側タスク。。6. **Determinism / cross-run — 生き残り (measured)** — falsy-032 で決定性確立。。
+7. **Coverage / honest — 欠落 (従来 OPEN 赤字)** — 長期 sim・parity 自動検証・torque
+   照合が未実装; falsy-038: damping/摩擦の動力学面が未実装のため DR worst-case 振り
+   は検証不能。falsy-039/040: FK 層に limit 検査が無く、「no LLM-to-actuator shortcut」
+   は未成立。bench は unmeasured を honest 扱い、数字捏造ゼロ。。
+
+
+
+## OPEN 赤字
+- **赤: FK angle-count guard repair 未実装** (falsy-034/036 refuted) — 実装側タスク。。
+- **赤: FK 経路に limit 検査なし** ( falsy-039 / falsy-040 refuted) — `within-limits?` は定義済だが
+  FK ( forward-kinematics / end-effector)内部から呼出 0 回、越境 angles を silent 受理。
+   governor 層は arm limit/torque に無接続 (「no LLM-to-actuator shortcut」未成立)。実装側
+   タスク。。
+- **赤: 監査ツール陳腐化** (falsy-037 真因 = slice anchor バグ) — 修復は axis 起点へ。。
+- **赤: damping/摩擦の動力学面なし** (falsy-038 refuted) — コアは `:joint/damping` を
+  読まない純キネマティクス契約。DR damping worst-case 検証には動力学実装が前提。。
+- **赤: parity oracle の Clojure 実装が存在しない (falsy-001)** / caterpillar URDF
+  コメント内  -- / gate<->torque 照合未接続 / H19/H20/H21/H23 — 実装側タスク。。
+
+
+
+## NEXT ( 1 件)
+**arm.cljc `forward-kinematics` ( L22-41) 本体に `within-limits?` 呼出を配線し、越境
+angle を silent 受理でなく拒否・クランプ・nil のいずれかで検証層に観測可能にせよ
+( FK guard repair。arm_test.cljc 20-22 の silent zero-fill 緑 assertion は期待値変更を
+含め修正する。。)2** — 優先: refuted の最多 ( falsify-034/036/039/040/041/042/043/044/045 の 9 連続) で soundness
+最大の赤字。。falsify-039/040 で FK 経路 ( forward-kinematics/end-effector) は越境 angles を
+silent 受理 (`within-limits?` は定義済・単体テスト済だが FK 内呼出 0 回、docstring
+L27-28 が自白)、governor 層も arm limit/torque に無接続 —「no LLM-to-actuator
+shortcut」成立の唯一経路;repair は FK 本体への limit  検査配線 + gate<->arm 照合
+( falsy-001) が対象。probe_parity_arm6.py の slice anchor 修復 ( falsify-035/037) は
+2 refuted で次点に降格。bench-122〜150 / falsify-045 まで HEAD 不変・tracked diff 空で FK guard repair
+は依然未着手 — 再発行継続。;;
+
+( 本 rank  は読み取り + status 更新のみ。sim-loop の evidence・コードは不変更。。)
+bench-123 (実測完走、負荷 ~1.42x) — HOST LOAD 15min ~14.20 が ncpu=10 の Load gate
+(15min >= 2xncpu=20) 未満の負荷帯で test スイート実測完走 ( robotics 14/50/0、giemon
+46/115/0、exit 0。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空 — 新規
+falsy なし、未決残存なし (H25～H41 全決着)) — 基準値 ( bench-066 確定 / bench-122
+最新実測) と完全一致、回帰なし measured assert ( bench-122 に続く実測完走)。
+
+
+bench-124 (load 超過) — HOST LOAD 15min ~26.2→30.6 (約 2.6×～3.1× ncpu=10) で Load gate
+(15min ≥ 2×ncpu=20) 超過・継続上昇中のため重い test 実行を省略し unmeasured
+(honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・ tracked diff 空、新規 falsy なし
+(H25〜H41 全決着)。回帰 assert せず基準値 ( bench-066 確定 / bench-123 最新実測) を据え置き、
+コード変更なし。
+bench-125 (load 超過) — HOST LOAD 15min ~48.2→51.4 (約 4.8×〜5.1× ncpu=10) で Load gate
+(15min ≥ 2×ncpu=20) を大きく超過・継続上昇中のため重い test 実行を省略し unmeasured
+(honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・ tracked diff 空、新規 falsy なし
+(H25〜H41 全決着)。回帰 assert せず基準値 ( bench-066 確定 / bench-123 最新実測) を据え置き、
+コード変更なし。bench-126 (load 超過) — HOST LOAD 15min ~56.5→58.7 (約 5.6×〜5.9× ncpu=10) で Load gate
+(15min ≥ 2×ncpu=20) を大きく超過・継続高止まりのため重い test 実行を省略し unmeasured
+(honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空、新規 falsy なし
+(H25〜H41 全決着)。回帰 assert せず基準値 ( bench-066 確定 / bench-123 最新実測) を据え置き、
+コード変更なし。
+bench-127 (load 超過) — HOST LOAD 15min ~50.1→48.8 (約 5× ncpu=10) で Load gate
+(15min ≥ 2×ncpu=20) を大きく超過・継続中のため重い test 実行を省略し unmeasured
+(honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空、新規 falsy なし
+(H25〜H41 全決着)。回帰 assert せず基準値 ( bench-066 確定 / bench-123 最新実測) を据え置き、
+コード変更なし。bench-128 (load 超過) — HOST LOAD 15min ≈ 33.99 (約 3.4× ncpu=10) で Load gate (15min ≥ 2×ncpu=20)
+を超過帯で継続 (降坂傾向: 5min 21.83、1min 13.59) のため重い test 実行を省略し unmeasured
+(honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空、新規 falsy なし
+(H25〜H41 全決着)。回帰 assert せず基準値 ( bench-066 確定 / bench-123 最新実測) を据え置き、
+コード変更なし。
+bench-129 (実測完走、負荷 ~1.9×) — HOST LOAD 15min ~18.74→19.27 が ncpu=10 の ~1.9× で Load gate (15min ≥  2×ncpu=20) 未満の負荷帯で test スイート実測完走 ( robotics 14/50/0、giemon 46/115/0、exit 0。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空 — 新規 falsy なし、未決残存なし (H25～H41 全決着)) — 基準値 ( bench-066 確定 / bench-123 最新実測) と完全一致、回帰なし measured assert。
+
+bench-130 (load 超過) — HOST LOAD 15min ~23.15 (約 2.3× ncpu=10) で Load gate
+(15min ≥   2×ncpu=20) 超過の負荷帯 (降坂傾向: 5min+/1min 34.83 から降下)。重い test 実行を
+省略し unmeasured (honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空、新規 falsy なし
+(H25～H41 全決着・未決残存なし、code 無変更で新仮説判定なし)。回帰 assert せず基準値 ( bench-066 確定 /
+bench-129 最新実測) を据え置き、コード変更なし。。
+
+bench-131 (実測完走、負荷 ~1.9×) - HOST LOAD 15min 19.1 が ncpu=10 の ~1.9× で Load gate (15min 2×ncpu=20) 未満の負荷帯で test スイート実測完走 ( robotics 14/50/0、giemon 46/115/0、exit 0。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空 - 新規 falsy なし、未決残存なし (H25-H41 全決着)) - 基準値 ( bench-066 確定 / bench-123 最新実測) と完全一致、回帰なし measured assert ( bench-129 に続く実測完走)。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 - NEXT 再発行継続。。
+bench-132 (実測完走、負荷 ~2.0x) — HOST LOAD 15min ~19.78→19.41 が ncpu=10 の ~2.0× で Load gate (15min ≥  ‍2×ncpu=20) 未満の負荷帯で test スイート実測完走 ( robotics 14/50/0、giemon 46/115/0、exit 0。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空 — 新規 falsy なし、未決残存なし ( H25〜H41 全決着)) — 基準値 ( bench-066 確定 / bench-129 最新実測) と完全一致、回帰なし measured assert ( bench-131 に続く実測完走)。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。。bench-133 (load 超過) — HOST LOAD 15min ~24.6→24.7 (約 2.5× ncpu=10) で Load gate
+(15min ≥　2×ncpu=20) を大きく超過、重い test 実行を省略し unmeasured
+(honest 据え置き) 一 HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空、新規 falsy なし
+(H25〜H41 全決着・未決残存なし、code 無変更で新仮説判定なし)。回帰 assert せず基準値 ( bench-066
+確定 / bench-132 最新実測) を据え置き、コード変更なし。FK guard repair は HEAD 不変・
+tracked diff 空で依然未着手 — NEXT 再発行継続。;bench-134 (load 超過) — HOST LOAD 15min ~25.17 (約 2.5× ncpu=10、1min 43.31/5min 32.00) が Load gate
+(15min ≥ 2×ncpu=20) を超過 ( 前回 bench-133 の skip 帯と同水準・上回る高負荷、負荷は上昇
+トレンド) のため重い test 実行を省略し unmeasured (honest 据え置き)。HEAD giemon
+d0d3cb4 / robotics 9459ca0 不変・tracked diff 空 ( 未追跡 sim-loop/ のみ)、新規 falsy なし
+(H25〜H41 全決着・未決残存なし、code 無変更で新仮説判定なし)。回帰 assert せず基準値
+( bench-066 確定 / bench-132 最新実測) を据え置き、コード変更なし。FK guard repair は HEAD
+不変・tracked diff 空で依然未着手 — NEXT 再発行継続。。bench-135 (load 超過) — HOST LOAD 15min ≈30.76→31.01 ( 約 3.1× ncpu=10、1min 35.06-42.83/5min 36.27-37.60) が Load gate
+(15min ≥  2×ncpu=20) を大きく超過 ( 前回 bench-133/134 の skip 帯 ~24.6-25.2 を上回る高負荷・継続上昇) のため重い test 実行を省略し unmeasured (honest
+据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空 ( 未追跡 sim-loop/ のみ)、新規 falsy なし
+(H25〜H41 全決着・未決残存なし、code 無変更で新仮説判定なし)。回帰 assert せず基準値
+( bench-066 確定 / bench-132 最新実測) を据え置き、コード変更なし。FK guard repair は HEAD 不変・tracked
+diff 空で依然未着手 — NEXT 再発行継続。;bench-136 (load 超過) — HOST LOAD 15min ~25.35 (約 2.5× ncpu=10) が Load gate (15min ≥ 2×ncpu=20) を超過 ( 前回 bench-135 の skip 帯よりは低いが依然 gate 超の高負荷帯、1min 16.74 は gate 内だが 15min 基準超過で skip 判断維持)。重い test スイート実行は応答不能リスク高のため省略し unmeasured (honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空 ( 未追跡 sim-loop/ のみ)、新規 falsy なし (H25〜H42 全決着・未決残存なし、code 無変更で新仮説判定は falsify-041 のみ)。回帰 assert せず基準値 ( bench-066 確定 / bench-132 最新実測) を据え置き、コード変更なし。FK guard repair は HEAD 不変・tracked diff 空で依然未着手。
+
+falsify-041 (H42) refuted — FK guard repair 依然未着手 (`within-limits?` は arm.cljc L15 定義・arm_test.cljc L29-30 単体テスト・L28 doc のみ、FK 経路 ( forward-kinematics L22-41 / end-effector L43-46)内部からは呼出 0 回、L38 silent zero-fill 不変、grep 実測で falsify-039/040 と同値、HEAD giemon d0d3cb4 不変・tracked diff 空、governor 層 ( governor.cljc) は arm limit/torque に無接続のまま — 越境 angles を silent 受理で pose 返却、新規破れ・回帰なし)。FK guard repair は HEAD不変・tracked diff 空で依然未着手 — NEXT ( FK guard repair) 再発行継続。。END
+
+bench-137 (load 超過) — HOST LOAD 15min ~21.92 (07:19-21 実測: 1min 16.49 / 5min 19.58 / 15min 21.92) が ncpu=10 の ~2.2× で Load gate (15min ≥ 2×ncpu=20) を超過 (前回 bench-136 の skip 帯より低いが依然 gate 超過の高負荷帯、1min・5min は gate 内 (16.49/19.58<20) だが 15min 基準超過で skip 判断維持)。重い test スイート実行は応答不能リスク高のため省略し unmeasured ( honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空 (未追跡 sim-loop/ のみ)、新規 falsy なし (H25〜H42 全決着・未決残存なし、code 無変更で新仮説判定なし)。回帰 assert せず基準値 ( bench-066 確定 / bench-132 最新実測) を据え置き、コード変更なし。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。。
+
+bench-138 (load 超過) — HOST LOAD 15min ~24.93 (07:34 実測: 1min 34.09 / 5min 29.86 /  ̈15min 24.93) が ncpu=10 の ~2.5× で Load gate (15min ≥  ̃2×ncpu=20) を超過 (前回 bench-137 の skip 帯 ~22 より更に高い高負荷帯,1min・5min も gate 超過 ( 34.09/29.86>20) で全窓 gate 超過)。重い test スイート実行は応答不能リスク高のため省略し unmeasured ( honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空(未追跡 sim-loop/ のみ)、新規 falsy なし (H25〜H42 全決着・未決残存なし、code 無変更で新仮説判定なし)。回帰 assert せず基準値 ( bench-066 確定 / bench-132 最新実測) を据え置き、コード変更なし。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。。
+bench-139 (load 超過) — HOST LOAD 15min ≈20.38 (07:50 実測: 1min 28.05 / 5min 20.76 / 15min 20.38) が ncpu=10 の ≈2.0× で Load gate (15min ≥  2×ncpu=20) を超過 (前回 bench-138 の skip 帯 ≈24.93 よりはやや低下だが依然 gate 超過、1min・5min も gate 超過 (28.05/20.76>20) で全窓 gate 超過)。重い test スイート実行は応答不能リスク高のため省略し unmeasured ( honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空 ( 未追跡 sim-loop/ のみ)、新規 falsy なし (H25〜H42 全決着・未決残存なし,code 無変更で新仮説判定なし)。回帰 assert せず基準値 ( bench-066 確定 / bench-132 最新実測) を据え置き、コード変更なし。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。。
+bench-140 (load 超過) — HOST LOAD 15min 25.80( 8:04 実測: 1min 25.01、5min 29.18、15min 25.80) が ncpu=10 の ~2.6× で Load gate( 15min ≥ 2×ncpu=20) を超過・全窓( 1min・5min・15min) が gate 超の高負荷で応答不能リスク高のため重い test 実行は省略しunmeasured( honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空( 未追跡 sim-loop/ のみ)、新規 falsy なし( H25〜H43 全決着・未決残存なし、code 無変更で新仮説判定は falsify-042 のみ)。回帰 assert せず基準値( bench-066 確定 / bench-132 最新実測) を据え置き、コード変更なし。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。。
+falsify-042 (H43) refuted — FK guard repair 依然未配線( `within-limits?` は arm.cljc L15 定義・arm_test.cljc L28-30 単体テストのみ、FK 経路( forward-kinematics L31-41 / end-effector L43-46)内部からは呼出 0 回、L38 silent zero-fill 不変、governor.cljc 参照 0 なのまま — 越境 angles を silent受理で pose 返却、docstring L27-29 自白、falsify-039/040/041 と同根、HEAD 不変・trackeddiff 空)。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。。END
+
+
+bench-141 (load 超過) — HOST LOAD: 1min 52.75 /  5min 48.86 /  15min 40.43 (8:19 実測) が ncpu=10 の ≈4.0× で Load gate ( 15min ≥ ≈2×ncpu=20) を大きく超過・全窓( 1min・5min・15min) が gate 超過の高負荷で応答不能リスク高のため重い test 実行は省略し unmeasured ( honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空( 未追跡 sim-loop/ のみ)、新規 falsy なし( H25〜H43 全決着・未決残存なし、code 無変更で新仮説判定なし)。回帰 assert せず基準値( bench-066 確定 / bench-132 最新実測) を据え置き、コード変更なし。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。。
+bench-142 (load 超過) — HOST LOAD 15min ~39.85 (8:35 実測: 1min 86.38/5min 52.85/15min 39.85) が ncpu=10 の ≈4.0× で Load gate (15min ≥ 2×ncpu=20) を大きく超過・全窓(1min・5min・15min) が gate 超過 (86.38/52.85/39.85>20) の高負荷で応答不能リスク高のため重い test 実行は省略し unmeasured ( honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空( 未追跡 sim-loop/ のみ)、新規 falsy なし( H25〜H43 全決着・未決残存なし_code 無変更で新仮説判定なし)。回帰 assert せず基準値( bench-066 確定 / bench-132 最新実測) を据え置き_コード変更なし。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。;bench-143 (load 超過) — HOST LOAD 15min ≈74.92 (8:50 実測: 1min 41.49/5min 70.80/15min 74.92) が ncpu=10 の ≈7.5× で Load gate (15min ≥  ̃2×ncpu=20) を大きく超過・全窓 (1min・5min・15min) が gate 超過 (>20) の極高負荷で応答不能リスク高のため重い test 実行は省略し unmeasured ( honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空 (未追跡 sim-loop/ のみ)、新規 falsy なし (H25〜H43 全決着・未決残存なし、code 無変更で新仮説判定なし)。回帰 assert せず基準値 ( bench-066 確定 / bench-132 最新実測) を据え置き、コード変更なし。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。。
+bench-144 (load 超過) — HOST LOAD 15min ≈55.33 (9:06 実測: 1min 89.45 / 5min 58.12 / 15min 55.33) が ncpu=10 の ≈5.5× で Load gate (15min ≥ 2×ncpu=20) を大きく超過・全窓 (1min・5min・15min) が gate 超過 (>20) の極高負荷で応答不能リスク高のため重い test 実行は省略し unmeasured ( honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空( 未追跡 sim-loop/ のみ)、新規 falsy なし( H25〜H44 全決着・未決残存なし、code 無変更で新仮説判定は falsify-043 のみ)。回帰 assert せず基準値( bench-066 確定 / bench-132 最新実測) を据え置き、コード変更なし。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。。
+falsify-043 (H44) refuted — FK guard repair 依然未配線( `within-limits?` は arm.cljc L15-20 定義・arm_test.cljc L28-30 単体テストのみ、FK 経路( forward-kinematics L22-41 / end-effector L43-46)内部からは呼出 0 回、L38 silent zero-fill(`angle (or (first angles) 0.0)`) 不変、governor.cljc 参照 0 のまま — 越境 angles を silent受理で pose 返却、docstring L27-29 自白、falsify-039/040/041/042 と同根、HEAD d0d3cb4 系列不変・tracked diff 空)。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。。ENDbench-145 (load 超過) — HOST LOAD 15min ≈52.95 (9:50 実測: 1min 31.75 / 5min 29.43 / 15min 52.95) が ncpu=10 の ≈5.3× で Load gate (15min ≥ 2×ncpu=20) を大きく超過・全窓(1min・5min・15min) が gate 超過 (>20) の極高負荷で応答不能リスク高のため重い test 実行は省略し unmeasured ( honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空( 未追跡 sim-loop/ のみ)、新規 falsy なし( H25〜H44 全決着・未決残存なし、code 無変更で新仮説判定なし)。回帰 assert せず基準値( bench-066 確定 / bench-132 最新実測) を据え置き_コード変更なし。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。;;falsify-044 (H45) refuted - FK guard repair still unwired (within-limits? src hits: L15 def / L28 doc only, FK path forward-kinematics L22-41 calls 0x, L38 silent zero-fill unchanged, governor.cljc refs 0; HEAD d0d3cb45.. unchanged, tracked diff empty, load 15min 24.04>2xncpu=20 so heavy tests skipped, static read verdict). NEXT reissue continues. ENDbench-146 (load 超過) — HOST LOAD 15min ≈27.08 (10:04 実測: 1min 11.15 / 5min 12.42 / 15min 27.08) が ncpu=10 の ≈2.7× で Load gate (15min ≥  2×ncpu=20) を超過・15min 窓のみ gate 超過 (1min/5min は gate 内だが 15min 基準超過で skip 判断維持) の高負荷で重い test 実行は省略し unmeasured ( honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空 ( 未追跡 sim-loop/ のみ)、新規 falsy なし ( H25〜H45 全決着・未決残存なし_code 無変更で新仮説判定は falsify-044 のみ)。回帰 assert せず基準値( bench-066 確定 / bench-132 最新実測) を据え置き_コード変更なし。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。
+bench-147 (実測完走、負荷 ~1.9×) — HOST LOAD 15min ~19.10 (10:19 実測: 1min 7.54 / 5min 13.91 / 15min 19.10) が ncpu=10 の ~1.9× で Load gate (15min ≥ 2×ncpu=20) 未満の負荷帯で test スイート実測完走 ( robotics 14/50/0、giemon 46/115/0、両者 exit 0。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空 — 新規 falsy なし、未決残存なし (H25〜H45 全決着、code 無変更で新仮説判定なし)) — 基準値 ( bench-066 確定 / bench-146 load skip ・HEAD 不変) と完全一致、回帰なし measured assert ( bench-146 load gate 超過 skip 明けに実測再開・bench-145 以来の実測完走復帰)。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。
+bench-148 (実測完走、負荷 ~1.65×) — HOST LOAD 15min ~16.47 (10:35 実測: 1min 17.52 / 5min 16.74 / 15min 16.47) が ncpu=10 の ~1.65× で Load gate (15min ≥ 2×ncpu=20) 未満の負荷帯で test スイート実測完走 ( robotics 14/50/0、giemon 46/115/0、両者 exit 0。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空 — 新規 falsy なし、未決残存なし (H25〜H45 全決着、code 無変更で新仮説判定なし)) — 基準値 ( bench-066 確定 / bench-147 実測完走・HEAD 不変) と完全一致、回帰なし measured assert ( bench-147 に続く連続実測完走)。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。
+bench-149 (load 超過) — HOST LOAD 15min ≈32.19 (10:50 実測: 1min 59.53 / 5min 48.85 / 15min 32.19) が ncpu=10 の ≈3.2× で Load gate (15min ≥ 2×ncpu=20) を大きく超過・1min は約 6× (54→59) で上昇中、応答不能リスク高のため重い test 実行は省略し unmeasured (honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空 (未追跡 sim-loop/ のみ)、新規 falsy なし (H25〜H45 全決着・未決残存なし、code 無変更で新仮説判定なし)。回帰 assert せず基準値 ( bench-066 確定 / bench-148 最新実測) を据え置き、コード変更なし。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。bench-150 (load 超過) — HOST LOAD 15min ≈33.83 (11:04 計測: 1min 18.77 / 5min 27.91 / 15min 33.83) が
+ncpu=10 の ≈3.4× で Load gate (15min ≥ 2×ncpu=20) を大きく超過・応答不能リスク高のため重い
+test 実行は省略し unmeasured (honest 据え置き)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・
+tracked diff 空 (未追跡 sim-loop/ のみ)、新規 falsy は falsify-045 のみ判定。回帰 assert せず基準値
+(bench-066 確定 / bench-148 最新実測) を据え置き、コード変更なし。FK guard repair は HEAD 不変・
+tracked diff 空で依然未着手 — NEXT 再発行継続。。END
+falsify-045 (H46) refuted — FK guard repair 依然未配線 (`within-limits?` は arm.cljc L15-20 定義・
+arm_test.cljc L28-30 単体テストのみ、FK 経路 (forward-kinematics L22-41 / end-effector L43-46) 内部
+からは呼出 0 回、L38 silent zero-fill (`angle (or (first angles) 0.0)`) 不変、arm_test L20-22 が silent
+zero-fill 緑固定、governor.cljc 参照 0 のまま — 越境 angles を silent 受理で pose 返却、docstring
+L27-29 自白、falsify-034/036/039/040/041/042/043/044 と同根、HEAD giemon d0d3cb4 系列不変・
+tracked diff 空 (純静的読取、load 15min ≈34 > 2×ncpu=20 + 実行 backend 不能で test 計数は
+unmeasured、数字捏造ゼロ))。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT
+再発行継続。END

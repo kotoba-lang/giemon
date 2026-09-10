@@ -1,0 +1,29 @@
+# falsify-063 (H64) — FK guard repair 未配線 (25 連続 refuted)
+
+- 仮説: 「FK guard repair は直近 iteration で実装・配線された」— 反証対象は
+  kotoba.giemon.arm の FK 経路が joint limit 越境 angles を guard (`within-limits?`) なしで
+  silent 受理するという未修繕主張 (NEXT: FK guard repair)。
+- 実測 (純静的読取, git/grep/sed は /tmp redirect workaround で取得, 数字捏造ゼロ):
+  - HEAD giemon `d0d3cb45fcc8c42d94f6a370b5a1f19d51938abe` 不変 (falsify-062 と同一)。
+  - `git status --porcelain`: `?? sim-loop/` のみ, tracked diff 空 — コード変更なし。
+  - `within-limits?` 出現箇所: arm.cljc 2 行 (L15 defn, L28 docstring 内言及) /
+    governor.cljc 0 行 / arm_test.cljc 3 行 (L28-30 単体テストのみ)。
+  - FK 経路 (forward-kinematics L22-41 / end-effector L43-46) 内部からの `within-limits?`
+    呼出 0 回。L38 相当の silent zero-fill `(angle (or (first angles) 0.0))` 不変。
+  - arm_test.cljc L20-22「missing angles default to 0.0」緑 assertion (silent zero-fill
+    固定期待値) 不変・期待値変更なし。
+  - docstring L27-29 自白: "an angle outside a joint's declared limit still produces a
+    pose. Check `within-limits?` first if that matters to the caller."
+- verdict: **refuted** — FK guard repair は依然未配線。越境 angles は silent 受理で
+  pose 返却。falsify-034/036/039〜060 と同根 (falsify-057 は別系)・25 連続 refuted。
+- HOST LOAD: 15-min ≈71.17–73.29 (~7.2× ncpu=10) で Load gate 大幅超過 → 重い test
+  実行・seeded 再現は省略し unmeasured (honest 据え置き)。純テキスト照合ゆえ負荷の
+  測定影響はゼロ。
+- 再現手順:
+  git rev-parse HEAD && git status --porcelain
+  grep -n within-limits src/kotoba/giemon/arm.cljc src/kotoba/giemon/governor.cljc \
+    test/kotoba/giemon/arm_test.cljc
+  sed -n '22,46p' src/kotoba/giemon/arm.cljc   # L38 zero-fill, guard 呼出 0 回を確認
+  sed -n '18,24p' test/kotoba/giemon/arm_test.cljc
+- コアへの 1 行メッセージ: guard は 25 iterations 丸ごと未配線 — within-limits? を FK
+  経路に繋ぐか越境入力で fail-loud にする repair を実装しない限りこの赤は消えない。

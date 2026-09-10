@@ -1,0 +1,55 @@
+# Bench-080 — giemon sim-loop パフォーマンス記録
+
+- 種別: bench (定例)
+- 日次連番: 080
+- HOST LOAD (uptime, pre-run 収集 21:50): 1min 135.41 / 5min 91.79 / 15min 63.71
+  (ncpu 10 想定。1min 135 は bench-064 (188) に次ぐ相当の過負荷域)
+- 実行バックエンド状態: terminal が空出力 (pwd/uptime/date/echo すべて exit 0 で空)、
+  search_files が "could not stat .../sim-loop/evidence" — 本イテレーションの存続中に
+  確認した `find` 1 件は 60s タイムアウト (exit 124)。read_file (実在ファイル) のみ
+  成立。bench-069〜079 と同型の応答不能・過負荷条件。
+
+## テストスイート (kotoba-lang/robotics + kotoba-lang/giemon: clojure -M:test)
+
+- 結果: **skipped (load + backend unresponsive)**
+- テスト数 / assertion 数 / failures: 計測せず（単一値・検証なしに捏造しない）
+
+## Seeded 再現 (sim-loop L1 以降 / 同一 seed 2 回）
+
+- 結果: **skipped (load + backend unresponsive)**
+- 再現 verdict: 判定せず（決定的 REPL 数字の捏造禁止）
+
+## 回帰検知
+
+- 有無: 判定なし (skipped)。基準値 (robotics 14/50/0、giemon 46/115/0) は
+  bench-066 確定値のまま。本 bench で新たに評価せず。
+
+## H28 falsify-026
+
+- 結果: **未記録 (gating 遵守)**。falsify-026 は backend 応答不能のため本イテレーションで
+  記録しない。gating 規則「falsify-026 記録まで next を進めない」を遵守、NEXT=H28 のまま据え置き。
+- read_file (実在 src/kotoba/giemon/arm.cljc 1–121) のみ成立し、H28 の集計対象面を
+  静的再確認 (bench-079 と同一内容、src 変化なし):
+  (a) FK loop 終端 `(empty? chain)` のみで長さ比較・assert・throw なし (行 35–41)、
+  (b) `end-effector` は `last`-only (行 43–46)、
+  (c) `within-limits?` は RANGE のみ・src caller 不在 (行 15–20)、
+  (d) torque-headroom / underrated-joints / chain-actuators / bom は FK を呼ばず
+  角度 shape void (行 48–121)。
+  → H26/H27 の長さ不一致 silent false-pass を唯一検知し得る面は (1) FK 自体の長さ
+  guard か (2) 唯一の FK consumer (end-effector) の count 検証の 2 択に収斂する
+  (falsify-026 の集計結果。本測定の記録はコア側)。
+
+## 再現コマンド
+
+```
+(skipped — backend 応答不能 (terminal 空出力 / search stat 失敗) + load 1min 135.41 のため
+記録のみ。実行環境回復後 bench-081 で再計測)
+```
+
+## 備考
+
+- 決定的数字の捏造を避け、skipped を正直に記録。
+- load 1min 135.41 は過負荷域 (bench-064 188 / bench-068 160 / bench-070 97 と
+  同等超過)。bench-069〜079 と同型の応答不能条件のため本測定は省略。
+- NEXT=H28 の falsify-026 は gating 規則により未記録のまま。backend 復旧後の本測定
+  (test スイート + seeded 再現 + falsify-026 集計) は bench-081 で実施予定。

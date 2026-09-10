@@ -1,0 +1,25 @@
+# bench-154 — giemon sim-loop ベンチ (決定的・タイムスタンプなし)
+
+judgement: **measured** (load 1.35x ncpu < 2x gate)
+load: 1min 16.39 / 5min 14.19 / 15min 13.52, ncpu=10 (uptime 12:05)
+host: macOS, 8 users
+
+## テスト
+- robotics (HEAD 9459ca0): Ran 14 tests, 50 assertions, 0 failures, 0 errors. exit 0
+- giemon   (HEAD d0d3cb4): Ran 46 tests, 115 assertions, 0 failures, 0 errors. exit 0
+
+## 再現ベンチ
+- seeded repro: not-applicable (sim-loop は L0、学習ジョブ無)
+
+## 回帰
+- 基準値 (robotics 14/50/0、giemon 46/115/0) と実測で完全一致。HEAD 2 点とも変化なし (9459ca0, d0d3cb4)。git status: giemon は `?? sim-loop/` 未追跡のみ、robotics は clean。**回帰なし (regression: NO)**
+
+## falsify
+- falsify-034〜037 は全て refuted 済み、残存 pending なし。falsify-034 残存なし。
+
+## 再現コマンド
+```
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && clojure -M:test   # 14/50/0
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon  && clojure -M:test   # 46/115/0
+```
+コード変更なし。rc=0
