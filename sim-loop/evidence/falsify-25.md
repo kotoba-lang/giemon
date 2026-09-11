@@ -20,7 +20,7 @@ falsify-14/15 の NaN 角度伝播がレンダリング入力まで届くこと�
 
 コード: `src/kotoba/giemon/ui.cljk` L33-35 (`neg?` 1 点分類、有限性検査なし)、
 `src/kotoba/giemon/viewer.cljk` L13-23 (FK 結果の無検査 IR 化)。
-実行: `clojure -M /tmp/f/f25.clj` + `/tmp/f/f25b.clj` (repl 出力は evidence 末尾の手順と同一)。
+実行: `kbb -M /tmp/f/f25.clj` + `/tmp/f/f25b.clj` (repl 出力は evidence 末尾の手順と同一)。
 
 ```
 :H1-nan-required-j1-class  => "ok"   (:effort ##NaN の joint1、headroom ##NaN が :ok 表示)
@@ -54,7 +54,7 @@ falsify-14/15 の NaN 角度伝播がレンダリング入力まで届くこと�
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(require (quote [kotoba.giemon.ui :as ui]) (quote [kotoba.giemon.viewer :as viewer]))
+kbb -M -e '(require (quote [kotoba.giemon.ui :as ui]) (quote [kotoba.giemon.viewer :as viewer]))
 (def arm-nan {:arm/chain [{:joint/name "j1" :joint/limit {:effort ##NaN} :joint/actuator {:cont-nm 20}}]})
 (prn (re-find #"class=\"[^\"]+\"" (second (clojure.string/split (ui/dashboard {:arm-spec arm-nan}) #"<td>j1</td>"))))
 ;; => "class=\"ok\""  (NaN headroom が ok 表示)

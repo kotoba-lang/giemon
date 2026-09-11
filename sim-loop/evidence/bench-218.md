@@ -13,5 +13,5 @@ robotics HEAD 396fc33 (基準 9459ca0 と DIFF — bench-217 と同一 HEAD、�
 sim-loop/evidence は untracked (`??`)、probe 削除なし (本 run は probe 生成なし)。
 
 再現コマンド (負荷収束後):
-  cd orgs/kotoba-lang/robotics && clojure -M:test
-  cd orgs/kotoba-lang/giemon   && clojure -M:test
+  cd orgs/kotoba-lang/robotics && kbb -M:test
+  cd orgs/kotoba-lang/giemon   && kbb -M:test

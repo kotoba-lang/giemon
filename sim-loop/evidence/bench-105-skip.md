@@ -10,4 +10,4 @@
 - 回帰 assert: しない (unmeasured のため honest — 基準値 bench-066/102 据え置き)。
 
 verdict: unmeasured / skipped (load)
-再現コマンド: (backend 復旧後の日次で) clojure -M:test + seeded run
+再現コマンド: (backend 復旧後の日次で) kbb -M:test + seeded run

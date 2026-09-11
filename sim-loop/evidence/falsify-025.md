@@ -96,7 +96,7 @@ cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 # 確定できる測定であり、実行済み数字を捏造せず「行レベル静的読取」として記録。
 # 環境回復後に以下で (:xf/pos count 6 / 0.0 充填 / last が最終 link / 例外なし) を
 # byte 一致で再確認できる。
-clojure -M -e '(load-file "sim-loop/evidence/probe_end_effector_length.clj")'
+kbb -M -e '(load-file "sim-loop/evidence/probe_end_effector_length.clj")'
 ```
 
 ## 補足

@@ -24,7 +24,7 @@ falsify-5〜11 は torque 検査経路の fail-open を潰した。未反証の�
 コード: `src/kotoba/giemon/kinematics.cljk` (normalize L22-27 /
 axis-angle->rot L42-50)、`src/kotoba/giemon/arm.cljk` (within-limits? L15-19 /
 forward-kinematics L27-41 / end-effector L43-45)。
-実行: `clojure -M -e ...` (giemon deps.edn、2 段階 read の fixture — falsify-2/3 済)。
+実行: `kbb -M -e ...` (giemon deps.edn、2 段階 read の fixture — falsify-2/3 済)。
 
 ```
 :zeroaxis-pi-rot  [[-1.0 0.0 0.0] [0.0 -1.0 0.0] [0.0 0.0 -1.0]]   <- j6 axis を [0 0 0] にし θ=π
@@ -58,7 +58,7 @@ forward-kinematics L27-41 / end-effector L43-45)。
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(require (quote [clojure.edn]) (quote [kotoba.giemon.arm :as arm]) (quote [kotoba.giemon.kinematics :as k]))
+kbb -M -e '(require (quote [clojure.edn]) (quote [kotoba.giemon.arm :as arm]) (quote [kotoba.giemon.kinematics :as k]))
 (def m (first (clojure.edn/read-string (slurp "fixtures/giemon_arm6/giemon_arm6.edn"))))
 (def ch (clojure.edn/read-string (:arm/chain m)))
 (defn set-j6-axis [ax] {:arm/chain (mapv #(if (= (:joint/name %) "j6") (assoc % :joint/axis ax) %) ch)})

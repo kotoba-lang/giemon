@@ -7,7 +7,7 @@
   search_files が "could not stat .../giemon" — bench-069〜077 と同型の応答不能条件。
   load 1min 29.93 / ncpu 10 想定。read_file (実在ファイル) のみ成立。
 
-## テストスイート (kotoba-lang/robotics + kotoba-lang/giemon: clojure -M:test)
+## テストスイート (kotoba-lang/robotics + kotoba-lang/giemon: kbb -M:test)
 
 - 結果: **skipped (load + backend unresponsive)**
 - テスト数 / assertion 数 / failures: 計測せず（単一値・検証なしに捏造しない）
@@ -32,4 +32,4 @@
 - bench-077 で確立した静的な FK `(or (first angles) 0.0)` ゼロ充填 / `(empty? chain)` 終端 /
   `end-effector` の `last`-only は H26/H27 で済んでおり、H28 の void 全列挙は既存 falsify
   25 件からの集計が主体 (backend 回復後の本測定で falsify-026 を記録)。
-- backend 復旧後の本測定 (robotics + giemon の clojure -M:test、seeded 再現) は bench-079 で実施予定。
+- backend 復旧後の本測定 (robotics + giemon の kbb -M:test、seeded 再現) は bench-079 で実施予定。

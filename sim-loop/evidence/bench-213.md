@@ -8,7 +8,7 @@
 - HOST LOAD (execution時実測): up 3 days 22h33m、6 users。15-min **43.14** ≈ **4.3× ncpu**
   (hw.ncpu=10)。(1-min 19.50 / 5-min 29.24 を報告順に 15min 基準で 43.14)
 - Load gate (~2× ncpu = 20) を超過 (≈4.3×)。下降傾向 (1-min ≈2.0×) だが 15-min
-  基準では gate 超過継続。重い `clojure -M:test` は skip → honest unmeasured。
+  基準では gate 超過継続。重い `kbb -M:test` は skip → honest unmeasured。
 
 ## test スイート (robotics / giemon)
 
@@ -41,8 +41,8 @@
 
 ## 再現コマンド
 
-- (load 回復後の日次で): `cd .../kotoba-lang/robotics && clojure -M:test` → 基準 14/50/0、
-  `cd .../kotoba-lang/giemon && clojure -M:test` → 基準 46/115/0、seeded L1+ 再現 (対象 job あれば)。
+- (load 回復後の日次で): `cd .../kotoba-lang/robotics && kbb -M:test` → 基準 14/50/0、
+  `cd .../kotoba-lang/giemon && kbb -M:test` → 基準 46/115/0、seeded L1+ 再現 (対象 job あれば)。
 
 ## メモ
 

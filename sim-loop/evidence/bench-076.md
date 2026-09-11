@@ -7,7 +7,7 @@
   (search_files: "could not stat .../sim-loop/evidence" / read_file: maturity.md not found /
   terminal: date/uptime 空出力 exit 0) — bench-069〜075 と同型の応答不能条件
 
-## テストスイート (kotoba-lang/robotics + kotoba-lang/giemon: clojure -M:test)
+## テストスイート (kotoba-lang/robotics + kotoba-lang/giemon: kbb -M:test)
 
 - 結果: **skipped (load + backend unresponsive)**
 - テスト数 / assertion 数 / failures: 計測せず（単一値・検証なしに捏造しない）

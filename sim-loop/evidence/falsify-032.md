@@ -9,7 +9,7 @@
   これまでの bench は同一プロセス内 `(= r1 r2)` のみの照合で、cross-run (JVM 2 起動) の
   bit 一致は未検証だった面を攻める。
 - 実測 (決定的、/tmp redirect + read_file 実測):
-  - run A (`clojure -M -i /tmp/seed_parity_bench066.clj`, timeout 300, EXIT 0):
+  - run A (`kbb -M -i /tmp/seed_parity_bench066.clj`, timeout 300, EXIT 0):
     ```
     SEED-PARITY true
     R1 #:xf{:rot [[0.921060994002885 0.0 0.3894183423086505] [0.0 1.0 0.0] [-0.3894183423086505 0.0 0.921060994002885]], :pos [0.035165560086391295 0.0 0.6104766433183229]}
@@ -27,7 +27,7 @@
 - 再現手順:
   ```sh
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-  clojure -M -i /tmp/seed_parity_bench066.clj > /tmp/seed_X.txt 2>&1   # 2 回実行し
+  kbb -M -i /tmp/seed_parity_bench066.clj > /tmp/seed_X.txt 2>&1   # 2 回実行し
   # 各回の "R1" 行 (:rot / :pos) と SEED-PARITY true / EXIT 0 を照合 (run 間 bit 比較)
   ```
   (seed スクリプトは bench-066 由来、内容は bench-002〜063 と同一。

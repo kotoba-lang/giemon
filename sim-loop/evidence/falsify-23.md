@@ -25,7 +25,7 @@ fail-closed を維持 (H で実測)。
 
 コード: gitlibs `io.github.kotoba-lang/robotics/1d1f93e.../src/kotoba/robotics.cljc`
 mission L36-47, telemetry-proof L103-110。
-実行: `clojure -M /tmp/f/f23.clj` (repl 出力は evidence 末尾の手順と同一)。
+実行: `kbb -M /tmp/f/f23.clj` (repl 出力は evidence 末尾の手順と同一)。
 
 ```
 :A  (rob/mission "m1" :otete "obj" :max-steps 0)        => :max-steps 0, :status :planned
@@ -58,7 +58,7 @@ mission L36-47, telemetry-proof L103-110。
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(require (quote [kotoba.robotics :as rob]))
+kbb -M -e '(require (quote [kotoba.robotics :as rob]))
 (prn (rob/mission "m1" :otete "obj" :max-steps ##NaN))
 (prn (rob/mission nil nil nil))
 (prn (rob/telemetry-proof "m1" nil nil))'

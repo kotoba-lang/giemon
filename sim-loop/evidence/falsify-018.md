@@ -16,7 +16,7 @@ probe (実装は REPL 経由で読むだけ、コード修正なし):
 - `sim-loop/evidence/probe_bom_real_fixture.cljk` — 実 fixture (giemon_arm6) への重複名攻撃
 - `sim-loop/evidence/probe_bom_false_pass.cljk` — false-pass 方向の実証
 
-主要数字 (すべて clojure -M で kotoba.giemon.arm を直接実行):
+主要数字 (すべて kbb -M で kotoba.giemon.arm を直接実行):
 
 ```
 (a) 重複 joint 名 (j2 ×2, cont-nm 40 と 10):
@@ -80,10 +80,10 @@ joint が underrated-joints を空で通過する (false-pass、weak 単独な�
 ## 再現手順
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(load-file "sim-loop/evidence/probe_bom_name_parity.cljk")'    # (a)-(d)
-clojure -M -e '(load-file "sim-loop/evidence/probe_bom_nil_fields.cljk")'     # (d) 分離
-clojure -M -e '(load-file "sim-loop/evidence/probe_bom_real_fixture.cljk")'   # (e)(f)
-clojure -M -e '(load-file "sim-loop/evidence/probe_bom_false_pass.cljk")'     # (g)
+kbb -M -e '(load-file "sim-loop/evidence/probe_bom_name_parity.cljk")'    # (a)-(d)
+kbb -M -e '(load-file "sim-loop/evidence/probe_bom_nil_fields.cljk")'     # (d) 分離
+kbb -M -e '(load-file "sim-loop/evidence/probe_bom_real_fixture.cljk")'   # (e)(f)
+kbb -M -e '(load-file "sim-loop/evidence/probe_bom_false_pass.cljk")'     # (g)
 ```
 2 回実行して測定出力が一致することを確認済み (決定的)。
 

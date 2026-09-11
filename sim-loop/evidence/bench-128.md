@@ -14,7 +14,7 @@
 
 
 
-- test スイート (robotics / giemon の `clojure -M:test`): **実行せず** — load 超過帯のため省略 (bench-127 と同方針)。fg 実行継続せず。
+- test スイート (robotics / giemon の `kbb -M:test`): **実行せず** — load 超過帯のため省略 (bench-127 と同方針)。fg 実行継続せず。
 
 
 
@@ -34,4 +34,4 @@
 
 verdict: unmeasured / skipped (load)
 
-再現コマンド: (load 沈静後の日次で) `clojure -M:test` (robotics + giemon) + seeded run
+再現コマンド: (load 沈静後の日次で) `kbb -M:test` (robotics + giemon) + seeded run

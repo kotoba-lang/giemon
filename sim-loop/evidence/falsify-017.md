@@ -11,7 +11,7 @@ axis の表現倍率 (DR スケーリング / URDF importer 出力) によらず
 probe: `sim-loop/evidence/probe_axis_underflow_parity.py`
 (arm6 の j1/j2/j3/j5 軸 verbatim、kinematics.cljc と同一の normalize +
 Rodrigues 数式)。加えて実装本体 `kotoba.giemon.kinematics` を
-`clojure -M` で直接呼んで同一条件を確認した。
+`kbb -M` で直接呼んで同一条件を確認した。
 
 主要数字:
 ```
@@ -57,7 +57,7 @@ zero 分岐の閾値ガード or underflow 検出が要修理 (現 fixture 軸�
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 python3 sim-loop/evidence/probe_axis_underflow_parity.py            # SUMMARY: 48
-clojure -M -e "(require '[kotoba.giemon.kinematics :as k]) \
+kbb -M -e "(require '[kotoba.giemon.kinematics :as k]) \
   (println (k/normalize [0.0 0.0 1e-200]))"                        # [0.0 0.0 1.0E-200]
 ```
 2 回実行: probe 出力 /tmp/f17a.txt と /tmp/f17b.txt は diff 0 行 (決定的)。

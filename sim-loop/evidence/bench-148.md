@@ -9,7 +9,7 @@ tests: robotics 14/50/0、giemon 46/115/0 (両者 exit 0)。
 - HOST LOAD: 実行時 (10:35) 実測 1min 17.52 / 5min 16.74 / 15min 16.47 — ncpu=10 に対し 15min は約 1.65x で gate (>=2x ncpu=20) 未満。応答不能リスク低、suite 実測は完走。
 - 実行バックエンド: terminal 直接 stdout は空のまま (echo 空出力)、だが `/tmp` write + read_file workaround は成立。execute_code は cron mode で BLOCKED。
 
-## テスト (clojure -M:test 実測、/tmp redirect + read_file、cwd スクリプト内 cd 固定)
+## テスト (kbb -M:test 実測、/tmp redirect + read_file、cwd スクリプト内 cd 固定)
 - **kotoba-lang/robotics**: `Ran 14 tests containing 50 assertions. 0 failures, 0 errors.` exit rc=0 (HEAD 9459ca0d5b3)
 - **kotoba-lang/giemon**: `Ran 46 tests containing 115 assertions. 0 failures, 0 errors.` exit rc=0 (HEAD d0d3cb45fcc)
 
@@ -22,5 +22,5 @@ tests: robotics 14/50/0、giemon 46/115/0 (両者 exit 0)。
 **なし** — robotics 14/50/0・giemon 46/115/0 が基準値と一致、両者 exit rc=0。measured で assert (bench-147 から連続実測、HEAD 不変)。新規 falsify なし。
 
 ## 再現コマンド
-- 実行: `/tmp/runbench.sh` (cwd をスクリプト内 `cd` で固定): `clojure -M:test` (robotics → 14/50/0 rc=0; giemon → 46/115/0 rc=0)
+- 実行: `/tmp/runbench.sh` (cwd をスクリプト内 `cd` で固定): `kbb -M:test` (robotics → 14/50/0 rc=0; giemon → 46/115/0 rc=0)
 - seeded 再現: 対象なし (sim-loop L0、学習ジョブ未実装)。未実行。

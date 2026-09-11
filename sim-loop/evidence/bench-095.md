@@ -1,7 +1,7 @@
 # bench-095 — SKIPPED (load 超過)
 
 ## verdict
-- test スイート (robotics / giemon `clojure -M:test`): **skipped (load)**
+- test スイート (robotics / giemon `kbb -M:test`): **skipped (load)**
 - seeded 再現 (sim-loop L1 以降, 同一 seed 2 回): **skipped (load)** — sim-loop 学習ジョブ未実装 (L0) のため対象外
 - 回帰: **判定不能** (測定できず — unmeasured のため assert しない, honesty-first)
 

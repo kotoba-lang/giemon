@@ -8,14 +8,14 @@
 - 備考: terminal ツールの foreground stdout が空になる障害が継続しており、
   すべてのコマンド出力を一時ファイル経由で取得した (bench-039〜045 と同じ回避策)。
 
-## 1. テスト実行 (clojure -M:test)
+## 1. テスト実行 (kbb -M:test)
 
 ### orgs/kotoba-lang/robotics
-- コマンド: `cd orgs/kotoba-lang/robotics && clojure -M:test`
+- コマンド: `cd orgs/kotoba-lang/robotics && kbb -M:test`
 - 結果: **Ran 14 tests containing 50 assertions. 0 failures, 0 errors.** (exit 0)
 
 ### orgs/kotoba-lang/giemon
-- コマンド: `cd orgs/kotoba-lang/giemon && clojure -M:test`
+- コマンド: `cd orgs/kotoba-lang/giemon && kbb -M:test`
 - 結果: **Ran 46 tests containing 115 assertions. 0 failures, 0 errors.** (exit 0)
 
 ## 2. Seeded 再現実行 (sim-loop 学習ジョブ相当)
@@ -62,12 +62,12 @@
 
 ## 再現コマンド
 ```
-cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && clojure -M:test
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && kbb -M:test
 # Ran 14 tests containing 50 assertions. 0 failures, 0 errors.
-cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon && clojure -M:test
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon && kbb -M:test
 # Ran 46 tests containing 115 assertions. 0 failures, 0 errors.
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon && \
-  clojure -M -i sim-loop/evidence/probe_seed_parity_postures.clj
+  kbb -M -i sim-loop/evidence/probe_seed_parity_postures.clj
 # SEED-PARITY true x4 / POSTURES-MEASURED 4 (exit 0)
 python3 sim-loop/evidence/probe_dr_posture_family.py   # 2 回実行し diff 0 行を確認
 # WORST-RMS-BREAK: posture=('extended-phi0', 0.02, 0.2) k=2.21 (k=1.2: not broken)

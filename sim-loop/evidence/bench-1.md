@@ -1,6 +1,6 @@
 # giemon sim-loop bench — bench-1
 
-## テスト実行 (clojure -M:test)
+## テスト実行 (kbb -M:test)
 
 - robotics: **skipped (load)** — 実行せず。host load avg 51.80 / 43.79 / 48.52 (uptime) のため重いジョブを省略。
 - giemon: **skipped (load)** — 同上。
@@ -23,8 +23,8 @@
 
 ```
 uptime
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon  && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon  && kbb -M:test
 ```
 
 (本記録では上記 clojure コマンドは未実行。load が下がった次回実行でテスト数 / 再現 verdict を記録すること。)

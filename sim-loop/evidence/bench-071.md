@@ -5,7 +5,7 @@
   空、exit 0) のまま応答不能。search_files も "could not stat <dir> (sandbox starting or removed)"
   で全パス応答不能。read_file は一部ファイル読取可能 (bench-070.md は読めた) が、重い実験 (clojure
   -M:test / seeded 再現) を起動できる状態にない。本イテレーションの測定は不可能。
-- テスト実行: 未実行 (backend 応答不能のため robotics / giemon とも clojure -M:test を起動できず。
+- テスト実行: 未実行 (backend 応答不能のため robotics / giemon とも kbb -M:test を起動できず。
   結果数値は捏造しない)
 - テスト数 / assertion 数 / failures: 測定不能 (記録せず)
 - 再現 verdict: 測定不能 (seeded 再現実行は load 高 + backend 応答不能で実行不可)
@@ -14,5 +14,5 @@
   高負荷持続 (bench-070 の 76/82/82 からやや低下も高負荷のまま)
 - 基準値保持の判定: 前回 bench-066 で確定済みの判定を再評価せず維持 (本イテレーションで新たに
   テスト実行・再現実行できず変更根拠なし)。L0 のまま (未確認)。
-- 次回アクション: 復旧後 bench-072 にて本測定 (robotics + giemon の clojure -M:test、
+- 次回アクション: 復旧後 bench-072 にて本測定 (robotics + giemon の kbb -M:test、
   seeded 再現) を実施。backend が応答するまで重い実験を起動しない。

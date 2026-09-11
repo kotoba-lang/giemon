@@ -7,7 +7,7 @@
 - load averages: **36.36 31.70 34.41** (uptime, 10 cores)。1分負荷はコア数の約 3.6 倍で
   高負荷。低下傾向は見られない (bench-2 時点の 1min 26.76 から再上昇)。
 
-## テスト実行 (clojure -M:test)
+## テスト実行 (kbb -M:test)
 
 - robotics: **skipped (load)** — load avg がコア数の 2 倍超のため重いジョブを省略。
 - giemon: **skipped (load)** — 同上。
@@ -28,8 +28,8 @@
 
 ```
 uptime
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon  && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon  && kbb -M:test
 ```
 
 (本記録では上記 clojure コマンドは未実行。load がコア数以下に下がった次回実行で

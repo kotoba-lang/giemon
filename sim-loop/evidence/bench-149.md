@@ -9,8 +9,8 @@ tests: robotics / giemon — **計測せず (skipped, load)**。基準値据え�
 - HOST LOAD: 計測時 (10:50) 実測 1min 59.53 / 5min 48.85 / 15min 32.19 — ncpu=10 に対し 15min は約 3.2x で gate (>=2x ncpu=20) 超過。1min は約 6x で上昇中 (54→59)。非応答リスク大のため suite 実測を skipped。
 - 実行バックエンド: terminal 直接 stdout は空のまま。execute_code は cron mode で BLOCKED。
 
-## テスト (clojure -M:test)
-- **skipped (load 超過)** — uptime 15min 32.19 >= 2x ncpu (20)。重い `clojure -M:test` (robotics / giemon) は非応答リスクのため実行せず。基準値據え置き (robotics 14/50/0、giemon 46/115/0)。
+## テスト (kbb -M:test)
+- **skipped (load 超過)** — uptime 15min 32.19 >= 2x ncpu (20)。重い `kbb -M:test` (robotics / giemon) は非応答リスクのため実行せず。基準値據え置き (robotics 14/50/0、giemon 46/115/0)。
 
 ## Seeded 再現 verdict
 **N/A (対象外)** — sim-loop 学習ジョブは L0 未実装 (再現対象の学習ジョブ 0 件)。seeded 再現は対象なし (bench-148/113 と同方針)。
@@ -19,5 +19,5 @@ tests: robotics / giemon — **計測せず (skipped, load)**。基準値据え�
 **判定不可 (unmeasured, load 超過で未計測)** — 回帰 assert せず、基準値前提の据え置き。git HEAD 不変 (d0d3cb4 / 9459ca0) でコード変更なしのため回帰リスク低いが、実測していない以上 assert しない。honest。
 
 ## 再現コマンド
-- 実行: skipped (load 超過)。gate 回復後に `/tmp/runbench.sh` (cwd をスクリプト内 `cd` で固定) で `clojure -M:test` (robotics → 14/50/0 rc=0; giemon → 46/115/0 rc=0) を実測する。
+- 実行: skipped (load 超過)。gate 回復後に `/tmp/runbench.sh` (cwd をスクリプト内 `cd` で固定) で `kbb -M:test` (robotics → 14/50/0 rc=0; giemon → 46/115/0 rc=0) を実測する。
 - seeded 再現: 対象なし (sim-loop L0、学習ジョブ未実装)。未実行。

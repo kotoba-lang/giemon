@@ -78,7 +78,7 @@ torque-headroom/bom/gate のどこにも読まれない (src 8 cljc 中 chassis 
 ## 再現手順
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(load-file "sim-loop/evidence/probe_velocity_limit_consumption.clj")'
+kbb -M -e '(load-file "sim-loop/evidence/probe_velocity_limit_consumption.clj")'
 ```
 2 回実行し RUN マーカー正規化後の出力一致を確認済み (/tmp/v21a vs /tmp/v21b、
 probe 出力部 cmp exit 0)。

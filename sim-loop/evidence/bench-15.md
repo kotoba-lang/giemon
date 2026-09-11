@@ -1,8 +1,8 @@
 # bench-15
 
 日時なし (決定的記録)。実行コマンド:
-- `cd orgs/kotoba-lang/robotics && clojure -M:test`
-- `cd orgs/kotoba-lang/giemon && clojure -M:test`
+- `cd orgs/kotoba-lang/robotics && kbb -M:test`
+- `cd orgs/kotoba-lang/giemon && kbb -M:test`
 
 ## テスト結果
 
@@ -26,6 +26,6 @@ load averages 約 38-41 / コア 10 (実測)。重い追加実験は skipped (lo
 ## 再現コマンド
 
 ```
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon && kbb -M:test
 ```

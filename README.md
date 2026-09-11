@@ -23,8 +23,8 @@ GraalVM.
 ## Test
 
 ```bash
-clojure -M:test
-clojure -M:lint
+kbb -M:test
+kbb -M:lint
 ```
 
 ## Maturity

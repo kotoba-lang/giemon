@@ -12,7 +12,7 @@
   - `search_files` は `could not stat` (sandbox 未起動/除去)。
   - 実行コード系は cron モードで承認不可 (execute_code BLOCKED)。
   - read_file / write_file のみ absolute path で成立 (bench-095〜097 と同型)。
-- このため `clojure -M:test` (robotics / giemon) と seeded 再現実行のいずれも実行不可。
+- このため `kbb -M:test` (robotics / giemon) と seeded 再現実行のいずれも実行不可。
 
 ## 判定 (7 軸, ADR-2608052000)
 - テスト健全性: **unmeasured** — 実行不能のため回帰 assert せず (honest 維持)
@@ -25,7 +25,7 @@
 - 今回は測定不能のため基準値据え置き、回帰 assert しない。
 
 ## 再現コマンド (未実行)
-- `clojure -M:test` (robotics, giemon)
+- `kbb -M:test` (robotics, giemon)
 - seeded 再現: 同一 seed 2 回実行 → 結果一致検査 (sim-loop L1 以降、現状 L0 未実装で対象外)
 
 ## 検証済みの静的状態 (非測定)

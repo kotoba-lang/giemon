@@ -65,7 +65,7 @@ actuator があり顕在化せず)。
 ## 再現手順
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(load-file "sim-loop/evidence/probe_missing_actuator_skip.clj")'
+kbb -M -e '(load-file "sim-loop/evidence/probe_missing_actuator_skip.clj")'
 ```
 2 回実行して測定出力が一致することを確認済み (/tmp/f19a vs /tmp/f19b、cmp 一致)。
 

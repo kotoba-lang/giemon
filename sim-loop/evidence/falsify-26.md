@@ -58,7 +58,7 @@ EDN を unblob 2 段階 read した :chassis/boom :arm/chain を比較:
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 # (a) oracle が読めない実測
-clojure -M -e '(require (quote [clojure.java.io :as io]))
+kbb -M -e '(require (quote [clojure.java.io :as io]))
 (import (quote javax.xml.parsers.DocumentBuilderFactory))
 (let [f (javax.xml.parsers.DocumentBuilderFactory/newInstance) b (.newDocumentBuilder f)]
   (.parse b (io/file "fixtures/giemon_caterpillar_facade/giemon_caterpillar_facade.urdf")))'

@@ -44,7 +44,7 @@ falsify-1 (refuted) のパリティ構造破れは引き続き OPEN (実コー�
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 grep -c '\\"j1\\"' fixtures/giemon_arm6/giemon_arm6.edn   # => 1 (未修理)
-clojure -M -e "
+kbb -M -e "
 (require '[clojure.edn] '[kotoba.giemon.arm :as arm])
 (def m (first (clojure.edn/read-string (slurp \"fixtures/giemon_arm6/giemon_arm6.edn\"))))
 (def arm-spec {:arm/chain (clojure.edn/read-string (:arm/chain m))})

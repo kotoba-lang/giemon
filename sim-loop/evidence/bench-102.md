@@ -4,7 +4,7 @@ Timestamp: 2026-09-07 18:59 JST (git HEAD d0d3cb4)
  HOST LOAD (measured @ run time): 19.90〜28.82 / 15.98 / 23.64〜24.21 (ncpu=10, ~2-2.4x on 15min, ~2-2.9x on 1min) — elevated but stable enough for the suite to run deterministically.
 
 ## Measurability
-- clojure -M:test (robotics + giemon): **measured** — terminal `/tmp` redirect workaround held; both suites ran to completion (exit 0) this walk. Load ~2x ncpu — not the ~4-5x overload that skipped bench-099〜101., so full measurement resumed.
+- kbb -M:test (robotics + giemon): **measured** — terminal `/tmp` redirect workaround held; both suites ran to completion (exit 0) this walk. Load ~2x ncpu — not the ~4-5x overload that skipped bench-099〜101., so full measurement resumed.
 
 ## Test numbers (measured, deterministic)
 - kotoba-lang/robotics: **14 test /  ̂50 assertion /̂ 0 failure /̂ 0 errors** (exit 0)
@@ -24,7 +24,7 @@ Timestamp: 2026-09-07 18:59 JST (git HEAD d0d3cb4)
 - kotoba-lang/robotics:,14 test / ̂50 assertion /̂ 0 failure- kotoba-lang/giemon:,46 test /̂ 115 assertion /̂ 0 failure
 
 ## Reproduction command (not-applicable)
-- `clojure -M:test` (robotics, giemon) — executed, results above.
+- `kbb -M:test` (robotics, giemon) — executed, results above.
 - seeded reproduction:: no task (sim-loop L0, out of scope); not run.
 
 

@@ -2,10 +2,10 @@
 
 ## テスト実行
 
-- robotics (`cd orgs/kotoba-lang/robotics && clojure -M:test`):
+- robotics (`cd orgs/kotoba-lang/robotics && kbb -M:test`):
   Ran 14 tests containing 50 assertions. 0 failures, 0 errors.
   (bench-4〜25 と同一数字、26 連続同値)
-- giemon (`cd orgs/kotoba-lang/giemon && clojure -M:test`):
+- giemon (`cd orgs/kotoba-lang/giemon && kbb -M:test`):
   Ran 46 tests containing 115 assertions. 0 failures, 0 errors.
   (bench-4〜25 と同一数字、26 連続同値)
 
@@ -37,8 +37,8 @@ load averages: 64.41 62.17 56.87 (コア 10、高負荷; 実行開始時 63.97 6
 ## 再現コマンド
 
 ```
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon && kbb -M:test
 grep -rl seed src   # → 0 件
 grep -c '\\"j1\\"' fixtures/giemon_arm6/giemon_arm6.edn   # → 1 (未修理)
 ```

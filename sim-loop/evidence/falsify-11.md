@@ -63,7 +63,7 @@ neg? 一本の比較ではセンチネルを分類できず、falsify-6/10 の f
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(require (quote [clojure.edn]) (quote [kotoba.giemon.arm :as arm]))
+kbb -M -e '(require (quote [clojure.edn]) (quote [kotoba.giemon.arm :as arm]))
 (def m (first (clojure.edn/read-string (slurp "fixtures/giemon_arm6/giemon_arm6.edn"))))
 (def ch (clojure.edn/read-string (:arm/chain m)))
 (defn set-j1 [f] {:arm/chain (mapv #(if (= (:joint/name %) "j1") (f %) %) ch)})

@@ -1,6 +1,6 @@
 # bench-117 — giemon sim-loop bench (日次)
 
-判定: **measured (完走)** — HOST LOAD が ncpu=10 の ~1.5× (15min 14.96) で clojure -M:test 実測完走。robotics・giemon とも基準値一致、回帰なし。
+判定: **measured (完走)** — HOST LOAD が ncpu=10 の ~1.5× (15min 14.96) で kbb -M:test 実測完走。robotics・giemon とも基準値一致、回帰なし。
 
 
 
@@ -9,7 +9,7 @@
 - HOST LOAD:実行時 (2:05) 8.31 /  ̄8.32 / 14.96 (15min = ncpu=1 0の約約約 1.5×) — ~2× gate 未満で実測可。(NOT skipped)。
 - 実行バックエンド: terminal 直接 stdout は空 (/tmp redirect workaround で echo 実測)。execute_code は cron mode で BLOCKED。
 
-##テスト (clojure -M:test)
+##テスト (kbb -M:test)
 - **robotics**: `Ran 14 tests containing 50 assertions. 0 failures,  ̄0 errors.` RC=0 — 基準値 (14/50/0) と一致。
 - **giemon**: `Ran 46 tests containing	̄115 assertions. 0 failures,	 0 errors.` RC=0 — 基準値 (46/115/0) と一致。
 - 判定: **measured、回帰なし** (両 suite とも exit 0、基準値と数字一致、git diff 空)。
@@ -30,5 +30,5 @@ git HEAD は不変 (コード変更なし)。IN-FLIGHT は未追跡のみ。
 新規 falsify はなし。最新 falsify-038 (H39: damping/摩擦 はコアで消費され DR worst-case を検証できるか) は refuted 済 (コア実装は `:joint/damping` を一切読まず、純キネマティクス契約で摩擦面の検証面なし)。git diff 空 (追跡変更なし)・code 無変更のため新規 H の判定なし (新仮説なし)。
 
 ##再現コマンド
-- 実行: `cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && clojure -M:test > /tmp/b_rob.txt 2>&1`; `cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon && clojure -M:test > /tmp/b_gie.txt 2>&1` —許 完走 (measured,回帰なし)。/tmp/b_rob.txt / /tmp/b_gie.txt に実測保存。
+- 実行: `cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && kbb -M:test > /tmp/b_rob.txt 2>&1`; `cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon && kbb -M:test > /tmp/b_gie.txt 2>&1` —許 完走 (measured,回帰なし)。/tmp/b_rob.txt / /tmp/b_gie.txt に実測保存。
 - seeded 再現:対象なし (sim-loop L0、学習ジョブ未実装)。未実行。

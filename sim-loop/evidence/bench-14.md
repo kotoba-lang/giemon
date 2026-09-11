@@ -2,7 +2,7 @@
 
 日付なし (決定的記録・タイムスタンプ方針準拠)
 
-## テスト実行 (`clojure -M:test`)
+## テスト実行 (`kbb -M:test`)
 
 - orgs/kotoba-lang/robotics: 14 tests / 50 assertions / 0 failures / 0 errors
 - orgs/kotoba-lang/giemon: 46 tests / 115 assertions / 0 failures / 0 errors
@@ -26,6 +26,6 @@
 
 ## 再現コマンド
 
-- `cd orgs/kotoba-lang/robotics && clojure -M:test`
-- `cd orgs/kotoba-lang/giemon && clojure -M:test`
+- `cd orgs/kotoba-lang/robotics && kbb -M:test`
+- `cd orgs/kotoba-lang/giemon && kbb -M:test`
 - `grep -rl seed src` (giemon, seeded 学習ジョブ有無確認)

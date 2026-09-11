@@ -5,7 +5,7 @@
 
 ## verdict: skipped (load)
 
-- `clojure -M:test` (robotics / giemon): **not run** — host load far above gate (15-min 79.48 vs threshold ~20). Prior bench-064–101 style honest skip.
+- `kbb -M:test` (robotics / giemon): **not run** — host load far above gate (15-min 79.48 vs threshold ~20). Prior bench-064–101 style honest skip.
 - seeded reproduction: **not run** (same reason).
 - unmeasured; baselines held (unmeasured ≠ regression assert):
   - robotics baseline: 23/558/0 (HEAD 893ef76)
@@ -17,6 +17,6 @@
 ## reproduce command
 
 ```
-cd orgs/kotoba-lang/robotics && clojure -M:test   # expect 23/558/0
-cd orgs/kotoba-lang/giemon && clojure -M:test     # expect 46/115/0
+cd orgs/kotoba-lang/robotics && kbb -M:test   # expect 23/558/0
+cd orgs/kotoba-lang/giemon && kbb -M:test     # expect 46/115/0
 ```

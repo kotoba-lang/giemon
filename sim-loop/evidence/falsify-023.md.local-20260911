@@ -14,6 +14,6 @@
 ## 再現手順
 ```
 cd .../orgs/kotoba-lang/giemon
-clojure -M -e '(load-file "sim-loop/evidence/probe_within_limits_no_caller.clj")'
+kbb -M -e '(load-file "sim-loop/evidence/probe_within_limits_no_caller.clj")'
 # 出力が falsify-023_measured.txt と byte 一致 (2 回実行 cmp_rc=0 を確認)
 ```

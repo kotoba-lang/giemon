@@ -13,7 +13,7 @@
   応答不能) だが、`/tmp` write + read_file workaround は成立 (falsify-031→033・bench-105/107 と同手)。
   本 walk もこの手で test 出力を実測取得。
 
-## テスト（clojure -M:test 実測、/tmp redirect + read_file）
+## テスト（kbb -M:test 実測、/tmp redirect + read_file）
 - **kotoba-lang/robotics**: `Ran 14 tests containing 50 assertions. 0 failures, 0 errors.` exit 0
 - **kotoba-lang/giemon**:   `Ran 46 tests containing 115 assertions. 0 failures, 0 errors.` exit 0
 
@@ -33,6 +33,6 @@
 未決 falsify 残存なし (H25〜H35 全決着)。
 
 ## 再現コマンド
-- 実行: `clojure -M:test` (workdir: orgs/kotoba-lang/robotics → 14/50/0 exit 0;
+- 実行: `kbb -M:test` (workdir: orgs/kotoba-lang/robotics → 14/50/0 exit 0;
   orgs/kotoba-lang/giemon → 46/115/0 exit 0)
 - seeded 再現: 対象なし (sim-loop L0、学習ジョブ未実装)。未実行。

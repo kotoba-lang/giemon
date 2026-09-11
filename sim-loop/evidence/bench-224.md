@@ -6,7 +6,7 @@ uptime 11:51, load averages: 7.45 / 15.62 / 26.92, hw.ncpu = 10
 超過するため重い test 実行を省略 (skipped (load))。bench-223 と同様の負荷帯。
 
 ## Test suites
-- clojure -M:test (robotics / giemon): **unmeasured — skipped (load)**。
+- kbb -M:test (robotics / giemon): **unmeasured — skipped (load)**。
   実行を省略し基準値据え置き (robotics 14/50/0、giemon 46/115/0)。
   回帰は assert しない (honest unmeasured)。前回実測は bench-222 (基準値一致)。
 

@@ -5,7 +5,7 @@
 ## HOST LOAD
 uptime load averages: 15.10 18.55 21.26 / コア 10 → 負荷高水準。
 
-## テスト実行 (`clojure -M:test`)
+## テスト実行 (`kbb -M:test`)
 
 - orgs/kotoba-lang/robotics: `Ran 14 tests containing 50 assertions. 0 failures, 0 errors.` (exit 0)
 - orgs/kotoba-lang/giemon: `Ran 46 tests containing 115 assertions. 0 failures, 0 errors.` (exit 0)
@@ -21,8 +21,8 @@ bench-4〜9 と同一数字 (robotics 14/50 + giemon 46/115, 0 failures 0 errors
 
 ## 再現コマンド
 ```
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon && kbb -M:test
 ```
 
 ## 結論

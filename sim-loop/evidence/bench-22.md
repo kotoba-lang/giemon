@@ -2,7 +2,7 @@
 
 日時なし (決定的記録)。
 
-## テスト実行 (clojure -M:test)
+## テスト実行 (kbb -M:test)
 
 - robotics: Ran 14 tests containing 50 assertions. 0 failures, 0 errors.
 - giemon: Ran 46 tests containing 115 assertions. 0 failures, 0 errors.
@@ -39,8 +39,8 @@ load averages: 50.47 55.43 57.07 → 41.92 50.74 54.90 (コア 10、高負荷)�
 ## 再現コマンド
 
 ```
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon && kbb -M:test
 grep -rl seed src   # → 0 件
 grep -c '\\"j1\\"' fixtures/giemon_arm6/giemon_arm6.edn   # → 1 (未修理)
 ```

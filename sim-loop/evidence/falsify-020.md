@@ -90,7 +90,7 @@ actuator 欠落(H21)のみが静かな検証脱落の危険面。修理要は H2
 ## 再現手順
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(load-file "sim-loop/evidence/probe_missing_limit_skip.cljk")'
+kbb -M -e '(load-file "sim-loop/evidence/probe_missing_limit_skip.cljk")'
 ```
 2 回実行し RUN マーカー正規化後の出力一致を確認済み (/tmp/f20a vs /tmp/f20b、
 cmp exit 0)。

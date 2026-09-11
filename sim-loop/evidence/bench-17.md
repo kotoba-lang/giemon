@@ -5,7 +5,7 @@
 - 11:41 JST: load averages 65.73 / 60.06 / 53.00
 - 高負荷のため重い seeded 再現実験は **skipped (load)**。
 
-## テスト実行 (`clojure -M:test`)
+## テスト実行 (`kbb -M:test`)
 | repo | tests | assertions | failures | errors | 前回比 |
 |---|---|---|---|---|---|
 | orgs/kotoba-lang/robotics | 14 | 50 | 0 | 0 | bench-4〜16 と同一数字、回帰なし |
@@ -25,7 +25,7 @@
 
 ## 再現コマンド
 ```
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon  && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon  && kbb -M:test
 grep -rl seed src | wc -l   # 0 → seeded 再現 not-run
 ```

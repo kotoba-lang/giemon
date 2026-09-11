@@ -7,7 +7,7 @@ actuating action (:move/:actuate, torque payload 付き) を人間サインオ�
 副次測定: falsify-001 の含意「j2 の余裕僅少は動的側にある」を
 quasi-dynamic probe (`probe_j2_dynamic.py`) で定量化する。
 
-## 実測 — H4 (governor gate, clojure -M -e、/tmp/gate.txt 相当)
+## 実測 — H4 (governor gate, kbb -M -e、/tmp/gate.txt 相当)
 | ケース | 入力 | 結果 |
 |---|---|---|
 | low クラスで gate 許可セット内 | `:move` `:safety :low`, allowed `#{:none :low :medium}` | **:permit** |
@@ -62,7 +62,7 @@ actuation 受付で torque を arm/within-limits 相当と照合する層が必�
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 python3 sim-loop/evidence/probe_j2_dynamic.py
-# H4: 上記「実測 — H4」の clojure -M -e スクリプト (kotoba.giemon.governor +
+# H4: 上記「実測 — H4」の kbb -M -e スクリプト (kotoba.giemon.governor +
 # kotoba.robotics を require し gate/action-permitted? を全ケースで実行)
 ```
 
@@ -70,4 +70,4 @@ python3 sim-loop/evidence/probe_j2_dynamic.py
 - コード修正なし (probe は evidence 配下の測定専用)。
 - 決定的記述のみ、タイムスタンプなし。
 - HOST LOAD は高め (load ~9–13 / ncpu 10) のため長時間シミュレーションは省略
-  (falsify cheaply)。静的 + 軽量 clojure -M -e 測定のみ。
+  (falsify cheaply)。静的 + 軽量 kbb -M -e 測定のみ。

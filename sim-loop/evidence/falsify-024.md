@@ -84,7 +84,7 @@ cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 # 本 verdict は純 Clojure 純関数である FK (arm.cljc 22–41) の行レベル静的読取に
 # 完全根拠づけ (負荷非依存・決定的) — 実行せずとも loop 分岐構造から確定。
 # 実行可能環境回復後は以下で実測・2 回実行一致を確認できる:
-clojure -M -e '(load-file "sim-loop/evidence/probe_fk_length_mismatch.cljk")'
+kbb -M -e '(load-file "sim-loop/evidence/probe_fk_length_mismatch.cljk")'
 ```
 
 ## 補足

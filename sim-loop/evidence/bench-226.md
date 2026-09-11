@@ -4,7 +4,7 @@ date: 2026-09-09 (JST, cron)
 load (pre-run): 93.45 69.27 50.15 (up 4 days) — 高負荷帯、かつ bench-225 (同日) 時点
 (44.47) からさらに上昇中。>3x 基準実行帯を明確に超過。
 
-## 1. clojure -M:test (robotics / giemon)
+## 1. kbb -M:test (robotics / giemon)
 
 skipped (load) — HOST LOAD 93.45 は skip 基準を大幅に超過。
 加えて terminal バックエンドが応答不能を継続 (echo を含む全コマンドが
@@ -22,8 +22,8 @@ unknown (unmeasured) — 実測ゼロのため assert 不可。honest 記録。
 
 ## 再現コマンド
 
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon && kbb -M:test
 (負荷低下 + terminal バックエンド復旧後に次回 bench で再実行すること)
 
 ## verdict

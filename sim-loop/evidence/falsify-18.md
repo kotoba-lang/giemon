@@ -22,7 +22,7 @@ RFC 4180 の引用規則を満たした CSV でも formula injection は成立�
 コード: `src/kotoba/giemon/export.cljk` — `csv-cell` L8-18 は
 `re-find #"[\",\\n\\r]"` の 3 文字のみ検査 (L16 のコメント自体が
 「RFC 4180 requires」を根拠に `\r` 追加を主張しており、意味検査の
-不在は規準にすら入っていない)。実行: `clojure -M -e` (giemon
+不在は規準にすら入っていない)。実行: `kbb -M -e` (giemon
 deps.edn)、fixture は falsify-2〜5 確立の 2 段階 read。注入先は
 `:arm/chain 2` (j3) の `:joint/actuator`。検証は Python `csv` モジュール
 (read-back) と `json` (strict) で実施。
@@ -62,7 +62,7 @@ bom->json 同一 ":model" 入力  Python json strict parse OK、j3 model 値は�
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '
+kbb -M -e '
 (require (quote [kotoba.giemon.export :as ex]) (quote [clojure.edn :as edn]))
 (def base (first (edn/read-string (slurp "fixtures/giemon_arm6/giemon_arm6.edn"))))
 (def spec (assoc (edn/read-string (:arm/base base))

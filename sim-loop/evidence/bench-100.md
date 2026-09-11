@@ -12,7 +12,7 @@
   - `/tmp` redirect workaround のみ成立 (write を /tmp に redirect → read_file で回収)。
   - 実行コード系は cron モードで承認不可 (execute_code BLOCKED)。
   - read_file / write_file は absolute path で成立。git status / uptime / date は /tmp probe 経由で成立。
-- このため `clojure -M:test` (robotics / giemon) と seeded 再現実行のいずれも実行せず。
+- このため `kbb -M:test` (robotics / giemon) と seeded 再現実行のいずれも実行せず。
 
 ## 判定 (7 軸, ADR-2608052000)
 - テスト健全性: **unmeasured** — 実行不能のため回帰 assert せず (honest 維持)
@@ -25,7 +25,7 @@
 - 今回は測定不能のため基準値据え置き、回帰 assert しない。
 
 ## 再現コマンド (未実行)
-- `clojure -M:test` (robotics, giemon)
+- `kbb -M:test` (robotics, giemon)
 - seeded 再現: 同一 seed 2 回実行 → 結果一致検査 (sim-loop L1 以降 — 現状 L0 で対象外)
 
 ## 検証済みの静的状態 (非測定)

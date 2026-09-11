@@ -9,7 +9,7 @@
   bench-3/bench-4 の引き継ぎ指示 (4 連続 skip 防止、毎回実行して前回比を取る) に従い
   実行した。テストは数百 ms〜秒程度の軽量実行であり負荷の追加影響は小さいと判断。
 
-## テスト実行 (clojure -M:test)
+## テスト実行 (kbb -M:test)
 
 - robotics: **実行済み** — `Ran 14 tests containing 50 assertions. 0 failures, 0 errors.`
 - giemon: **実行済み** — `Ran 46 tests containing 115 assertions. 0 failures, 0 errors.`
@@ -34,8 +34,8 @@
 
 ```
 uptime
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon  && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon  && kbb -M:test
 ```
 
 (本記録では上記 2 つの clojure コマンドを実行済み。出力は「テスト実行」節に記載。)

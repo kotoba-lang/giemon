@@ -20,7 +20,7 @@ falsify-14 は運動学の**入力値**の縮退 (零 axis / ±Inf リミット)
 
 コード: `src/kotoba/giemon/arm.cljk` (forward-kinematics L27-41)、
 `src/kotoba/giemon/kinematics.cljk` (joint-transform L63-66)。
-実行: `clojure -M -e ...` (giemon deps.edn、2 段階 read の fixture — falsify-2/3 済)。
+実行: `kbb -M -e ...` (giemon deps.edn、2 段階 read の fixture — falsify-2/3 済)。
 
 ```
 ; src 全体 grep: `:joint/type` への参照は fixtures の 1 行のみ (src 0 件)
@@ -58,7 +58,7 @@ falsify-14 は運動学の**入力値**の縮退 (零 axis / ±Inf リミット)
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(require (quote [clojure.edn]) (quote [kotoba.giemon.arm :as arm]))
+kbb -M -e '(require (quote [clojure.edn]) (quote [kotoba.giemon.arm :as arm]))
 (def m (first (clojure.edn/read-string (slurp "fixtures/giemon_arm6/giemon_arm6.edn"))))
 (def ch (clojure.edn/read-string (:arm/chain m)))
 (def a {:arm/chain ch})

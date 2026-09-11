@@ -39,7 +39,7 @@ joint 6 個が数値パリティ付きで回収できるなら、falsify-1 の�
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e "(require '[clojure.edn]) \
+kbb -M -e "(require '[clojure.edn]) \
   (def m (first (clojure.edn/read-string (slurp \"fixtures/giemon_arm6/giemon_arm6.edn\")))) \
   (def inner (clojure.edn/read-string (:arm/chain m))) \
   (prn (count inner)) (doseq [j inner] (prn (select-keys j [:joint/name :joint/axis :joint/origin :joint/limit])))"

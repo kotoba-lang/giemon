@@ -114,7 +114,7 @@ bench-231 — 実行バックエンド応答不能 (terminal 全コマンド空�
 
 
 bench-241 (2026-09-11 cron) skipped (load) — HOST LOAD 15min 79.48 (≈7.9× ncpu=10)
-で Load gate (15min ≥ 2×ncpu=20) 大幅超過のため clojure -M:test (robotics 23/558/0 @
+で Load gate (15min ≥ 2×ncpu=20) 大幅超過のため kbb -M:test (robotics 23/558/0 @
 893ef76 / giemon 46/115/0 @ d0d3cb4) と seeded 再現を省略、unmeasured honest 据え置き
 (回帰 assert なし)。falsify-067 (H68) refuted — 純静的読取: `within-limits?` は
 arm.cljc L15-20 定義のみで FK 本体 (forward-kinematics L22-41 / end-effector L43-46)
@@ -133,7 +133,7 @@ L27-28 が自白)、governor 層も arm limit/torque に無接続 —「no LLM-t
 shortcut」成立の唯一経路;repair は FK 本体への limit  検査配線 + gate<->arm 照合
 ( falsy-001) が対象。probe_parity_arm6.py の slice anchor 修復 ( falsify-035/037) は
 2 refuted で次点に降格。bench-122〜238 / falsify-066 まで HEAD 不変・tracked diff 空で FK guard repair
-は依然未着手 — 再発行継続 (falsify-066 (H67) refuted・計28連続)。bench-235 (負荷 ~1.3×)・bench-232/233 (負荷 ~2.5-2.6× 帯) も backend 応答で両スイート実測完走 (robotics 14/50/0、giemon 46/115/0、RC=0、基準値一致・回帰なし measured)。HEAD giemon d0d3cb4 不変・tracked diff 空 (?? sim-loop/ のみ)。bench-237 は負荷 gate 内 (~1.13×) だが execution backend 応答不能で skipped/unmeasured — FK guard repair は HEAD 不変 (本 rank で giemon d0d3cb4 実測再確認)・tracked diff 空 (?? sim-loop/ のみ) で依然未着手、再発行継続 (falsify-066 まで 29 連続 refuted)。 bench-240 (実測完走, 負荷 gate 内 ~1.3-1.8×) も両スイート実測完走 — giemon 46/115/0 基準値一致・robotics 23/558/0 は bench-238 と完全一致 (HEAD 893ef76 suite 拡張系、赤回帰なし)、HEAD giemon d0d3cb4 不変・tracked diff 空 (?? sim-loop/ のみ) で FK guard repair は依然未着手 — 再発行継続 (計28連続)。旧記載: bench-225 は HOST LOAD 15min ≈33.31 (≈3.3× ncpu=10) gate 超過 + terminal backend 応答不能のため clojure -M:test・seeded 再現を一律省略し unmeasured (honest 据え置き、基準値 robotics 14/50/0 / giemon 46/115/0 変更なし、回帰 assert せず)。HEAD giemon d0d3cb4 不変・tracked diff 空 (?? sim-loop/ のみ)。
+は依然未着手 — 再発行継続 (falsify-066 (H67) refuted・計28連続)。bench-235 (負荷 ~1.3×)・bench-232/233 (負荷 ~2.5-2.6× 帯) も backend 応答で両スイート実測完走 (robotics 14/50/0、giemon 46/115/0、RC=0、基準値一致・回帰なし measured)。HEAD giemon d0d3cb4 不変・tracked diff 空 (?? sim-loop/ のみ)。bench-237 は負荷 gate 内 (~1.13×) だが execution backend 応答不能で skipped/unmeasured — FK guard repair は HEAD 不変 (本 rank で giemon d0d3cb4 実測再確認)・tracked diff 空 (?? sim-loop/ のみ) で依然未着手、再発行継続 (falsify-066 まで 29 連続 refuted)。 bench-240 (実測完走, 負荷 gate 内 ~1.3-1.8×) も両スイート実測完走 — giemon 46/115/0 基準値一致・robotics 23/558/0 は bench-238 と完全一致 (HEAD 893ef76 suite 拡張系、赤回帰なし)、HEAD giemon d0d3cb4 不変・tracked diff 空 (?? sim-loop/ のみ) で FK guard repair は依然未着手 — 再発行継続 (計28連続)。旧記載: bench-225 は HOST LOAD 15min ≈33.31 (≈3.3× ncpu=10) gate 超過 + terminal backend 応答不能のため kbb -M:test・seeded 再現を一律省略し unmeasured (honest 据え置き、基準値 robotics 14/50/0 / giemon 46/115/0 変更なし、回帰 assert せず)。HEAD giemon d0d3cb4 不変・tracked diff 空 (?? sim-loop/ のみ)。
 
 ( 本 rank  は読み取り + status 更新のみ。sim-loop の evidence・コードは不変更。。)
 bench-123 (実測完走、負荷 ~1.42x) — HOST LOAD 15min ~14.20 が ncpu=10 の Load gate
@@ -348,13 +348,13 @@ bench-220 (load 超過) — HOST LOAD 15min ≈100.89 (≈10× ncpu=10) が Load
 
 ## falsify-063 (H64) refuted — FK guard repair 依然未配線 (純静的読取, HEAD giemon d0d3cb45fcc8 不変・tracked diff 空 (?? sim-loop/ のみ)。`within-limits?` 出現は arm.cljc 2 行 (L15 defn / L28 docstring)・governor.cljc 0 行・arm_test.cljc L28-30 単体のみ、FK 経路 (forward-kinematics L22-41 / end-effector L43-46) 内部から呼出 0 回・L38 silent zero-fill `(angle (or (first angles) 0.0))` 不変・arm_test L20-22 silent zero-fill 緑固定不変 — 越境 angles を silent 受理で pose 返却, falsify-034/036/039〜063 と同根・26 連続 refuted。負荷 15min ≈71 (~7.2× ncpu=10) gate 大幅超過につき test/seeded は省略 unmeasured。NEXT(FK guard repair) 再発行継続。END
 
-bench-221 (load 超過) — HOST LOAD 15min ≈45.87–49.86→70.95–73.29 (≈7.1× ncpu=10) が Load gate (15min ≥ 2×ncpu=20) を大幅超過のため clojure -M:test (両スイート) と seeded 再現を 一律省略し unmeasured (honest 据え置き)。HEAD giemon d0d3cb4 (baseline 一致) / robotics 396fc33 (bench-219/220 と同一・基準 9459ca0 からの移動継続、test 未実行につき回帰判定せず・負荷収束後の 再確認必要)。新規 falsy は falsify-063 (H64) のみ判定・refuted (FK guard repair 依然未配線、25 連続 refuted)。H1〜H65 全決着・未決残存なし。回帰 assert せず基準値 (bench-066 確定 / bench-215 最新実測) を据え置き、コード変更なし。FK guard repair は HEAD 不変・tracked diff 空で 依然未着手 — NEXT 再発行継続。END
+bench-221 (load 超過) — HOST LOAD 15min ≈45.87–49.86→70.95–73.29 (≈7.1× ncpu=10) が Load gate (15min ≥ 2×ncpu=20) を大幅超過のため kbb -M:test (両スイート) と seeded 再現を 一律省略し unmeasured (honest 据え置き)。HEAD giemon d0d3cb4 (baseline 一致) / robotics 396fc33 (bench-219/220 と同一・基準 9459ca0 からの移動継続、test 未実行につき回帰判定せず・負荷収束後の 再確認必要)。新規 falsy は falsify-063 (H64) のみ判定・refuted (FK guard repair 依然未配線、25 連続 refuted)。H1〜H65 全決着・未決残存なし。回帰 assert せず基準値 (bench-066 確定 / bench-215 最新実測) を据え置き、コード変更なし。FK guard repair は HEAD 不変・tracked diff 空で 依然未着手 — NEXT 再発行継続。END
 
 bench-222 (実測完走) — bench 記載の HOST LOAD 15min ≈40.6-41.5 (ncpu=10 の ~4×, gate 超過帯) だが bench-222 側は 1-min 11.76-15.44 (~1.5×) を根拠にゲート未満と判断して実行、両スイート実測完走 (robotics 14/50/0、giemon 46/115/0、exit 0、基準値 bench-066 と完全一致) — 回帰なし measured assert。HEAD giemon d0d3cb45 (baseline 一致・不変) / robotics 396fc33 (移動後の初実測で基準値一致を確認、回帰判定 measured)。新規 falsy なし (H1〜H65 全決着・未決残存なし)。FK guard repair は HEAD 不変・tracked diff 空 (?? sim-loop/ のみ) で依然未着手 — NEXT 再発行継続。END
-bench-223 (load 超過) — HOST LOAD 15min ≈42.55 (≈4.7× ncpu=10, 1min 68.87 / 5min 46.84) が Load gate (15min ≥ 2×ncpu=20) を大きく超過のため clojure -M:test (robotics/giemon) と seeded 再現を一律省略し unmeasured (honest 据え置き)。基準値 (robotics 14/50/0、giemon 46/115/0) 据え置き、回帰 assert せず。HEAD giemon d0d3cb4 不変・tracked diff 空 (未追跡 sim-loop/ のみ)。新規 falsy なし (H1〜H65 全決着・未決残存なし; falsify-038 (H39) damping 仮説は前回分で既集計済み・今回ファイル再確認のみ)。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。END
+bench-223 (load 超過) — HOST LOAD 15min ≈42.55 (≈4.7× ncpu=10, 1min 68.87 / 5min 46.84) が Load gate (15min ≥ 2×ncpu=20) を大きく超過のため kbb -M:test (robotics/giemon) と seeded 再現を一律省略し unmeasured (honest 据え置き)。基準値 (robotics 14/50/0、giemon 46/115/0) 据え置き、回帰 assert せず。HEAD giemon d0d3cb4 不変・tracked diff 空 (未追跡 sim-loop/ のみ)。新規 falsy なし (H1〜H65 全決着・未決残存なし; falsify-038 (H39) damping 仮説は前回分で既集計済み・今回ファイル再確認のみ)。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。END
 
 bench-224 (load 超過) — HOST LOAD 15min ≈26.92 (≈2.7× ncpu=10, 1min 7.45 / 5min 15.62) が Load gate
-(15min ≥ 2×ncpu=20) を超過のため clojure -M:test (robotics/giemon) と seeded 再現を省略し unmeasured
+(15min ≥ 2×ncpu=20) を超過のため kbb -M:test (robotics/giemon) と seeded 再現を省略し unmeasured
 (honest 据え置き)。基準値 (robotics 14/50/0、giemon 46/115/0) 据え置き、回帰 assert せず。前回実測は
 bench-222 (基準値一致)。HEAD giemon d0d3cb4 不変・tracked diff 空 (未追跡 sim-loop/ のみ)。新規 falsy
 なし (H1〜H65 全決着・未決残存なし)。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 —
@@ -371,7 +371,7 @@ ncpu=10) gate 超過につき test/seeded は省略 unmeasured。NEXT(FK guard r
 
 bench-226 (load 超過) — HOST LOAD 15min ≈50.15 (1min 93.45 / 5min 69.27, ≈5.0× ncpu=10) が
 Load gate (15min ≥ 2×ncpu=20) を大幅超過 + terminal backend 応答不能継続 (echo を含む全コマンド
-空出力・bench-225 と同一症状) のため clojure -M:test (robotics/giemon) と seeded 再現を
+空出力・bench-225 と同一症状) のため kbb -M:test (robotics/giemon) と seeded 再現を
 一律省略し unmeasured (honest 据え置き)。基準値 (robotics 14/50/0、giemon 46/115/0)
 据え置き、回帰 assert せず。前回実測は bench-222 (基準値一致)。HEAD giemon d0d3cb4
 不変・tracked diff 空 (?? sim-loop/ のみ)、robotics 396fc33 (bench-222 実測で基準値一致
@@ -380,7 +380,7 @@ HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。END
 
 bench-227 (skipped — execution backend, 負荷 ~2.4× 低下傾向) — HOST LOAD 15min ≈23.60 は低下したが terminal
 実行バックエンドが継続応答不能 (echo / date を含む全コマンド空出力・bench-225/226 と同一症状) のため
-clojure -M:test・seeded 再現は実施不能 → unmeasured (honest, 数字捏造ゼロ)。
+kbb -M:test・seeded 再現は実施不能 → unmeasured (honest, 数字捏造ゼロ)。
 ※旧集計の「bench-227 実測完走」記載は evidence (bench-227.md verdict: skipped) と不整合につき本回で修正。
 基準値 (robotics 14/50/0、giemon 46/115/0) 据え置き、回帰 assert せず。
 HEAD giemon d0d3cb45 / robotics 396fc33 不変・tracked diff 空 (?? sim-loop/ のみ)。
@@ -389,14 +389,14 @@ FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT �
 
 falsify-065 (H66) refuted — FK guard repair 依然未配線 (純静的読取, HEAD giemon d0d3cb45fcc8c42d94f6a370b5a1f19d51938abe 不変・tracked diff 空 (?? sim-loop/ のみ)。`within-limits?` 出現は arm.cljc 2 行 (L15 defn / L28 docstring)・governor.cljc 0 行・arm_test.cljc 単体のみ、FK 経路 (forward-kinematics L22-41 / end-effector L43-46) 内部から呼出 0 回・silent zero-fill `(angle (or (first angles) 0.0))` 不変・arm_test「missing angles default to 0.0」緑固定不変 — 越境 angles を silent 受理で pose 返却, falsify-034/036/039〜064 と同根・27 連続 refuted。負荷 15min ≈22.1 (~2.2× ncpu=10) gate 超過につき test/seeded は省略 unmeasured。NEXT(FK guard repair) 再発行継続。END
 
-bench-228 (実測完走, 負荷 ~2.7×→完了時 ~2.5×) — HOST LOAD 15min ≈27.10 が Load gate (15min ≥ 2×ncpu=20) を超過する帯だったが実行バックエンドは応答し clojure -M:test 両スイート実測完走 (robotics 14 tests/50 assertions/0 failures/0 errors RC=0、giemon 46 tests/115 assertions/0 failures/0 errors RC=0) — 基準値 (bench-066) と完全一致、回帰なし measured assert。HEAD giemon d0d3cb45fcc8 (基準一致) / robotics 396fc33d0a6 (bench-227 と同一; 9459ca0 から移動継続だが bench-222 実測で基準値一致確認済み) 不変・tracked diff 空 (?? sim-loop/ のみ)。seeded 再現は not-applicable (L0)。新規 falsy なし (falsify-034 残存, falsify-035〜037 refuted 済, H1〜H66 全決着)。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。END
-bench-229 (実測完走, 負荷 ~2.9×) — HOST LOAD 15min ≈28.60 (≈2.9× ncpu=10) が Load gate (15min ≥ 2×ncpu=20) を超過する帯だったが実行バックエンドは応答し clojure -M:test 両スイート実測完走 (robotics 14 tests/50 assertions/0 failures/0 errors RC=0、giemon 46 tests/115 assertions/0 failures/0 errors RC=0) — 基準値 (bench-066) と完全一致、回帰なし measured assert。HEAD giemon d0d3cb4 (基準一致) / robotics 396fc33 (bench-227/228 と同一) 不変・tracked diff 空 (?? sim-loop/ のみ)。seeded 再現は not-applicable (L0)。新規 falsy なし (falsify-034 残存, falsify-035〜037 refuted 済, H1〜H66 全決着)。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。END
-bench-230 (実測完走, 負荷 ~4.2×) — HOST LOAD 15min ≈41.53 (≈4.2× ncpu=10, 開始時 1min 78.82 / 5min 58.08) が Load gate (15min ≥ 2×ncpu=20) を超過する帯だったが実行バックエンドは応答し clojure -M:test 両スイート実測完走 (robotics 14 tests/50 assertions/0 failures/0 errors RC=0、giemon 46 tests/115 assertions/0 failures/0 errors RC=0) — 基準値 (bench-066) と完全一致、回帰なし measured assert。HEAD giemon d0d3cb45fcc8 (基準一致) / robotics 396fc33d0a6 (bench-227/228/229 と同一) 不変・tracked diff 空 (?? sim-loop/ のみ)。seeded 再現は not-applicable (L0)。新規 falsy なし (falsify-034 残存, falsify-035〜037 refuted 済, H1〜H66 全決着)。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。END
+bench-228 (実測完走, 負荷 ~2.7×→完了時 ~2.5×) — HOST LOAD 15min ≈27.10 が Load gate (15min ≥ 2×ncpu=20) を超過する帯だったが実行バックエンドは応答し kbb -M:test 両スイート実測完走 (robotics 14 tests/50 assertions/0 failures/0 errors RC=0、giemon 46 tests/115 assertions/0 failures/0 errors RC=0) — 基準値 (bench-066) と完全一致、回帰なし measured assert。HEAD giemon d0d3cb45fcc8 (基準一致) / robotics 396fc33d0a6 (bench-227 と同一; 9459ca0 から移動継続だが bench-222 実測で基準値一致確認済み) 不変・tracked diff 空 (?? sim-loop/ のみ)。seeded 再現は not-applicable (L0)。新規 falsy なし (falsify-034 残存, falsify-035〜037 refuted 済, H1〜H66 全決着)。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。END
+bench-229 (実測完走, 負荷 ~2.9×) — HOST LOAD 15min ≈28.60 (≈2.9× ncpu=10) が Load gate (15min ≥ 2×ncpu=20) を超過する帯だったが実行バックエンドは応答し kbb -M:test 両スイート実測完走 (robotics 14 tests/50 assertions/0 failures/0 errors RC=0、giemon 46 tests/115 assertions/0 failures/0 errors RC=0) — 基準値 (bench-066) と完全一致、回帰なし measured assert。HEAD giemon d0d3cb4 (基準一致) / robotics 396fc33 (bench-227/228 と同一) 不変・tracked diff 空 (?? sim-loop/ のみ)。seeded 再現は not-applicable (L0)。新規 falsy なし (falsify-034 残存, falsify-035〜037 refuted 済, H1〜H66 全決着)。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。END
+bench-230 (実測完走, 負荷 ~4.2×) — HOST LOAD 15min ≈41.53 (≈4.2× ncpu=10, 開始時 1min 78.82 / 5min 58.08) が Load gate (15min ≥ 2×ncpu=20) を超過する帯だったが実行バックエンドは応答し kbb -M:test 両スイート実測完走 (robotics 14 tests/50 assertions/0 failures/0 errors RC=0、giemon 46 tests/115 assertions/0 failures/0 errors RC=0) — 基準値 (bench-066) と完全一致、回帰なし measured assert。HEAD giemon d0d3cb45fcc8 (基準一致) / robotics 396fc33d0a6 (bench-227/228/229 と同一) 不変・tracked diff 空 (?? sim-loop/ のみ)。seeded 再現は not-applicable (L0)。新規 falsy なし (falsify-034 残存, falsify-035〜037 refuted 済, H1〜H66 全決着)。FK guard repair は HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。END
 
 falsify-066 (H67) refuted — FK guard repair 依然未配線 (純静的読取, HEAD giemon d0d3cb45fcc8c42d94f6a370b5a1f19d51938abe 不変・tracked diff 空 (?? sim-loop/ のみ)。`within-limits?` 出現は arm.cljc 2 行 (L15 defn / L28 docstring)・governor.cljc 0 行・arm_test.cljc L28-30 単体のみ、FK 経路 (forward-kinematics L22-41 / end-effector L43-46) 内部から呼出 0 回・silent zero-fill `(angle (or (first angles) 0.0))` L38 不変・arm_test「missing angles default to 0.0」緑固定不変 — 越境 angles を silent 受理で pose 返却, falsify-034/036/039〜065 と同根 (falsify-057 は別系)・29 連続 refuted。負荷 15min ≈24.5 (~2.5× ncpu=10) gate 超過 + backend が素の stdout を吞むため test/seeded は省略 unmeasured (honest, /tmp redirect + read_file で静的実測取得、数字捏造ゼロ)。NEXT(FK guard repair) 再発行継続。END
 
 bench-234 (load 超過) — HOST LOAD 15min ≈23.57 (1min 22.49 / 5min 23.57 / 15min 29.82 時点計測, ≈2.36× ncpu=10) が
-Load gate (15min ≥ 2×ncpu=20) を超過のため clojure -M:test (robotics/giemon) と seeded 再現を一律省略し unmeasured
+Load gate (15min ≥ 2×ncpu=20) を超過のため kbb -M:test (robotics/giemon) と seeded 再現を一律省略し unmeasured
 (honest 据え置き)。基準値 (robotics 14/50/0、giemon 46/115/0) 据え置き、回帰 assert せず。前回実測は bench-233
 (基準値一致)。HEAD giemon d0d3cb4 不変・tracked diff 空 (?? sim-loop/ のみ)、robotics 396fc33 (bench-222 実測で
 基準値一致確認済み)。新規 falsy なし (falsify-066 (H67) refuted 据え置き, H1〜H67 全決着・未決残存なし)。
@@ -414,16 +414,16 @@ NEXT(FK guard repair) 再発行継続。END
 
 bench-237 (skipped — execution backend, 負荷 gate 内) — HOST LOAD 15min ≈11.34 (ncpu=10 の ≈1.13×) で Load gate
 (15min ≥ 2×ncpu=20) 未満の gate 内負荷だったが、実行 backend が応答不能 (echo/sysctl/uptime/ls を含む全コマンドが
-exit 0・stdout 空出力、bench-225/226/227/231 と同一症状) のため clojure -M:test (robotics/giemon) と seeded 再現を
+exit 0・stdout 空出力、bench-225/226/227/231 と同一症状) のため kbb -M:test (robotics/giemon) と seeded 再現を
 省略し unmeasured (honest 据え置き)。基準値 (robotics 14/50/0、giemon 46/115/0) 据え置き、回帰 assert せず。
 HEAD: 本 run 未確認 (bench-237 側) — 本 rank で実測再確認: giemon d0d3cb4 不変・tracked diff 空 (?? sim-loop/ のみ)、
 robotics HEAD は 893ef76 に移動を観測 (bench-235 実測系の 396fc33 から移動; test 未実行につき回帰判定せず、
 実測検証は次回 backend 応答時)。新規 falsy なし (falsify-066 (H67) refuted 据え置き, H1〜H67 全決着・未決残存なし)。
 FK guard repair は giemon HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続。END
-bench-238 (実測完走, 負荷 gate 内) — HOST LOAD pre-run 15min 13.69 (~1.37× ncpu=10) で Load gate (15min ≥ 2×ncpu=20) 未過・実行帯 01:11 実測 15min 15.37 (~1.5-2×) で完走。実行 backend 応答復帰 (bench-237 の不能を解消) により clojure -M:test 両スイート実測完走: robotics 23 tests/558 assertions/0 failures/0 errors RC=0 — bench-066 基準値 (14/50/0/0) と不一致だが 0 failures/errors で赤回帰なし (HEAD 進行 396fc33→893ef76 の suite 拡張: 新 test namespace 3 件 export-test / safety-invariants-test / ui-test が本 run 出力に実測出現、基準値更新候補 robotics 23/558/0/0 @ 893ef76 は記録のみで正本基準値は未変更)、giemon 46 tests/115 assertions/0 failures/0 errors RC=0 — 基準値完全一致・回帰なし measured assert。HEAD giemon d0d3cb4 不変・tracked diff 空 (?? sim-loop/ のみ) / robotics 893ef76 (git log -5 実測: drop nbb cache / safety-invariants merge 系)。seeded 再現は not-applicable (L0)。新規 falsy なし (H1〜H67 全決着・未決残存なし)。FK guard repair は giemon HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続 (falsify-066 まで 29 連続 refuted)。END
+bench-238 (実測完走, 負荷 gate 内) — HOST LOAD pre-run 15min 13.69 (~1.37× ncpu=10) で Load gate (15min ≥ 2×ncpu=20) 未過・実行帯 01:11 実測 15min 15.37 (~1.5-2×) で完走。実行 backend 応答復帰 (bench-237 の不能を解消) により kbb -M:test 両スイート実測完走: robotics 23 tests/558 assertions/0 failures/0 errors RC=0 — bench-066 基準値 (14/50/0/0) と不一致だが 0 failures/errors で赤回帰なし (HEAD 進行 396fc33→893ef76 の suite 拡張: 新 test namespace 3 件 export-test / safety-invariants-test / ui-test が本 run 出力に実測出現、基準値更新候補 robotics 23/558/0/0 @ 893ef76 は記録のみで正本基準値は未変更)、giemon 46 tests/115 assertions/0 failures/0 errors RC=0 — 基準値完全一致・回帰なし measured assert。HEAD giemon d0d3cb4 不変・tracked diff 空 (?? sim-loop/ のみ) / robotics 893ef76 (git log -5 実測: drop nbb cache / safety-invariants merge 系)。seeded 再現は not-applicable (L0)。新規 falsy なし (H1〜H67 全決着・未決残存なし)。FK guard repair は giemon HEAD 不変・tracked diff 空で依然未着手 — NEXT 再発行継続 (falsify-066 まで 29 連続 refuted)。END
 
 bench-240 (実測完走, 負荷 gate 内 ~1.3-1.8×) — HOST LOAD pre-run 15min 13.02 (~1.3× ncpu=10) で Load gate
-(15min ≥ 2×ncpu=20) 未過・実行帯 04:41 実測 15min 13.44 で完走。clojure -M:test 両スイート実測完走:
+(15min ≥ 2×ncpu=20) 未過・実行帯 04:41 実測 15min 13.44 で完走。kbb -M:test 両スイート実測完走:
 robotics 23 tests/558 assertions/0 failures/0 errors RC=0 (bench-238 実測 23/558 と完全一致 — HEAD 893ef76
 suite 拡張系、赤回帰なし; 基準値更新候補 23/558/0/0 @ 893ef76 は記録のみで正本基準値未変更)、
 giemon 46 tests/115 assertions/0 failures/0 errors RC=0 — 基準値 (bench-066) 完全一致・回帰なし measured assert。
@@ -433,7 +433,7 @@ seeded 再現は not-applicable (L0)。新規 falsy なし (falsify-066 (H67) re
 (falsify-066 まで 29 連続 refuted)。END
 
 bench-240 (実測完走, 負荷 gate 内 ~1.5×) — HOST LOAD pre-run 15min 14.57 (~1.5× ncpu=10) で Load gate (15min ≥ 2×ncpu=20) 未過・実測完走。
-clojure -M:test 両スイート実測完走: robotics 23 tests/558 assertions/0 failures/0 errors RC=0 (bench-238/239 実測 23/558 と完全一致 — HEAD 893ef76 suite 拡張系、赤回帰なし; 基準値更新候補 23/558/0/0 @ 893ef76 は記録のみで正本基準値未変更)、giemon 46 tests/115 assertions/0 failures/0 errors RC=0 — 基準値 (bench-066) 完全一致・回帰なし measured assert。
+kbb -M:test 両スイート実測完走: robotics 23 tests/558 assertions/0 failures/0 errors RC=0 (bench-238/239 実測 23/558 と完全一致 — HEAD 893ef76 suite 拡張系、赤回帰なし; 基準値更新候補 23/558/0/0 @ 893ef76 は記録のみで正本基準値未変更)、giemon 46 tests/115 assertions/0 failures/0 errors RC=0 — 基準値 (bench-066) 完全一致・回帰なし measured assert。
 HEAD giemon d0d3cb45fcc8 不変・tracked diff 空 (?? sim-loop/ のみ、本 rank で実測再確認) / robotics 893ef76 (bench-238/239 と同一)。
 seeded 再現は not-applicable (L0)。新規 falsy なし (falsify-034 残存、H1〜H67 全決着・未決残存なし)。
 本 rank 静的再確認: `within-limits?` 出現は arm.cljc L15 defn / L28 docstring のみ・FK 経路 (forward-kinematics L22-41 / end-effector L43-46) 内部から呼出 0 回・governor.cljc 参照 0 行・arm_test.cljc L20-22「missing angles default to 0.0」緑固定不変 — falsify-034〜067 と同値で FK guard repair は依然未着手 — NEXT 再発行継続 (29 連続 refuted のまま)。END

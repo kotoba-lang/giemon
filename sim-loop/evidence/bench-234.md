@@ -7,7 +7,7 @@ unmeasured — HOST LOAD 超過のため test スイート・seeded 再現を sk
 ## HOST LOAD (計測時点)
 `22:05, up 4 days, 14:48, load averages: 22.49 23.57 29.82`
 ncpu = 10 → 15-min load 23.57 ≈ 2.36x ncpu。skill のゲート (~2x) を超過。
-重い `clojure -M:test` 実行は省略した。
+重い `kbb -M:test` 実行は省略した。
 
 ## Test numbers
 not measured this run (load gate)。
@@ -27,5 +27,5 @@ falsify-034 残存なし (maturity.md 正本どおり、変更なし)。
 
 ## Reproduction command
 `uptime` (load 確認) → load 2.36x ncpu で skip。
-次回は負荷が下がった段階で `cd orgs/kotoba-lang/robotics && clojure -M:test` と
-`cd orgs/kotoba-lang/giemon && clojure -M:test` を実行し基準値 14/50/0・46/115/0 と比較。
+次回は負荷が下がった段階で `cd orgs/kotoba-lang/robotics && kbb -M:test` と
+`cd orgs/kotoba-lang/giemon && kbb -M:test` を実行し基準値 14/50/0・46/115/0 と比較。

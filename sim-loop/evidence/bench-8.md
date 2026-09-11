@@ -2,7 +2,7 @@
 
 日時決定記録なし (タイムスタンプなし・決定的記録)。
 
-## テスト実行 (`clojure -M:test`)
+## テスト実行 (`kbb -M:test`)
 
 | repo | tests | assertions | failures | errors |
 |---|---|---|---|---|
@@ -29,6 +29,6 @@ load average 約 17-22 (コア 10) — 高負荷。重い追加実験は skipped
 ## 再現コマンド
 
 ```
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon && kbb -M:test
 ```

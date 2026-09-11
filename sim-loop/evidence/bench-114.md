@@ -9,7 +9,7 @@ tests: robotics 14/50/0、giemon 46/115/0 (両者 exit 0)。
 - HOST LOAD: 実行後 (0:48) 8.17 / 9.91 /  ̂10.32 (15min = ncpu=10 の 約 1.0×) — 負荷は ~2× gate 未満、suite 実測は完走。
 - 実行バックエンド: terminal 直接 stdout は空のまま (echo 空出力)、だが `/tmp` write + read_file workaround は成立。execute_code は cron mode  で BLOCKED。
 
-##テスト (clojure -M:test 実測、/tmp redirect + read_file、cwd スクリプト内 cd 固定)
+##テスト (kbb -M:test 実測、/tmp redirect + read_file、cwd スクリプト内 cd 固定)
 - **kotoba-lang/robotics**: `Ran 14 tests containing  ̂50 assertions. 0 failures,,  ̂0 errors.` exit rc=0 (HEAD 9459ca0)
 - **kotoba-lang/giemon**: `Ran  ̂46 tests containing  ̂115 assertions.  ̂0 failures,0  errors.` exit rc=0 (HEAD d0d3cb4,
 
@@ -25,5 +25,5 @@ tests: robotics 14/50/0、giemon 46/115/0 (両者 exit 0)。
 新規 falsify はなし。falsify-034 (H35: FK angle-count guard repair 実装済みか) は git diff 空 (追跡変更なし)・code 無変更のため残存なしのまま。本 walk は新規 H の判定なし (新仮説なし)。
 
 ##再現コマンド
-- 実行: `/tmp/run_b114.sh` (cwd をスクリプト内 `cd` で固定): `clojure -M:test` (robotics →  ̂14/50/0 rc=0; giemon →  ̂46/115/0 rc=0)
+- 実行: `/tmp/run_b114.sh` (cwd をスクリプト内 `cd` で固定): `kbb -M:test` (robotics →  ̂14/50/0 rc=0; giemon →  ̂46/115/0 rc=0)
 - seeded 再現: 対象なし (sim-loop L0、学習ジョブ未実装)。未実行。

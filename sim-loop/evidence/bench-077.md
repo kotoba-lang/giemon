@@ -7,7 +7,7 @@
 - 実行バックエンド状態: terminal が空出力 (uptime/date 空、exit 0)、search_files が
   "could not stat" — read_file のみ応答。bench-069〜076 と同型の応答不能条件。
 
-## テストスイート (kotoba-lang/robotics + kotoba-lang/giemon: clojure -M:test)
+## テストスイート (kotoba-lang/robotics + kotoba-lang/giemon: kbb -M:test)
 
 - 結果: **skipped (load + backend unresponsive)**
 - テスト数 / assertion 数 / failures: 計測せず（未実行数字を捏造しない）

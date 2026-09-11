@@ -42,7 +42,7 @@ URDF と数値完全一致。joints (falsify-2) + links (本件) で **joint 6 /
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e "(require '[clojure.edn]) \
+kbb -M -e "(require '[clojure.edn]) \
   (def m (first (clojure.edn/read-string (slurp \"fixtures/giemon_arm6/giemon_arm6.edn\")))) \
   (def inner (clojure.edn/read-string (:arm/chain m))) \
   (prn (:arm/base m)) (doseq [j inner] (prn (:joint/child j) (get-in j [:child/link :link/inertial])))"

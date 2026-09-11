@@ -10,7 +10,7 @@
   テスト 2 件と学習ジョブ存在確認 (grep/ls) のみ。重い実験は skipped (load) ではないが
   seeded 再現が対象不在のため not-run (下記)。
 
-## テスト実行 (clojure -M:test)
+## テスト実行 (kbb -M:test)
 
 - robotics: **実行済み** — `Ran 14 tests containing 50 assertions. 0 failures, 0 errors.`
 - giemon: **実行済み** — `Ran 46 tests containing 115 assertions. 0 failures, 0 errors.`
@@ -37,8 +37,8 @@
 
 ```
 uptime
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon  && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon  && kbb -M:test
 ls orgs/kotoba-lang/giemon/src/kotoba/giemon/   # seeded 学習ジョブ不在の確認
 ```
 

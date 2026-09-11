@@ -4,7 +4,7 @@
 filesystem sandbox が stat 不能 (search_files が `kotoba-lang` 自体を stat 不可と報告)。
 前回 bench-077〜083 と同一の "terminal 空出力 exit 0 / sandbox stat 不能" 応答不能条件。
 
-実行: `clojure -M:test` (robotics / giemon)、seeded 再現 (L1以降) とも **skipped**。
+実行: `kbb -M:test` (robotics / giemon)、seeded 再現 (L1以降) とも **skipped**。
 バックエンドが戻らない (全ツールが空/ stat 不可) ため実測不能。誇張なし。
 
 - test スイート: skipped (backend unavailable)

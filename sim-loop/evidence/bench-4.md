@@ -8,7 +8,7 @@
   低下傾向 (1min 13.25 はコア数の約 1.3 倍)。bench-3 の指示「次回は負荷が許せば必ず
   テストを実行して 4 連続 skip を避けること」に従いテストを実行した。
 
-## テスト実行 (clojure -M:test)
+## テスト実行 (kbb -M:test)
 
 - robotics: **実行済み** — `Ran 14 tests containing 50 assertions. 0 failures, 0 errors.`
 - giemon: **実行済み** — `Ran 46 tests containing 115 assertions. 0 failures, 0 errors.`
@@ -30,8 +30,8 @@
 
 ```
 uptime
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon  && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon  && kbb -M:test
 ```
 
 (本記録では上記 2 つの clojure コマンドを実行済み。出力は「テスト実行」節に記載。)

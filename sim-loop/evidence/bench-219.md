@@ -2,7 +2,7 @@
 
 ## Load gate
 uptime 15-min load 111.03–111.39, hw.ncpu = 10 → ~11x ncpu。負荷ゲート (~2x) を大幅超過。
-→ clojure -M:test (robotics/giemon 両方) と seeded 再現実行は省略: skipped (load)。
+→ kbb -M:test (robotics/giemon 両方) と seeded 再現実行は省略: skipped (load)。
 
 ## Test suites
 - robotics: skipped (load) — unmeasured
@@ -26,8 +26,8 @@ falsify-034 (FK guard repair 未実装) 残存。falsify-060〜062 まで記録�
 ## Reproduction commands
 ```
 uptime                      # 10:39, load averages: 113.92 120.88 111.03; sysctl -n hw.ncpu → 10
-cd orgs/kotoba-lang/robotics && clojure -M:test   # skipped (load)
-cd orgs/kotoba-lang/giemon && clojure -M:test     # skipped (load)
+cd orgs/kotoba-lang/robotics && kbb -M:test   # skipped (load)
+cd orgs/kotoba-lang/giemon && kbb -M:test     # skipped (load)
 ```
 
 コード変更: 無し。

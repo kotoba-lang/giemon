@@ -16,7 +16,7 @@ probe: probe_gate_permit_surface.py (新規・実測 probe)。
 kotoba.robotics の gate / action-permitted? を直接列挙し、
 返却レコードの key 集合・文字列内容・boolean を 2 回実行で照合。
 
-結果 (clojure -M -e、exit 0):
+結果 (kbb -M -e、exit 0):
 - A gate 返却レコード (5 payload バリアント: clean / tau 1e6 / tau -1e6 /
   str "1e6" / effort 1e6): すべて `#:gate{:decision :permit, :action "pA"}` —
   key 集合は [:gate/action :gate/decision] で全バリアント同一
@@ -54,8 +54,8 @@ payload を検査する消費者はそもそも存在しない。
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 python3 sim-loop/evidence/probe_gate_permit_surface.py > /tmp/h17.clj
-clojure -M -e "$(cat /tmp/h17.clj)" > /tmp/h17.txt 2>&1
-clojure -M -e "$(cat /tmp/h17.clj)" > /tmp/h17b.txt 2>&1
+kbb -M -e "$(cat /tmp/h17.clj)" > /tmp/h17.txt 2>&1
+kbb -M -e "$(cat /tmp/h17.clj)" > /tmp/h17b.txt 2>&1
 diff /tmp/h17.txt /tmp/h17b.txt   # clojure 出力本体 0 行差 (決定的)
 ```
 

@@ -5,14 +5,14 @@
 受理 (permit / 正常 return) される — falsify-010 の「未接続の検査層」赤の
 入力空間追加測定 (maturity.md NEXT (c))。
 
-測定のみ。コード修正なし。clojure -M -e で kotoba.robotics /
+測定のみ。コード修正なし。kbb -M -e で kotoba.robotics /
 kotoba.giemon.arm / kotoba.giemon.governor を require し列挙する。
 
 再現:
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
   python3 sim-loop/evidence/probe_joint_payload_reception.py > /tmp/h13.clj
-  clojure -M -e "$(cat /tmp/h13.clj)" > /tmp/h13.txt 2>&1
-  clojure -M -e "$(cat /tmp/h13.clj)" > /tmp/h13b.txt 2>&1
+  kbb -M -e "$(cat /tmp/h13.clj)" > /tmp/h13.txt 2>&1
+  kbb -M -e "$(cat /tmp/h13.clj)" > /tmp/h13b.txt 2>&1
   cmp /tmp/h13.txt /tmp/h13b.txt   # exit 0 (決定的)
 """
 CLOJURE = r'''

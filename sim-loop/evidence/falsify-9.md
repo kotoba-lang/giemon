@@ -14,7 +14,7 @@ product の設定 posture (:caterpillar=:high) に対する再検査が存在し
 ## 実測
 
 コード: `src/kotoba/giemon/governor.cljk` (L53-60) + `../robotics/src/kotoba/robotics.cljc` gate。
-実行: `clojure -M -e ...` (giemon deps.edn、git sha pinned robotics 1d1f93e3)。
+実行: `kbb -M -e ...` (giemon deps.edn、git sha pinned robotics 1d1f93e3)。
 
 ```
 (def gate-set #{:low :medium})
@@ -50,7 +50,7 @@ product の設定 posture を黙示的に上書きできる迂回路として機
 
 ```
 cd orgs/kotoba-lang/giemon
-clojure -M -e '(require (quote [kotoba.giemon.governor :as gov]) (quote [kotoba.robotics :as rob]))
+kbb -M -e '(require (quote [kotoba.giemon.governor :as gov]) (quote [kotoba.robotics :as rob]))
 (def a (gov/ops-action "op-1" "op-m-1" :caterpillar :actuate :safety :low :params {:spray "chemical"}))
 (prn (rob/gate a #{:low :medium}))'
 ;; => {:gate/decision :permit, :gate/action "op-1"}

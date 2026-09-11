@@ -1,6 +1,6 @@
 # bench-191 — measured
 
-判定: **measured** (clojure -M:test 実測完走。HOST LOAD は 15-min ≈ 2.4× と上昇傾向だったが、両スイートとも短時間で応答し、基準値 (bench-066 確定) と完全一致 → 回帰なし)
+判定: **measured** (kbb -M:test 実測完走。HOST LOAD は 15-min ≈ 2.4× と上昇傾向だったが、両スイートとも短時間で応答し、基準値 (bench-066 確定) と完全一致 → 回帰なし)
 
 ## 環境
 - HOST LOAD: 実行完了時 15-min ≈ 23.62 / 5-min ≈ 25.36 / 1-min ≈ 28.41 (hw.ncpu = 10 → 15-min ≈ 2.4×)
@@ -27,8 +27,8 @@
 - falsify-034/035/036/037 (H35〜H38) は既決済み (refuted)。新規 falsify なし (maturity NEXT = none)。これまでの falsify 状況に変化なし。
 
 ## 再現コマンド
-- `cd .../kotoba-lang/robotics && clojure -M:test` → robotics 14/50/0 (今回 RC=0)
-- `cd .../kotoba-lang/giemon && clojure -M:test` → giemon 46/115/0 (今回 RC=0)
+- `cd .../kotoba-lang/robotics && kbb -M:test` → robotics 14/50/0 (今回 RC=0)
+- `cd .../kotoba-lang/giemon && kbb -M:test` → giemon 46/115/0 (今回 RC=0)
 
 ## 備考
 - 実行完了時点で 15-min 23.62 (2.4×)、5-min 25.36、1-min 28.41 と上昇中。負荷帯は bench-190 (実行時 2.9× 下降中) よりやや高いが、deps が warm で両スイートとも短時間 (合計 ~20s 以内) で完走したため実測。

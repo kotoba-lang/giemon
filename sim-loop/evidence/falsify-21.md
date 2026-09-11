@@ -21,7 +21,7 @@ falsify-6/10/11 は nil-BOM / 件数不一致 / 非有限の面を潰した。�
 ## 実測
 
 コード: `src/kotoba/giemon/arm.cljk` (chain-actuators L43-56, bom L60-84,
-torque-headroom L86-106)。実行: `clojure -M /tmp/f21.clj`
+torque-headroom L86-106)。実行: `kbb -M /tmp/f21.clj`
 (同名 "j1" × 2 joint: joint1 effort 5.0 + actuator A-weak cont 3.0、
 joint2 effort 10.0 + actuator B-strong cont 12.0)。
 
@@ -61,7 +61,7 @@ joint2 effort 10.0 + actuator B-strong cont 12.0)。
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(require (quote [kotoba.giemon.arm :as arm]))
+kbb -M -e '(require (quote [kotoba.giemon.arm :as arm]))
 (def spec {:arm/chain
            [{:joint/name "j1" :joint/limit {:effort 5.0}
              :joint/actuator {:model "A-weak" :cont-nm 3.0 :peak-nm 6.0}}

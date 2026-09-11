@@ -8,7 +8,7 @@ gate/:permit を列挙する。torque が 1 件でも :deny 理由になるな�
 
 再現:
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-  clojure -M -e "$(cat sim-loop/evidence/probe_gate_torque_grid.clj)" > /tmp/g12.txt 2>&1
+  kbb -M -e "$(cat sim-loop/evidence/probe_gate_torque_grid.clj)" > /tmp/g12.txt 2>&1
 """
 # --- embedded clojure script (single -M -e body) ---
 CLOJURE = r'''

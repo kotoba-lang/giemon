@@ -1,6 +1,6 @@
 # bench-35 (2026-09-04 22:08 JST)
 
-## テスト実行 (`clojure -M:test`)
+## テスト実行 (`kbb -M:test`)
 
 | org | tests | assertions | failures | errors |
 |---|---|---|---|---|
@@ -26,7 +26,7 @@
 ## 再現コマンド
 
 ```
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon && kbb -M:test
 grep -rl seed src   # giemon (対象確認)
 ```

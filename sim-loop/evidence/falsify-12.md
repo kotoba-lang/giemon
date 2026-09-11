@@ -19,7 +19,7 @@ falsify-9 は facade の caller 指定 `:safety :low` 迂回を実測した。�
 
 コード: `../robotics/src/kotoba/robotics.cljc` (action L60-71 / gate L120-129 /
 action-permitted? L131-142) + `src/kotoba/giemon/governor.cljk` facade (L29-33, L54-58)。
-実行: `clojure -M -e ...` (giemon deps.edn、pinned robotics)。
+実行: `kbb -M -e ...` (giemon deps.edn、pinned robotics)。
 
 ```
 --- rob/action 直: :actuate :none は例外なく合法レコード
@@ -77,7 +77,7 @@ giemon facade 修理 (actuating kind への `:none` 指定を例外化) まで�
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(require (quote [kotoba.robotics :as rob]) (quote [kotoba.giemon.governor :as gov]))
+kbb -M -e '(require (quote [kotoba.robotics :as rob]) (quote [kotoba.giemon.governor :as gov]))
 (def a (rob/action "op-x" "op-m-1" :actuate :none :params {:spray "chemical"}))
 (prn (rob/gate a #{:none :low :medium}))
 (prn (rob/gate (gov/ops-action "op-z" "op-m-1" :caterpillar :actuate :safety :none :params {:spray "chemical"}) #{:none :low :medium}))'

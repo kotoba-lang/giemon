@@ -1,6 +1,6 @@
 # bench-188 — unmeasured (load)
 
-判定: **unmeasured** (HOST LOAD が 15-min ≈ 3.8× ncpu の非応答域。重い clojure -M:test 実行と seeded 再現を一律 skipped。回帰は assert せず、基準値据え置きで honest。)
+判定: **unmeasured** (HOST LOAD が 15-min ≈ 3.8× ncpu の非応答域。重い kbb -M:test 実行と seeded 再現を一律 skipped。回帰は assert せず、基準値据え置きで honest。)
 
 ## 環境
 - HOST LOAD: 15-min ≈ 38.16 / 5-min ≈ 51.64 / 1-min ≈ 59.51 (hw.ncpu = 10 → 15-min ≈ 3.8×)
@@ -27,7 +27,7 @@
 - falsify-034/035/036/037 (H35〜H38) は既決済み (refuted)。新規 falsify なし (maturity NEXT = none)。
 
 ## 再現コマンド
-- (skipped — load)。復旧時: `cd .../kotoba-lang/robotics && clojure -M:test` → 期待 14/50/0、`cd .../kotoba-lang/giemon && clojure -M:test` → 期待 46/115/0
+- (skipped — load)。復旧時: `cd .../kotoba-lang/robotics && kbb -M:test` → 期待 14/50/0、`cd .../kotoba-lang/giemon && kbb -M:test` → 期待 46/115/0
 
 ## 備考
 - 基準値は bench-066 確定 (robotics 14/50/0、giemon 46/115/0)。bench-187 は実測完走 (2.7×) だったが、bench-188 は 3.8× 上昇帯で非応答域のため skip。

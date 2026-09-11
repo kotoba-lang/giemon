@@ -36,7 +36,7 @@ fixture も未修理のままドリフトなし。falsify-1 (refuted) は引き�
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 grep -c '\\"j1\\"' fixtures/giemon_arm6/giemon_arm6.edn   # => 1 (未修理)
-clojure -M -e "(require '[clojure.edn]) \
+kbb -M -e "(require '[clojure.edn]) \
   (def m (first (clojure.edn/read-string (slurp \"fixtures/giemon_arm6/giemon_arm6.edn\")))) \
   (def chain (clojure.edn/read-string (:arm/chain m))) \
   (prn (count (filter #(contains? % :joint/name) chain)))  ; => 6 \

@@ -9,7 +9,7 @@
 - 実行バックエンド (terminal / search / sandbox stat): 応答不能
   - `terminal` が空出力 (exit 0) を返し、`search_files` が evidence ディレクトリを stat 不能
   - read_file も status/maturity.md を解決不能
-- このため `clojure -M:test` (robotics / giemon) と seeded 再現実行のいずれも実行不可
+- このため `kbb -M:test` (robotics / giemon) と seeded 再現実行のいずれも実行不可
 
 ## 判定 (7 軸, ADR-2608052000)
 - テスト健全性: **unmeasured** — 実行不能のため回帰 assert せず (honest 維持)
@@ -21,7 +21,7 @@
 - kotoba-lang/giemon: 46 test / 115 assertion / 0 failure
 
 ## 再現コマンド (未実行)
-- `clojure -M:test` (robotics, giemon)
+- `kbb -M:test` (robotics, giemon)
 - seeded 再現: 同一 seed 2 回実行 → 結果一致検査
 
 ## 備考

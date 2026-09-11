@@ -5,7 +5,7 @@
 
 ## テスト実行
 
-コマンド: `clojure -M:test` (各 repo で実行)
+コマンド: `kbb -M:test` (各 repo で実行)
 
 | repo | tests | assertions | failures | errors |
 |---|---|---|---|---|
@@ -23,8 +23,8 @@
 ## 再現コマンド
 
 ```
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon   && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon   && kbb -M:test
 ```
 
 verdict: 回帰なし / 再現実行 not-run (対象不在) / 重い実験 skipped (load)

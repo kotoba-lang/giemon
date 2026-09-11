@@ -14,7 +14,7 @@
 
 
 
-- test スイート実測完走 ( `clojure -M:test` ):
+- test スイート実測完走 ( `kbb -M:test` ):
   - **robotics**: Ran 14 tests、50 assertions、0 failures、0 errors、exit RC=0 — 基準値 14/50/0 と完全一致;
   - **giemon**: Ran 46 tests、115 assertions、0 failures、0 errors、exit RC=0 — 基準値 46/115/0 と完全一致;
 
@@ -24,4 +24,4 @@
 
 - 回帰 assert: **なし** ( measured) — 基準値 ( bench-066 確定 / bench-129 最新実測) と完全一致、回帰なし。新規 falsy なし ( H25～H41 全決着・未決残存なし、code 無変更で新仮説判定なし)。verdict: measured / no regression
 
-再現コマンド: `clojure -M:test` ( robotics + giemon) — 両者 exit RC=0 で完走。seeded 再現は L0 で N/A。
+再現コマンド: `kbb -M:test` ( robotics + giemon) — 両者 exit RC=0 で完走。seeded 再現は L0 で N/A。
