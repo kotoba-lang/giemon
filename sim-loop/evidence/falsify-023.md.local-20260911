@@ -1,0 +1,19 @@
+# falsify-023 — H25: `within-limits?` 唯一の RANGE 検証に src 実行経路が無い (= ジョイント角 RANGE 強制面の不在)
+
+- **仮説 (H25)**: `within-limits?` が唯一の RANGE 検証 (ジョイント角 lower/upper 検査) だとすると、その呼び出しを行う src 実行経路が存在しない。FK (`forward-kinematics`) の docstring は「limit は検査しない、`within-limits?` を先に呼べ」と明記するが、実装は FK に範囲検査を一切持たない = ジョイント角の範囲検査 (RANGE 強制面) が gate/surrogate/export のどの入力面にも pre-check として実装されていない。
+- **実測 (probe_within_limits_no_caller.clj、2 回実行 byte 一致 cmp_rc=0、実 fixture giemon_arm6 を reconstitute して arm/forward-kinematics へ直接注入)**:
+  - joint-count 6、control 角 = 全 joint limit 中央 (0.0)。
+  - **(a) 範囲外角 (各 joint upper+50 rad)**: FK は `:THROWS` 無しで 6 個の `:xf/pos` を返した (e.g. j1 = 53.0 rad ≫ upper 3.0 でも受理)。RANGE 検査なしで pose 生成。
+  - **(b) limit 丸ごと欠落 joint (j2 :joint/limit dissoc)**: FK は無検査で 6 個の `:xf/pos` を返した (limit 定義無しでも silent、例外なし)。RANGE 定義の欠落に無反応。
+  - **(c) 型混在 (string) 角 (j1 = "1.5")**: FK は `ClassCastException` LOUD (string→Number cast 失敗)。ただしこれは RANGE 検査起因ではなく `axis-angle->rot` の `Math/cos` 計算での型崩れ — 拒否はするが「仕様違反の拒否」ではなく「計算の故障」であり、範囲検査ではない。
+  - **(d) control (範囲内角)**: 6 個の `:xf/pos` を返した (正常)。
+  - **caller 不在の機械確定**: 全 src .cljc の `within-limits?` 参照を列挙したところ `arm.cljc` の **[15]** (定義行) と **[28]** (FK docstring) のみ。実行呼び出し (実引数を渡す参照) は src のどこにも無い。
+- **verdict: refuted** — 「`within-limits?` が唯一の RANGE 検証であるが、それが実際に呼ばれる実行経路が存在しない」が決定的に確認された。FK は範囲外角・limit 欠落 joint を無検査・無例外で受理する (false-pass ではなく「RANGE 検査なしで pose を返すだけ」)。`.cljc` の他に gate `kotoba.robotics` 経路や surrogate 経路にも角範囲 pre-check は無い (governor/ui/export は `within-limits?` に無参照)。現 fixture ではジョイント角は expect 入力の一部として FK に渡る経路が enum/export に無い (viewer は描画用) ため非発火だが、動作速度・軌道計画などが FK に角度列を渡す将来経路で RANGE 強制が静かに欠落する潜在赤。H23 (velocity 不在)・H24 (limit 欠落の false-reject conflate) と同型の「RANGE 強制面の不在」。コア側は導入判断 (FK に入力 pre-check を持たせるか / within-limits? を gate 面に接続するか) を要する。型混在角は LOUD (CCE) で false-pass にならない点は安全側。
+- **前提/境界**: 測定は `forward-kinematics` への直接注入 (純 FK 数値計算のみ、負荷非依存)。gate (kotoba.robotics) 側は `within-limits?` 無参照を .cljc grep で確認 — gate ライブラリ本体 (外部 git dep) への角検査の有無は本 probe の範囲外 (giemon src 側に入力面が無いことのみ確定)。
+
+## 再現手順
+```
+cd .../orgs/kotoba-lang/giemon
+clojure -M -e '(load-file "sim-loop/evidence/probe_within_limits_no_caller.clj")'
+# 出力が falsify-023_measured.txt と byte 一致 (2 回実行 cmp_rc=0 を確認)
+```
