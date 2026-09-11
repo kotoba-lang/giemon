@@ -17,7 +17,7 @@
 - clojure test、seeded 再現いずれも実行不能（実行数字を捏造せず skipped 記録）。
 
 ## 静的読取 (read_file のみ成立、負荷非依存・決定的)
-- `src/kotoba/giemon/arm.cljc` (full, 121 行) は bench-091 の内容と一致 (コード変化なし):
+- `src/kotoba/giemon/arm.cljk` (full, 121 行) は bench-091 の内容と一致 (コード変化なし):
   FK 22–41 loop 終端 `(empty? chain)` のみ (行 35)・行 38 `(or (first angles) 0.0)` は
   NaN (truthy) を 0.0 にせず isNaN/isInfinite/長さ assert 皆無、end-effector 43–46 は
   `last` のみ、within-limits? 15–20 は RANGE-only (`<=` 比較)、torque-headroom 95–113 /

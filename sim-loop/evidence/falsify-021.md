@@ -12,7 +12,7 @@ effort は torque-headroom / underrated-joints / bom で単一消費源として
 読まれないまま残る」別の安全面になっている可能性を測る。
 
 ## 実測
-probe: `sim-loop/evidence/probe_velocity_limit_consumption.clj`
+probe: `sim-loop/evidence/probe_velocity_limit_consumption.cljk`
 (実 fixture giemon_arm6.edn を reconstitute-arm で復元し、j2 の
 `:joint/limit` を 4 種 {velocity=3(実値) / velocity 欠落 / velocity="high"(型混在) /
 velocity=1000(範囲外)} に差し替え、全公開決定関数の出力を pr-str で byte 比較。
@@ -78,7 +78,7 @@ torque-headroom/bom/gate のどこにも読まれない (src 8 cljc 中 chassis 
 ## 再現手順
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(load-file "sim-loop/evidence/probe_velocity_limit_consumption.clj")'
+clojure -M -e '(load-file "sim-loop/evidence/probe_velocity_limit_consumption.cljk")'
 ```
 2 回実行し RUN マーカー正規化後の出力一致を確認済み (/tmp/v21a vs /tmp/v21b、
 probe 出力部 cmp exit 0)。

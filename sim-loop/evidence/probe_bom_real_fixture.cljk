@@ -1,6 +1,6 @@
 ;; falsify-018 probe part 3 (final) — real fixture, blob reconstitution the
 ;; same way arm_edn_test does it, then duplicate-name attack on j2.
-;; Usage: clojure -M -e '(load-file "sim-loop/evidence/probe_bom_real_fixture.clj")'
+;; Usage: clojure -M -e '(load-file "sim-loop/evidence/probe_bom_real_fixture.cljk")'
 (require '[kotoba.giemon.arm :as arm])
 (require '[clojure.edn :as edn]
          '[clojure.java.io :as io])

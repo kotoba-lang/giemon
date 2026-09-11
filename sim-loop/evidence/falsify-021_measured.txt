@@ -8,6 +8,6 @@ V3-absurd-1000=  {:within-edge true, :within-mid true, :fk-edge-pos [0.0 0.0 0.0
 V1-idx-vs-V0  =  true
 V2-idx-vs-V0  =  true
 V3-idx-vs-V0  =  true
-src-contains-velocity-non-chassis = {"src/kotoba/giemon.cljc" false, "src/kotoba/giemon/arm.cljc" false, "src/kotoba/giemon/chassis.cljc" true, "src/kotoba/giemon/export.cljc" false, "src/kotoba/giemon/governor.cljc" false, "src/kotoba/giemon/kinematics.cljc" false, "src/kotoba/giemon/ui.cljc" false, "src/kotoba/giemon/viewer.cljc" false}
+src-contains-velocity-non-chassis = {"src/kotoba/giemon.cljk" false, "src/kotoba/giemon/arm.cljk" false, "src/kotoba/giemon/chassis.cljk" true, "src/kotoba/giemon/export.cljk" false, "src/kotoba/giemon/governor.cljk" false, "src/kotoba/giemon/kinematics.cljk" false, "src/kotoba/giemon/ui.cljk" false, "src/kotoba/giemon/viewer.cljk" false}
 RUN0 falsify-021 probe end
 runB exit=0

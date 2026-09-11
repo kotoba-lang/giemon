@@ -21,7 +21,7 @@ width を一切検査していないのではないか:
 
 ## 実測
 
-コード: `src/kotoba/giemon/chassis.cljc` (track-speeds->twist L28-35,
+コード: `src/kotoba/giemon/chassis.cljk` (track-speeds->twist L28-35,
 twist->track-speeds L37-44)。実行: `clojure -M /tmp/f16.clj` (giemon deps.edn)。
 
 ```

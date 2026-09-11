@@ -13,18 +13,18 @@
     実行 backend 不要で完遂、load 超過/unmeasured の bench policy (bench-133～139) とは独立。
     なお本 cron sandbox の terminal backend が応答不能 (全 command 空出力、search_files は sandbox 起動待ち) のため、
     grep/git の代わりに **全対象ファイルを read_file で全文読取**して静的判定した (ripgrep と等価以上に決定的 — 全行可視)。
-  - `read src/kotoba/giemon/arm.cljc` (全文 121 行): `within-limits?` は **L15-20 定義**のみ。
+  - `read src/kotoba/giemon/arm.cljk` (全文 121 行): `within-limits?` は **L15-20 定義**のみ。
     `forward-kinematics` 本体 (L31-41) のループは `angle (or (first angles) 0.0)` (**L38 silent zero-fill**) のまま、
     `within-limits?` 呼出・クランプ・拒否・nil の配線は **なし** (L31-41 全行確認)。
     docstring L27-29 が自白「This is pure kinematics, not the safety gate: an angle outside a joint's declared
     limit still produces a pose. Check `within-limits?` first if that matters to the caller.」
     `end-effector` (L43-46) は FK を呼ぶのみで検査なし。`within-limits?` の参照は本ファイル内 **L15 (def) / L28 (doc)** の 2 箇所のみ。
-  - `read src/kotoba/giemon/governor.cljc` (全文 68 行): 全 6 関数 (kaigo-mission / kaigo-action / fall-detected-alert /
+  - `read src/kotoba/giemon/governor.cljk` (全文 68 行): 全 6 関数 (kaigo-mission / kaigo-action / fall-detected-alert /
     ops-mission / ops-action / chemical-dispense-alert) は kotoba.robotics gate の安全クラス分類専用で、
     arm / within-limits? / torque / joint limit への参照は **0** — arm limit/torque に無接続のまま。
-  - `read src/kotoba/giemon/kinematics.cljc` (全文 67 行): 純 3-D 変換数学 (v+/v-/v*s/dot/cross/norm/normalize/
+  - `read src/kotoba/giemon/kinematics.cljk` (全文 67 行): 純 3-D 変換数学 (v+/v-/v*s/dot/cross/norm/normalize/
     mat3-mul/axis-angle->rot/combine/joint-transform) のみ、`within-limits?` 参照なし。
-  - `read test/kotoba/giemon/arm_test.cljc` (全文 40 行): **L20-22 "missing angles default to 0.0"** 緑 assertion
+  - `read test/kotoba/giemon/arm_test.cljk` (全文 40 行): **L20-22 "missing angles default to 0.0"** 緑 assertion
     (`forward-kinematics [0.0 0.0]` == `forward-kinematics []`) が silent zero-fill を現行どおり緑固定。
     `within-limits-test` (L28-30) は `within-limits?` を **FK 経由でなく直接**呼ぶ単体テストのみ。
   - 上記 4 ファイルの内容・行番号はいずれも falsify-041 (H42) のスナップショットと **完全一致** → blob 不変、
@@ -38,10 +38,10 @@
 - 再現手順:
   ```sh
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-  read src/kotoba/giemon/arm.cljc          # → within-limits? は L15 定義のみ、FK L31-41 に呼出 0、L38 silent zero-fill
-  read test/kotoba/giemon/arm_test.cljc    # → L20-22 zero-fill 緑固定、L28-30 単体テスト (FK 経由でない)
-  read src/kotoba/giemon/governor.cljc     # → gate 安全クラス分類専用、arm/torque 参照 0
-  read src/kotoba/giemon/kinematics.cljc   # → 純 3-D 変換数学、within-limits? 参照なし
+  read src/kotoba/giemon/arm.cljk          # → within-limits? は L15 定義のみ、FK L31-41 に呼出 0、L38 silent zero-fill
+  read test/kotoba/giemon/arm_test.cljk    # → L20-22 zero-fill 緑固定、L28-30 単体テスト (FK 経由でない)
+  read src/kotoba/giemon/governor.cljk     # → gate 安全クラス分類専用、arm/torque 参照 0
+  read src/kotoba/giemon/kinematics.cljk   # → 純 3-D 変換数学、within-limits? 参照なし
   uptime                                   # → Load gate (15min ≥ 2×ncpu=20) 超過なら重い test 実行は省略 (bench policy)
   git rev-parse HEAD; git diff --stat      # → d0d3cb4 系列不変・tracked diff 空 (terminal 復旧時の確認命令)
   ```

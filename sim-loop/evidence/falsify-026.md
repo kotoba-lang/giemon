@@ -76,7 +76,7 @@ cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 #   sim-loop/evidence/falsify-023 (H25: within-limits? RANGE-only・caller 不在)
 #   sim-loop/evidence/falsify-024 (H26: FK loop 終端 (empty? chain) のみ・0.0 充填)
 #   sim-loop/evidence/falsify-025 (H27: end-effector last-only・他 consumer FK void)
-#   src/kotoba/giemon/arm.cljc 22–46, 95–121 (上記 face の実体)
+#   src/kotoba/giemon/arm.cljk 22–46, 95–121 (上記 face の実体)
 ```
 
 ## 補足

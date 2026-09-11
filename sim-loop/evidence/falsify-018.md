@@ -11,10 +11,10 @@ chain joint と actuator を joint 名で正しく対応づけ、joint 名の重
 
 ## 実測
 probe (実装は REPL 経由で読むだけ、コード修正なし):
-- `sim-loop/evidence/probe_bom_name_parity.clj` — 重複名 / override / 未知名
-- `sim-loop/evidence/probe_bom_nil_fields.clj` — nil / 型不一致
-- `sim-loop/evidence/probe_bom_real_fixture.clj` — 実 fixture (giemon_arm6) への重複名攻撃
-- `sim-loop/evidence/probe_bom_false_pass.clj` — false-pass 方向の実証
+- `sim-loop/evidence/probe_bom_name_parity.cljk` — 重複名 / override / 未知名
+- `sim-loop/evidence/probe_bom_nil_fields.cljk` — nil / 型不一致
+- `sim-loop/evidence/probe_bom_real_fixture.cljk` — 実 fixture (giemon_arm6) への重複名攻撃
+- `sim-loop/evidence/probe_bom_false_pass.cljk` — false-pass 方向の実証
 
 主要数字 (すべて clojure -M で kotoba.giemon.arm を直接実行):
 
@@ -80,10 +80,10 @@ joint が underrated-joints を空で通過する (false-pass、weak 単独な�
 ## 再現手順
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(load-file "sim-loop/evidence/probe_bom_name_parity.clj")'    # (a)-(d)
-clojure -M -e '(load-file "sim-loop/evidence/probe_bom_nil_fields.clj")'     # (d) 分離
-clojure -M -e '(load-file "sim-loop/evidence/probe_bom_real_fixture.clj")'   # (e)(f)
-clojure -M -e '(load-file "sim-loop/evidence/probe_bom_false_pass.clj")'     # (g)
+clojure -M -e '(load-file "sim-loop/evidence/probe_bom_name_parity.cljk")'    # (a)-(d)
+clojure -M -e '(load-file "sim-loop/evidence/probe_bom_nil_fields.cljk")'     # (d) 分離
+clojure -M -e '(load-file "sim-loop/evidence/probe_bom_real_fixture.cljk")'   # (e)(f)
+clojure -M -e '(load-file "sim-loop/evidence/probe_bom_false_pass.cljk")'     # (g)
 ```
 2 回実行して測定出力が一致することを確認済み (決定的)。
 

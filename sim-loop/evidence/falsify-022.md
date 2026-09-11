@@ -15,7 +15,7 @@ limit 欠落 / lower だけ欠落 / upper だけ欠落 / nil / 型混在 / 範�
 受理判定を誤らせるか否かを、input 空間列挙で決定的に測る。
 
 ## 実測
-probe: `sim-loop/evidence/probe_within_limits_missing.clj`
+probe: `sim-loop/evidence/probe_within_limits_missing.cljk`
 (kotoba.giemon.arm の公開述語 `within-limits?` を、実 fixture j2 相当の
 健全 limit {:lower -2.2 :upper 2.2 :effort 40 :velocity 3} を素にした
 9 変種 × 5 角 {-10.0 -2.2 0.0 2.2 10.0} で直接呼ぶ。実装は読むだけ)。
@@ -67,7 +67,7 @@ falsify-022: H24 refuted — within-limits? は欠落/nil/逆転 limit で
 ## 再現手順
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(load-file "sim-loop/evidence/probe_within_limits_missing.clj")'
+clojure -M -e '(load-file "sim-loop/evidence/probe_within_limits_missing.cljk")'
 ```
 2 回実行し出力 byte 一致を確認済み (/tmp/h24a vs /tmp/h24b、cmp exit 0)。
 測定値は `falsify-022_measured.txt` に保存。

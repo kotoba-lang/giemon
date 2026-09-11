@@ -7,7 +7,7 @@ angles が chain より短いとき `(or (first angles) 0.0)` でゼロ充填し
 `arm.cljc` の FK ループに存在しない」。
 
 ## 実測 (source-deterministic read; 純 Clojure・負荷非依存・決定的)
-測定点は `src/kotoba/giemon/arm.cljc` の `forward-kinematics` (行 22–41) を
+測定点は `src/kotoba/giemon/arm.cljk` の `forward-kinematics` (行 22–41) を
 行レベルで読む静的決定。FK は純関数 (I/O なし、状態なし: ns 冒頭コメント
 "Pure data in, pure data out") であり、loop の終端条件・角度消費の仕草は
 コードから完全に決定的に読み取れる:
@@ -84,7 +84,7 @@ cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 # 本 verdict は純 Clojure 純関数である FK (arm.cljc 22–41) の行レベル静的読取に
 # 完全根拠づけ (負荷非依存・決定的) — 実行せずとも loop 分岐構造から確定。
 # 実行可能環境回復後は以下で実測・2 回実行一致を確認できる:
-clojure -M -e '(load-file "sim-loop/evidence/probe_fk_length_mismatch.clj")'
+clojure -M -e '(load-file "sim-loop/evidence/probe_fk_length_mismatch.cljk")'
 ```
 
 ## 補足

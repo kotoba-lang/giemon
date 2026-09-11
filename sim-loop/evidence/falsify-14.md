@@ -21,8 +21,8 @@ falsify-5〜11 は torque 検査経路の fail-open を潰した。未反証の�
 
 ## 実測
 
-コード: `src/kotoba/giemon/kinematics.cljc` (normalize L22-27 /
-axis-angle->rot L42-50)、`src/kotoba/giemon/arm.cljc` (within-limits? L15-19 /
+コード: `src/kotoba/giemon/kinematics.cljk` (normalize L22-27 /
+axis-angle->rot L42-50)、`src/kotoba/giemon/arm.cljk` (within-limits? L15-19 /
 forward-kinematics L27-41 / end-effector L43-45)。
 実行: `clojure -M -e ...` (giemon deps.edn、2 段階 read の fixture — falsify-2/3 済)。
 

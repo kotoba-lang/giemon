@@ -20,7 +20,7 @@ falsify-11 で `:cont-nm` / `:effort` の `##NaN` が headroom に無音侵入�
 
 ## 実測
 
-コード: `src/kotoba/giemon/export.cljc` (`torque->json` L71-79 の直接補間、
+コード: `src/kotoba/giemon/export.cljk` (`torque->json` L71-79 の直接補間、
 `bom->json` L109-121 の `(or ... "null")`、CSV は `csv-cell` = `(str v)`)。
 実行: `clojure -M -e` (giemon deps.edn)、fixture は falsify-2〜5 確立の
 2 段階 read。`##NaN` は j3 の `:joint/actuator :cont-nm` に注入

@@ -9,9 +9,9 @@
   loud 化または期待値変更込みで書き換わっている)。
 - 実測 (静的読取 + 実行系 1 本。foreground stdout 応答不能のため `/tmp` redirect →
   read_file で回収、捏造なし):
-  - **静的**: `src/kotoba/giemon/arm.cljc` L38 `angle (or (first angles) 0.0)` —
+  - **静的**: `src/kotoba/giemon/arm.cljk` L38 `angle (or (first angles) 0.0)` —
     count/shape guard なし、不足 angle は silent zero-fill のまま。
-    `test/kotoba/giemon/arm_test.cljc` L20-22「missing angles default to 0.0」は
+    `test/kotoba/giemon/arm_test.cljk` L20-22「missing angles default to 0.0」は
     `(is (= (arm/forward-kinematics two-joint-arm [0.0 0.0])
             (arm/forward-kinematics two-joint-arm []))))` の緑零fill assertion が
     無変更で存続。git HEAD d0d3cb4 不変、tracked diff 空 (`git diff HEAD --stat` 空 /
@@ -30,8 +30,8 @@
 - 再現手順:
   ```sh
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-  sed -n '38p' src/kotoba/giemon/arm.cljc         # → `(or (first angles) 0.0)` (no guard)
-  sed -n '20,22p' test/kotoba/giemon/arm_test.cljc # → silent zero-fill equality 存続
+  sed -n '38p' src/kotoba/giemon/arm.cljk         # → `(or (first angles) 0.0)` (no guard)
+  sed -n '20,22p' test/kotoba/giemon/arm_test.cljk # → silent zero-fill equality 存続
   git diff HEAD --stat                            # → 空 (コアに変更なし)
   clojure -M:test -n kotoba.giemon.arm-test > /tmp/o.txt 2>&1; echo $?
   # (terminal foreground stdout 空 障害を回避して /tmp redirect → read_file で回収)

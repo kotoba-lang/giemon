@@ -59,8 +59,8 @@
   git status --short > /tmp/s && cat /tmp/s                  # ?? sim-loop/ のみ (tracked diff 空)
   grep -rn 'process\|spawn\|socket\|http\|Thread\|future\|sh/\|Runtime\|System/\|dispatch\|bang' src/   # → 実行呼出 0 (hit は doc/ラベルの物語文のみ)
   grep -rn 'drive\|actuat\|execute\|transmit\|publish\|send-\|emit!\|move!' src/    # → BOM 記述専用、実行駆動呼出 0
-  read src/kotoba/giemon/governor.cljc L16-68          # action 構築は全て rob/action 経由、gate 迂回なし
-  read src/kotoba/giemon.cljc L1-13                    # docstring「never drives hardware ... No network, no I/O」
+  read src/kotoba/giemon/governor.cljk L16-68          # action 構築は全て rob/action 経由、gate 迂回なし
+  read src/kotoba/giemon.cljk L1-13                    # docstring「never drives hardware ... No network, no I/O」
   ```
 
 - 検証内訳 (1 仮説・1 実測判定): 1 仮説 (H58「governor gate 迂回 shortcut 存在」) / 測定 1

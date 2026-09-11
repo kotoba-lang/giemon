@@ -3,7 +3,7 @@
 - 連続番号: 031
 - 日次: 260907
 - 仮説: NEXT 記載の FK 角度 count/shape guard (repair 候補) が、現行
-  `test/kotoba/giemon/arm_test.cljc` 20–22 の silent zero-fill 緑 assertion と
+  `test/kotoba/giemon/arm_test.cljk` 20–22 の silent zero-fill 緑 assertion と
   干渉することなく A/B 走行可能である (実行系観点)。
 - 実測: **測定不能 (skip)** — 実行バックエンド (terminal / search_files / sandbox stat)
   が応答不能かつ HOST LOAD 48.31 (1min) / 31.13 / 27.08 で集中計測回避。

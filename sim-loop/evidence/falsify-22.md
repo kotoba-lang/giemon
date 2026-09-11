@@ -21,7 +21,7 @@ IEEE 754 の下で:
 
 ## 実測
 
-コード: `src/kotoba/giemon/chassis.cljc` turning-radius L33-43, integrate-pose L48-59。
+コード: `src/kotoba/giemon/chassis.cljk` turning-radius L33-43, integrate-pose L48-59。
 実行: `clojure -M /tmp/f22.clj` + `clojure -M -e` REPL。
 
 ```

@@ -13,15 +13,15 @@
     空出力 (`echo hello` すら空、応答不能)・execute_code が cron モードで拒否のため重い test 実行は不能
     (falsify-045 と同一条件)。判定は falsify-045 と同一の純静的読取手法で決着。テスト計数は unmeasured
     (honest 据え置き、数字捏造ゼロ)。
-  - `read src/kotoba/giemon/arm.cljc` (121 行、byte 不変): `within-limits?` は **L15-20 定義**のみ (lower/upper 比較)。
+  - `read src/kotoba/giemon/arm.cljk` (121 行、byte 不変): `within-limits?` は **L15-20 定義**のみ (lower/upper 比較)。
     `forward-kinematics` (L22-41) ループは `angle (or (first angles) 0.0)` (**L38 silent zero-fill**) のまま、
     ループ内に `within-limits?` 呼出・クランプ・拒否・nil 配線 **0 箇所**。docstring L27-29 自白
     「This is pure kinematics, not the safety gate … an angle outside a joint's declared limit still produces
     a pose. Check `within-limits?` first」。`end-effector` (L43-46) は FK を呼ぶのみ。
-  - `read test/kotoba/giemon/arm_test.cljc` (40 行): L20-22 "missing angles default to 0.0" 緑 assertion
+  - `read test/kotoba/giemon/arm_test.cljk` (40 行): L20-22 "missing angles default to 0.0" 緑 assertion
     (`forward-kinematics two-joint-arm [0.0 0.0]` == `forward-kinematics two-joint-arm []`) で silent zero-fill
     を緑固定。`within-limits-test` (L28-30) は FK 経由でなく直接呼ぶ単体のみ。
-  - `read src/kotoba/giemon/governor.cljc` (68 行): 全関数は rob/mission・rob/action・rob/gate の安全クラス
+  - `read src/kotoba/giemon/governor.cljk` (68 行): 全関数は rob/mission・rob/action・rob/gate の安全クラス
     分類専用 — within-limits? / :joint/limit / torque / arm 力学参照 **0**、arm limit/torque 無接続のまま
     (no LLM-to-actuator shortcut 未成立のまま)。
   - `read .git/HEAD` (直読) = **d0d3cb45fcc8c42d94f6a370b5a1f19d51938abe** (falsify-043/044/045 と同一、不変)。
@@ -36,9 +36,9 @@
   ```sh
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
   grep -rn "within-limits?" src/            # L15 def / L28 doc のみ、FK 経路 caller 0
-  read src/kotoba/giemon/arm.cljc           # within-limits? L15 定義のみ、FK L31-41 呼出 0、L38 silent zero-fill
-  read test/kotoba/giemon/arm_test.cljc     # L20-22 zero-fill 緑固定、L28-30 単体テスト (FK 経由でない)
-  read src/kotoba/giemon/governor.cljc      # gate 安全クラス分類専用、arm/torque 参照 0
+  read src/kotoba/giemon/arm.cljk           # within-limits? L15 定義のみ、FK L31-41 呼出 0、L38 silent zero-fill
+  read test/kotoba/giemon/arm_test.cljk     # L20-22 zero-fill 緑固定、L28-30 単体テスト (FK 経由でない)
+  read src/kotoba/giemon/governor.cljk      # gate 安全クラス分類専用、arm/torque 参照 0
   cat .git/HEAD                             # d0d3cb45fcc8c42d94f6a370b5a1f19d51938abe 不変
   uptime                                    # 本 run 15min 13.18 < 2×ncpu=20 (gate 内) だが backend 応答不能で実行不能
   ```

@@ -9,11 +9,11 @@
   期待値変更込みで書き換わっている)。
 - 実測 (純静的読取、実行 backend 応答不能のため REPL は走らせずファイル行読取 —
   捏造なし):
-  - `src/kotoba/giemon/arm.cljc` L30-41 (`forward-kinematics`):
+  - `src/kotoba/giemon/arm.cljk` L30-41 (`forward-kinematics`):
     - guard なし。L38 `angle (or (first angles) 0.0)` — 不足 angle は silent
       zero-fill のまま。`(= (count angles) (joint-count))` 等の count 照合も
       throw も存在しない。
-  - `test/kotoba/giemon/arm_test.cljc` L20-22:
+  - `test/kotoba/giemon/arm_test.cljk` L20-22:
     - 「missing angles default to 0.0」テストが **無変更のまま緑 assertion で存続**:
       `(is (= (arm/forward-kinematics two-joint-arm [0.0 0.0])
               (arm/forward-kinematics two-joint-arm []))))`
@@ -29,8 +29,8 @@
 - 再現手順:
   ```sh
   # 静的読取のみ (高 load のため実行 backend を使わない):
-  sed -n '30,44p' src/kotoba/giemon/arm.cljc       # → L38 `(or (first angles) 0.0)` (no guard)
-  sed -n '20,22p' test/kotoba/giemon/arm_test.cljc # → silent zero-fill equality が存続
+  sed -n '30,44p' src/kotoba/giemon/arm.cljk       # → L38 `(or (first angles) 0.0)` (no guard)
+  sed -n '20,22p' test/kotoba/giemon/arm_test.cljk # → silent zero-fill equality が存続
   grep -rn "guard" src/kotoba/giemon/             # → FK 側 guard なし
   ```
 - 検証内訳 (本 walk の 1 仮説・1 実測判定): 1 仮説 (H35) / 測定 1 (静的読取 2 ファイル) /

@@ -37,9 +37,9 @@
   ```sh
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
   grep -rn 'within-limits?' src/ test/        # → arm.cljc L15(定義)/L27-29(doc)/arm_test.cljc L28-30(テストのみ、FK 内呼出 0
-  read src/kotoba/giemon/arm.cljc L22-41      # forward-kinematics loop、L38 `angle (or (first angles) 0.0)`、limit 検査なし
-  read test/kotoba/giemon/arm_test.cljc L20-22# zero-fill 緑 assertion 無変更: (= (fk [0.0 0.0]) (fk []))
-  grep -n 'arm\|limit\|torque\|within-limits' src/kotoba/giemon/governor.cljc  # → 0 (無接続)
+  read src/kotoba/giemon/arm.cljk L22-41      # forward-kinematics loop、L38 `angle (or (first angles) 0.0)`、limit 検査なし
+  read test/kotoba/giemon/arm_test.cljk L20-22# zero-fill 緑 assertion 無変更: (= (fk [0.0 0.0]) (fk []))
+  grep -n 'arm\|limit\|torque\|within-limits' src/kotoba/giemon/governor.cljk  # → 0 (無接続)
   ```
 - 検証内訳 (1 仮説・1 実測判定): 1 仮説 (H48) / 測定 1 (純静的読取 — within-limits? 定義 vs FK 呼出 0 回
   + L38 zero-fill 不変 + arm_test L20-22 緑固定 + governor 接続 0 の 4 観測点) / 判定 refuted (未着手)。

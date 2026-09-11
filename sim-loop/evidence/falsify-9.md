@@ -13,7 +13,7 @@ product の設定 posture (:caterpillar=:high) に対する再検査が存在し
 
 ## 実測
 
-コード: `src/kotoba/giemon/governor.cljc` (L53-60) + `../robotics/src/kotoba/robotics.cljc` gate。
+コード: `src/kotoba/giemon/governor.cljk` (L53-60) + `../robotics/src/kotoba/robotics.cljc` gate。
 実行: `clojure -M -e ...` (giemon deps.edn、git sha pinned robotics 1d1f93e3)。
 
 ```

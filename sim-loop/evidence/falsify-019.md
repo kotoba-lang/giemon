@@ -11,7 +11,7 @@ chain 内の全 joint を検証対象とし、joint に `:joint/actuator` が欠
 欠落行をスキップするのは仕様通りか、安全検証として false-pass か。
 
 ## 実測
-probe: `sim-loop/evidence/probe_missing_actuator_skip.clj`
+probe: `sim-loop/evidence/probe_missing_actuator_skip.cljk`
 (in-memory EDN で kotoba.giemon.arm を直接呼ぶ、実装は読むだけ)。
 
 主要数字:
@@ -65,7 +65,7 @@ actuator があり顕在化せず)。
 ## 再現手順
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(load-file "sim-loop/evidence/probe_missing_actuator_skip.clj")'
+clojure -M -e '(load-file "sim-loop/evidence/probe_missing_actuator_skip.cljk")'
 ```
 2 回実行して測定出力が一致することを確認済み (/tmp/f19a vs /tmp/f19b、cmp 一致)。
 

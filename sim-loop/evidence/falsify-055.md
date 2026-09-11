@@ -39,9 +39,9 @@ verdict: **refuted** — FK guard repair は依然未着手 (20 連続)。`withi
   git rev-parse HEAD > /tmp/h && cat /tmp/h        # d0d3cb45fcc8c42d94f6a370b5a1f19d51938abe (不変)
   git status --short > /tmp/s && cat /tmp/s        # ?? sim-loop/ のみ (tracked diff 空)
   grep -rn 'within-limits' src/ test/              # arm.cljc L15(def)/L28(doc)/arm_test L28-30(単体) 計 3 箇所のみ、FK 内呼出 0
-  read src/kotoba/giemon/arm.cljc L22-41           # forward-kinematics loop、L38 `angle (or (first angles) 0.0)`、limit 検査なし
-  read src/kotoba/giemon/arm.cljc L43-46           # end-effector は (last (forward-kinematics arm angles)) のみ guard なし
-  grep -c 'within-limits\|within_limits\|joint.*limit\|torque' src/kotoba/giemon/governor.cljc  # → 0
+  read src/kotoba/giemon/arm.cljk L22-41           # forward-kinematics loop、L38 `angle (or (first angles) 0.0)`、limit 検査なし
+  read src/kotoba/giemon/arm.cljk L43-46           # end-effector は (last (forward-kinematics arm angles)) のみ guard なし
+  grep -c 'within-limits\|within_limits\|joint.*limit\|torque' src/kotoba/giemon/governor.cljk  # → 0
   ```
 
 検証内訳 (1 仮説・1 実測判定): 1 仮説 (H56) / 測定 1 (純静的読取 — `within-limits?` grep 分布

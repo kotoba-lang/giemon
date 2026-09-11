@@ -18,8 +18,8 @@ falsify-14/15 の NaN 角度伝播がレンダリング入力まで届くこと�
 
 ## 実測
 
-コード: `src/kotoba/giemon/ui.cljc` L33-35 (`neg?` 1 点分類、有限性検査なし)、
-`src/kotoba/giemon/viewer.cljc` L13-23 (FK 結果の無検査 IR 化)。
+コード: `src/kotoba/giemon/ui.cljk` L33-35 (`neg?` 1 点分類、有限性検査なし)、
+`src/kotoba/giemon/viewer.cljk` L13-23 (FK 結果の無検査 IR 化)。
 実行: `clojure -M /tmp/f/f25.clj` + `/tmp/f/f25b.clj` (repl 出力は evidence 末尾の手順と同一)。
 
 ```

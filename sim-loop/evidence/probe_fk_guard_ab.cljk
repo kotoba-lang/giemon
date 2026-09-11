@@ -1,7 +1,7 @@
 (ns probe-h33
   (:require [kotoba.giemon.arm :as arm]))
 
-;; Arm fixture identical to test/kotoba/giemon/arm_test.cljc (two-joint-arm)
+;; Arm fixture identical to test/kotoba/giemon/arm_test.cljk (two-joint-arm)
 (def two-arm
   {:arm/chain
    [{:joint/name "j1" :joint/origin [0.0 0.0 1.0] :joint/axis [0.0 0.0 1.0]

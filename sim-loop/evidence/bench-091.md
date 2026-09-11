@@ -18,12 +18,12 @@
 - clojure test、seeded 再現いずれも実行不能（実行数字を捏造せず skipped 記録）。
 
 ## 静的読取 (read_file のみ成立、負荷非依存・決定的)
-- `src/kotoba/giemon/arm.cljc` (1–50 読取) は bench-084〜090 と内容一致 (コード変化なし):
+- `src/kotoba/giemon/arm.cljk` (1–50 読取) は bench-084〜090 と内容一致 (コード変化なし):
   FK 22–41 loop 終端 `(empty? chain)` のみ (行 35)・行 38 `(or (first angles) 0.0)` は
   NaN (truthy) を 0.0 にせず isNaN/isInfinite/長さ assert 皆無、end-effector 43–46 は
   `last` のみ、within-limits? 15–20 は RANGE-only (`<=` 比較)・src caller 不在
   (falsify-023)、torque-headroom 等は FK も角度列も呼ばず void 検知 (falsify-025/026)。
-- `test/kotoba/giemon/arm_test.cljc` は bench-087/088/089/090 にて byte 一致確認済み
+- `test/kotoba/giemon/arm_test.cljk` は bench-087/088/089/090 にて byte 一致確認済み
   (変化なし、FK の shape/numeric 破れを検証する断言なし → falsify-029/H31)。
 
 ## 再現コマンド (今回実行不可。負荷収束・backend 回復後に実行すべき)

@@ -33,9 +33,9 @@
 - 再現手順:
   ```sh
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-  grep -n 'within-limits?' src/kotoba/giemon/arm.cljc test/kotoba/giemon/arm_test.cljc src/kotoba/giemon/governor.cljc
+  grep -n 'within-limits?' src/kotoba/giemon/arm.cljk test/kotoba/giemon/arm_test.cljk src/kotoba/giemon/governor.cljk
   # → arm.cljc L15 def / L28 doc の計 2 箇所のみ (governor 0・FK 本体 0 回呼出)、arm_test L29-30 単体
-  sed -n '31,41p' src/kotoba/giemon/arm.cljc   # forward-kinematics loop 本体:L38 silent zero-fill
+  sed -n '31,41p' src/kotoba/giemon/arm.cljk   # forward-kinematics loop 本体:L38 silent zero-fill
   git rev-parse HEAD; git status --porcelain    # → d0d3cb45fcc... 不変、`?? sim-loop/` のみ (tracked diff 空)
   ```
 - 検証内訳 (本 walk の 1 仮説・1 実測判定): 1 仮説 (H60) / 測定 1 (`within-limits?`

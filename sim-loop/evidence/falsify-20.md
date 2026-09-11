@@ -19,7 +19,7 @@ JSON 構文トークンとしてそのまま出るはず。
 
 ## 実測
 
-コード: `src/kotoba/giemon/export.cljc` — `bom->json` の
+コード: `src/kotoba/giemon/export.cljk` — `bom->json` の
 `(or (:cont-nm r) "null")` 生補間。実行: `clojure -M -e` (giemon
 deps.edn)、fixture は falsify-2〜5 確立の 2 段階 read。検証は
 Python `json` (strict)。

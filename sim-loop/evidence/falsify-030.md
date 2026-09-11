@@ -13,7 +13,7 @@ export 層 (`arm/torque-headroom` 経由の `:cont-nm` / `:joint/limit :effort` 
 `chain-bom-rows` 経由の `:arm/chain` 直読) は FK を呼ばない void (falsify-025/026)。
 従って export の**数値フィールド** NaN は未監査の独立次元。
 
-判定規則: export test 群 (test/kotoba/giemon/export_test.cljc) に
+判定規則: export test 群 (test/kotoba/giemon/export_test.cljk) に
 NaN/±∞ の**数値フィールド**を入力し、その有限性・JSON 妥当性・CSV 往復を
 assert する de facto な test ケースが 1 件でもあれば survived、皆無なら refuted。
 (current fixture の数値は全部有限 — 潜在赤、非発火の framing は H19〜H31 と同型。)
@@ -42,7 +42,7 @@ honesty-first で skipped。本仮説は export 実装 + export test の逐読�
   (comma / quote / CR / LF) のみ** (行 16 の正規表現 `[",\n\r]`)。**数値の非有限性は
   引用条件に現れない** — NaN/±∞ は quoted も finite 変換もされず裸のまま。
 
-### NaN/±∞ 数値フィールドの test oracle 集計 (test/kotoba/giemon/export_test.cljc 1–71)
+### NaN/±∞ 数値フィールドの test oracle 集計 (test/kotoba/giemon/export_test.cljk 1–71)
 - **全 test (products->csv 10–13 / torque->csv 15–17 / csv-CR 19–29 /
   products->json 31–33 / torque->json 35–39 / json-C0 41–51 / bom->csv 59–64 /
   bom->json 66–71)** を逐読した結果、数値フィールドに入るのは**正常有限値のみ**
@@ -88,12 +88,12 @@ cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 # honesty-first で skipped。H32 は export 実装 + export test の行レベル静的読取のみで確定 —
 # 実行数字を捏造せず「静的読取」として記録。
 # 環境回復後に以下を byte 一致で読めば各面の確定内容を再確認できる:
-#   src/kotoba/giemon/export.cljc 8–18 (csv-cell: RFC-4180 引用は [,",\n,\r] のみ、数値対象外),
+#   src/kotoba/giemon/export.cljk 8–18 (csv-cell: RFC-4180 引用は [,",\n,\r] のみ、数値対象外),
 #     53–58 (torque->csv: 裸数値 join), 71–79 (torque->json: headroom/rated/required 裸 str),
 #     81–96 (chain-bom-rows: :arm/chain 直読), 98–121 (bom->csv/json: 裸数値 / (or ... "null"))
-#   test/kotoba/giemon/export_test.cljc 1–71 (全数値フィールドは正常有限値のみ、NaN/∞ 0 件)
+#   test/kotoba/giemon/export_test.cljk 1–71 (全数値フィールドは正常有限値のみ、NaN/∞ 0 件)
 #   fixtures/giemon_arm6/giemon_arm6.edn (:cont-nm / :effort 全 joint 有限)
-# 検索: grep -n "##NaN\|##Inf\|isNaN\|Double/NaN\|finite" test/kotoba/giemon/export_test.cljc → 0 件
+# 検索: grep -n "##NaN\|##Inf\|isNaN\|Double/NaN\|finite" test/kotoba/giemon/export_test.cljk → 0 件
 ```
 
 ## 補足

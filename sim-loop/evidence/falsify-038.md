@@ -15,7 +15,7 @@
     (0.02/0.03/0.04/0.06×2/0.08) — EDN と 1 対 1 で同値、パリティは無破れ
     (damping 面でも URDF↔EDN は一致)。
   - **コア消費 (src + test)**: `damping\|friction` の言及は `src/` `test/` 通算 **1 件のみ**、
-    しかもそれは `src/kotoba/giemon/chassis.cljc` L14 のドキュメントコメント文中
+    しかもそれは `src/kotoba/giemon/chassis.cljk` L14 のドキュメントコメント文中
     「ground friction」であり、計算コードの読取ではない。 `:joint/damping` を
     読む式は src/test に **0 件** (grep `:joint\damping` は src/test でゼロ)。
     FK (`forward-kinematics`) は origin/axis/angle のみ、torque-headroom は

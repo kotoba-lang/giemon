@@ -1,7 +1,7 @@
 ;; falsify-018 probe part 4 — the false-PASS direction: duplicate joint
 ;; names where the LAST entry has the strong actuator. Last-wins map means
 ;; the weak (first) row inherits the strong rating -> underrated empty.
-;; Usage: clojure -M -e '(load-file "sim-loop/evidence/probe_bom_false_pass.clj")'
+;; Usage: clojure -M -e '(load-file "sim-loop/evidence/probe_bom_false_pass.cljk")'
 (require '[kotoba.giemon.arm :as arm])
 (require '[clojure.edn :as edn] '[clojure.java.io :as io])
 

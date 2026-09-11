@@ -3,7 +3,7 @@
 - 連続番号: 033 (falsify-031 の H33 再試行 — 前回 verdict なし skip)
 - 日次: 260908
 - 仮説 (H33, NEXT 再掲): 次期 FK 角度 count/shape guard (H26 repair 候補) が、現行
-  `test/kotoba/giemon/arm_test.cljc` 20–22 の silent zero-fill 緑 assertion
+  `test/kotoba/giemon/arm_test.cljk` 20–22 の silent zero-fill 緑 assertion
   (`(is (= (arm/forward-kinematics two-joint-arm [0.0 0.0])
            (arm/forward-kinematics two-joint-arm []))))`) と **干渉することなく**
   A/B 走行可能である (実行系観点)。

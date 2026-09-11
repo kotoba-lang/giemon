@@ -5,7 +5,7 @@
 ;; 戻り :xf/pos 件数・ゼロ充填・例外の有無を決定的に列挙する。コード修正なし。
 ;; NOTE (bench-070): 実行バックエンド (terminal) 応答不能のため本 probe は未実行。
 ;; verdict は arm.cljc 22-41 の行レベル静的読取に根拠づく (負荷非依存・決定的)。
-;; 実行環境回復後に clojure -M -e '(load-file "sim-loop/evidence/probe_fk_length_mismatch.clj")'
+;; 実行環境回復後に clojure -M -e '(load-file "sim-loop/evidence/probe_fk_length_mismatch.cljk")'
 ;; で実測し 2 回実行 byte 一致を確認すること。
 (require '[clojure.edn :as edn]
          '[clojure.java.io :as io]
