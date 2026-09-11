@@ -7,7 +7,7 @@
 - verdict: **unmeasured / skipped (load)**
 - HOST LOAD (execution時実測): up 3 days 22h17m、6 users。15-min **62.40** ≈ **6.2× ncpu**
   (hw.ncpu=10)。(1-min 41.46 / 5-min 48.62 を報告順に 15min 基準で 62.40)
-- Load gate (~2× ncpu = 20) を大幅超過 (≈6.2×)。高負荷継続により重い `clojure -M:test`
+- Load gate (~2× ncpu = 20) を大幅超過 (≈6.2×)。高負荷継続により重い `kbb -M:test`
   は skip → honest unmeasured。
 
 ## test スイート (robotics / giemon)
@@ -41,8 +41,8 @@
 
 ## 再現コマンド
 
-- (load 回復後の日次で): `cd .../kotoba-lang/robotics && clojure -M:test` → 基準 14/50/0、
-  `cd .../kotoba-lang/giemon && clojure -M:test` → 基準 46/115/0、seeded L1+ 再現 (対象 job あれば)。
+- (load 回復後の日次で): `cd .../kotoba-lang/robotics && kbb -M:test` → 基準 14/50/0、
+  `cd .../kotoba-lang/giemon && kbb -M:test` → 基準 46/115/0、seeded L1+ 再現 (対象 job あれば)。
 
 ## メモ
 

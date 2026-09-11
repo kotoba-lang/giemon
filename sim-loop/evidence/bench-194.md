@@ -1,6 +1,6 @@
 # bench-194 — unmeasured (load)
 
-判定: **unmeasured** (HOST LOAD が 15-min ≈ 9.1× ncpu の非応答域。重い clojure -M:test 実行と seeded 再現を一律 skipped。回帰は assert せず、基準値据え置きで honest。)
+判定: **unmeasured** (HOST LOAD が 15-min ≈ 9.1× ncpu の非応答域。重い kbb -M:test 実行と seeded 再現を一律 skipped。回帰は assert せず、基準値据え置きで honest。)
 
 ## 環境
 - HOST LOAD: 直近 15-min ≈ 90.75 / 5-min ≈  ̂110.11 /　1-min ≈　　84.59 (hw.ncpu =10 →　　15-min ≈　　9.1×) — gate (~2×) を大きく超過し、bench-192/193 (5.6× で skip) よりさらに高い非応答域。既有 precedent と同等以上の負荷帯と判断。
@@ -27,7 +27,7 @@
 - falsify-055 (H56) 据え置き — 今回新規 falsify 追加なし (前回 bench-193 にて FK guard repair 未着手を refuted、20 連続)。`within-limits?` (arm.cljc L15-20) は FK 経路から呼出 0 回、L38 silent zero-fill 不変、HEAD d0d3cb4 不変・tracked diff 空。ステータス正本 (status/maturity.md) の NEXT ( 1 件) は FK guard repair のまま、継続。
 
 ##再現コマンド
-- (skipped — load)。復旧時: `cd .../kotoba-lang/robotics && clojure -M:test` → 期待 14/50/0、`cd .../kotoba-lang/giemon && clojure -M:test` →　期待 46/115/0
+- (skipped — load)。復旧時: `cd .../kotoba-lang/robotics && kbb -M:test` → 期待 14/50/0、`cd .../kotoba-lang/giemon && kbb -M:test` →　期待 46/115/0
 
 ##備考
 - 基準値は bench-066 確定 (robotics 14/50/0、giemon 46/115/0)。bench-190/191 は実測完走 (2.9×/2.4×) だったが、bench-192〜194 は 15-min ≈5.6×〜9.1× と大幅に高い負荷帯のため skip、負荷が 2× 未満へ下がれば実測復帰の余地あり。

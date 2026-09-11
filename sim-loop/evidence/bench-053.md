@@ -8,14 +8,14 @@
 - 備考: terminal ツールの foreground stdout が空になる障害が継続しているため、
   すべてのコマンド出力を一時ファイル経由で取得した (bench-039〜052 と同じ回避策)。
 
-## 1. テスト実行 (clojure -M:test)
+## 1. テスト実行 (kbb -M:test)
 
 ### orgs/kotoba-lang/robotics
-- コマンド: `cd orgs/kotoba-lang/robotics && clojure -M:test`
+- コマンド: `cd orgs/kotoba-lang/robotics && kbb -M:test`
 - 結果: **Ran 14 tests containing 50 assertions. 0 failures, 0 errors.** (exit 0)
 
 ### orgs/kotoba-lang/giemon
-- コマンド: `cd orgs/kotoba-lang/giemon && clojure -M:test`
+- コマンド: `cd orgs/kotoba-lang/giemon && kbb -M:test`
 - 結果: **Ran 46 tests containing 115 assertions. 0 failures, 0 errors.** (exit 0)
 
 ## 2. Seeded 再現実行 (sim-loop 学習ジョブ相当)
@@ -55,10 +55,10 @@
 
 ## 再現コマンド
 ```
-cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && clojure -M:test
-cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon  && clojure -M:test
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && kbb -M:test
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon  && kbb -M:test
 # seeded 再現 (軽量):
-cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon && clojure -M -i /tmp/seed_parity_bench052.clj
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon && kbb -M -i /tmp/seed_parity_bench052.clj
 # (arm_edn_test.clj の unblob + reconstitute-arm と同一手順で fixture を再構成し、
 #  end-effector を同入力 2 回実行して = で照合 → SEED-PARITY true, exit 0)
 ```

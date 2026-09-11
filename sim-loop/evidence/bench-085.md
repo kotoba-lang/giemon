@@ -10,7 +10,7 @@
 ## 判定
 - HOST LOAD が極めて高い (75.45, ncpu 10 の 7.5x)。方針により重い実験を省略する。
 - 実行バックエンド (terminal) が空出力 exit 0 のまま応答不能 (bench-069〜084 と同条件の持続)。
-  → test スイート (clojure -M:test, kotoba-lang/robotics + kotoba-lang/giemon) および
+  → test スイート (kbb -M:test, kotoba-lang/robotics + kotoba-lang/giemon) および
     seeded 再現 (sim-loop L1以降) をすべて skipped とする。正直に「skipped (load)」で記録。
 
 ## 本イテレーションの falsify 対象
@@ -31,8 +31,8 @@
   bench-066 確定値のまま変更なし。
 
 ## 再現コマンド (次回 load 低下時に実施すべき)
-- orgs/kotoba-lang/robotics: clojure -M:test
-- orgs/kotoba-lang/giemon:    clojure -M:test
+- orgs/kotoba-lang/robotics: kbb -M:test
+- orgs/kotoba-lang/giemon:    kbb -M:test
 - seeded 再現: sim-loop 学習ジョブ (L1以降) を同一 seed で 2 回実行し一致検査
 
 ## 備考

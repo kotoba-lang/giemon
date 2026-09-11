@@ -5,13 +5,13 @@
 どこにも torque 照合が存在しない — falsify-011 (:joints map) の入力空間を
 アクション構造面に拡張測定 (maturity.md NEXT (c) の継続)。
 
-測定のみ。コード修正なし。clojure -M -e で kotoba.robotics を require し列挙。
+測定のみ。コード修正なし。kbb -M -e で kotoba.robotics を require し列挙。
 
 再現:
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
   python3 sim-loop/evidence/probe_gate_structural_edges.py > /tmp/h14.clj
-  clojure -M -e "$(cat /tmp/h14.clj)" > /tmp/h14.txt 2>&1
-  clojure -M -e "$(cat /tmp/h14.clj)" > /tmp/h14b.txt 2>&1
+  kbb -M -e "$(cat /tmp/h14.clj)" > /tmp/h14.txt 2>&1
+  kbb -M -e "$(cat /tmp/h14.clj)" > /tmp/h14b.txt 2>&1
   cmp /tmp/h14.txt /tmp/h14b.txt   # exit 0 (決定的)
 """
 CLOJURE = r'''

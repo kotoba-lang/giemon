@@ -9,7 +9,7 @@ tests: robotics **14 / 50 / 0** (rc=0)、giemon **46 / 115 / 0** (rc=0) — 実�
 - HOST LOAD: 計測時 実測 1min 18.80 / 5min 16.24 / 15min 17.74 — ncpu=10 に対し 15min は約 1.77x で gate (>=2x ncpu=20) 未満。スイート完走に十分安定。
 - 実行バックエンド: terminal 直接 stdout は空のまま (スキル既知)。`/tmp` redirect + read_file workaround を使用。
 
-## テスト (clojure -M:test)
+## テスト (kbb -M:test)
 - kotoba-lang/robotics: **14 test / 50 assertion / 0 failure / 0 errors** (exit 0)
 - kotoba-lang/giemon: **46 test / 115 assertion / 0 failure / 0 errors** (exit 0)
 - 基準値 (bench-066 確定 14/50/0・46/115/0) と完全一致。**回帰なし (measured)**。
@@ -21,5 +21,5 @@ tests: robotics **14 / 50 / 0** (rc=0)、giemon **46 / 115 / 0** (rc=0) — 実�
 **なし (measured)** — 実測で robotics 14/50/0・giemon 46/115/0、基準値と完全一致。git HEAD 不変 (d0d3cb4 / 9459ca0)。
 
 ## 再現コマンド
-- 実行: `cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && clojure -M:test` → 14/50/0 rc=0; `cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon && clojure -M:test` → 46/115/0 rc=0。
+- 実行: `cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && kbb -M:test` → 14/50/0 rc=0; `cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon && kbb -M:test` → 46/115/0 rc=0。
 - seeded 再現: 対象なし (sim-loop L0、学習ジョブ未実装)。未実行。

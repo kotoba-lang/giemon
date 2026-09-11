@@ -7,7 +7,7 @@ torque 値の違いが :gate/decision を 1 件も変えない」 — 反証対�
 構造的ギャップ記録「gate は :action/params を一切検査しない」。
 torque 値で :permit/:deny が 1 件でも変われば H12 は破れる (赤は実は接続済み)。
 
-## 測定 (probe_gate_torque_grid.py — clojure -M -e)
+## 測定 (probe_gate_torque_grid.py — kbb -M -e)
 - 入力空間: kinds `[:move :actuate :grasp :sense :emit]` (5) ×
   safety `[:none :low :medium :high :safety-critical]` (5) ×
   allowed-sets `#{:none}` / `#{:low}` / `#{:low :medium}` / `#{:none :low :medium :high}` / 全クラス (5) ×
@@ -46,8 +46,8 @@ sim 受付口 (arm/within-limits 相当 + actuator cont/peak 照合) に — gat
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 python3 sim-loop/evidence/probe_gate_torque_grid.py > /tmp/g12.clj
-clojure -M -e "$(cat /tmp/g12.clj)" > /tmp/g12.txt 2>&1
-clojure -M -e "$(cat /tmp/g12.clj)" > /tmp/g12b.txt 2>&1
+kbb -M -e "$(cat /tmp/g12.clj)" > /tmp/g12.txt 2>&1
+kbb -M -e "$(cat /tmp/g12.clj)" > /tmp/g12b.txt 2>&1
 cmp /tmp/g12.txt /tmp/g12b.txt   # exit 0 (決定的)
 ```
 

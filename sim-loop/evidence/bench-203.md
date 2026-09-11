@@ -37,8 +37,8 @@
   FK guard repair (実装側タスク) のまま 継続。
 
 ## 再現コマンド
-- (実測完走): `cd .../kotoba-lang/robotics && clojure -M:test` →  igh 14/50/0 (exit  igh 0)、
-  `cd .../kotoba-lang/giemon && clojure -M:test` → 46/115/0 (exit 0)
+- (実測完走): `cd .../kotoba-lang/robotics && kbb -M:test` →  igh 14/50/0 (exit  igh 0)、
+  `cd .../kotoba-lang/giemon && kbb -M:test` → 46/115/0 (exit 0)
 
 ## 備考
 - 基準値は bench-066 確定 (robotics 14/50/0、giemon 46/115/0)。前回 bench-202 に続き

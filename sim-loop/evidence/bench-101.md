@@ -4,7 +4,7 @@ Timestamp: 2026-09-07 18:36 JST (git HEAD d0d3cb4)
  HOST LOAD: 40.61 / 47.83 /  46.01 (ncpu=10, ~4-5x overload)
 
 ## Measurability
-- clojure -M:test (robotics + giemon): **skipped (load overload + backend unresponsive)**
+- kbb -M:test (robotics + giemon): **skipped (load overload + backend unresponsive)**
   - HOST LOAD is ~4-5x ncpu=10; heavy experiments omitted to preserve regression-detection reliability.
 - seeded reproduction (sim-loop L1+, run same seed twice, compare results): **skipped (load) + not-applicable**
   - sim-loop learning job is still at L0, not implemented (same as bench-098..100); no task exists. Plus load overload blocks deterministic execution.
@@ -29,7 +29,7 @@ Timestamp: 2026-09-07 18:36 JST (git HEAD d0d3cb4)
 
 
 ## Reproduction command (not run)
-- `clojure -M:test` (robotics, giemon)
+- `kbb -M:test` (robotics, giemon)
 - seeded reproduction: run same seed twice, compare results (sim-loop L1+; currently L0, out of scope)
 
 

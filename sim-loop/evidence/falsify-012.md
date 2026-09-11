@@ -13,7 +13,7 @@ H14: 「gate はアクション自体の構造エッジ — `:params` が nil / 
 (アクション構造面)。payload や構造で decision が変わる、または
 決定性が破れる (同一入力で別 decision) ケースが 1 件でもあれば H14 は破れる。
 
-## 測定 (probe_gate_structural_edges.py — clojure -M -e)
+## 測定 (probe_gate_structural_edges.py — kbb -M -e)
 - 入力空間:
   - Part 1 構造エッジ: `:params` 8 種 (nil / vector `[{:joints {"j2" {:tau 1e6}}}]` /
     文字列 `"{:joints {:tau 1e6}}"` / キーワード `:torque` /
@@ -64,8 +64,8 @@ map であることの型検証 + torque key の深さ制限も要る (現在は
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 python3 sim-loop/evidence/probe_gate_structural_edges.py > /tmp/h14.clj
-clojure -M -e "$(cat /tmp/h14.clj)" > /tmp/h14.txt 2>&1
-clojure -M -e "$(cat /tmp/h14.clj)" > /tmp/h14b.txt 2>&1
+kbb -M -e "$(cat /tmp/h14.clj)" > /tmp/h14.txt 2>&1
+kbb -M -e "$(cat /tmp/h14.clj)" > /tmp/h14b.txt 2>&1
 diff /tmp/h14.txt /tmp/h14b.txt   # clojure 出力本体 0 行差 (決定的)
 ```
 

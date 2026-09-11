@@ -1,6 +1,6 @@
 # bench-186 — measured
 
-判定: **measured** (clojure -M:test 実測完走。HOST LOAD 高めだが両スイート応答・基準値一致 → 回帰なし)
+判定: **measured** (kbb -M:test 実測完走。HOST LOAD 高めだが両スイート応答・基準値一致 → 回帰なし)
 
 ## 環境
 - HOST LOAD: 実行完了時 15-min ≈ 31.5 / 5-min ≈ 22.3 / 1-min ≈ 15.7 (hw.ncpu = 10 → ~3.2×)
@@ -26,8 +26,8 @@
 - falsify-034/035/036/037 (H35〜H38) は既決済み (refuted)。新規 falsify なし (maturity NEXT = none)。
 
 ## 再現コマンド
-- `cd .../kotoba-lang/robotics && clojure -M:test` → 14/50/0
-- `cd .../kotoba-lang/giemon && clojure -M:test` → 46/115/0
+- `cd .../kotoba-lang/robotics && kbb -M:test` → 14/50/0
+- `cd .../kotoba-lang/giemon && kbb -M:test` → 46/115/0
 
 ## 備考
 - bench-185 は load-skip (unmeasured) だったが、bench-186 は負荷がやや低下 (15-min ≈31.5) し実測可能域に戻った。

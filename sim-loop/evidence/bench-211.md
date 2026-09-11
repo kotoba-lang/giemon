@@ -9,7 +9,7 @@
   (hw.ncpu=10)。(1-min 146.34 / 5-min 107.58 を報告順に 15min 基準で 146.34)
 - Load gate (~2× ncpu = 20) を大幅超過 (≈14.6×)。本系列最大負荷帯。実行中 spike 増幅で
   backend 応答喪失リスクが極大 (素の `uptime`/`ls` すら 60s timeout で応答喪失を観測)。
-  重い `clojure -M:test` は skip → honest unmeasured。
+  重い `kbb -M:test` は skip → honest unmeasured。
 
 ## test スイート (robotics / giemon)
 
@@ -43,8 +43,8 @@
 
 ## 再現コマンド
 
-- (load 回復後の日次で): `cd .../kotoba-lang/robotics && clojure -M:test` → 基準 14/50/0、
-  `cd .../kotoba-lang/giemon && clojure -M:test` → 基準 46/115/0、seeded L1+ 再現 (対象 job あれば)。
+- (load 回復後の日次で): `cd .../kotoba-lang/robotics && kbb -M:test` → 基準 14/50/0、
+  `cd .../kotoba-lang/giemon && kbb -M:test` → 基準 46/115/0、seeded L1+ 再現 (対象 job あれば)。
 
 ## メモ
 

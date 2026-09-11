@@ -12,15 +12,15 @@
   すべてのコマンド出力を一時ファイル (/tmp/*.txt) 経由で取得した
   (bench-039〜062 と同じ回避策)。
 
-## 1. テスト実行 (clojure -M:test)
+## 1. テスト実行 (kbb -M:test)
 
 ### orgs/kotoba-lang/robotics
-- コマンド: `cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && clojure -M:test`
+- コマンド: `cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && kbb -M:test`
 - 結果: **Ran 14 tests containing 50 assertions. 0 failures, 0 errors.** (exit 0)
 - 根拠: /tmp/robotics_test_b063.txt から直接読み取り。
 
 ### orgs/kotoba-lang/giemon
-- コマンド: `cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon && clojure -M:test`
+- コマンド: `cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon && kbb -M:test`
 - 結果: **Ran 46 tests containing 115 assertions. 0 failures, 0 errors.** (exit 0)
 - 根拠: /tmp/giemon_test_b063.txt から直接読み取り。
 
@@ -37,7 +37,7 @@
   - 対象: `kotoba.giemon.arm/end-effector` (giemon_arm6 fixture —
     fixtures/giemon_arm6/giemon_arm6.edn を unblob + reconstitute-arm で再構成、
     q=[0.0 0.2 -0.3 0.0 0.5 0.0])。
-  - コマンド: `clojure -M -i /tmp/seed_parity_bench063.clj`
+  - コマンド: `kbb -M -i /tmp/seed_parity_bench063.clj`
     (bench-062 の seed スクリプトを複製、内容は bench-002〜062 と同一)。
   - 結果: **SEED-PARITY true** (exit 0)。
     :xf/pos [0.035165560086391295 0.0 0.6104766433183229]、:xf/rot も同一。
@@ -66,10 +66,10 @@
 
 ## 再現コマンド
 ```
-cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && clojure -M:test
-cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon  && clojure -M:test
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && kbb -M:test
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon  && kbb -M:test
 # seeded 再現 (軽量):
-cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon && clojure -M -i /tmp/seed_parity_bench063.clj
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon && kbb -M -i /tmp/seed_parity_bench063.clj
 # (arm_edn_test.clj の unblob + reconstitute-arm と同一手順で fixture を再構成し、
 #  end-effector を同入力 2 回実行して = で照合 → SEED-PARITY true, exit 0)
 ```

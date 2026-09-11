@@ -26,7 +26,7 @@
 - falsify-034/035/036/037 (H35〜H38) は既決済み (refuted)。新規 falsify はなし (maturity NEXT = none)。
 
 ## 再現コマンド
-- (負荷超過のため省略。負荷回復後に `clojure -M:test` (robotics / giemon) を再実行し実測を取る)
+- (負荷超過のため省略。負荷回復後に `kbb -M:test` (robotics / giemon) を再実行し実測を取る)
 
 ## 備考
 - bench-184 は bench-099〜101 / bench-182 / bench-183 と同様の load-skip 判断。基準値は bench-066 確定

@@ -7,9 +7,9 @@ measured — 基準値一致、回帰なし。
 - HOST LOAD (pre-run): load averages 19.16 / 22.64 / 24.88 (ncpu=10, 15min 約2.5x)。
   負荷超過帯だが実行バックエンドは応答可能であったため test スイート自体は完走
   させた。重い実験 (H 本測定・seeded 再現系の追加実行) は skipped (load)。
-- clojure -M:test orgs/kotoba-lang/robotics: Ran 14 tests containing 50 assertions,
+- kbb -M:test orgs/kotoba-lang/robotics: Ran 14 tests containing 50 assertions,
   0 failures, 0 errors, RC=0。基準値 (bench-066: 14/50/0) と一致。
-- clojure -M:test orgs/kotoba-lang/giemon: Ran 46 tests containing 115 assertions,
+- kbb -M:test orgs/kotoba-lang/giemon: Ran 46 tests containing 115 assertions,
   0 failures, 0 errors, RC=0。基準値 (bench-066: 46/115/0) と一致。
 - git HEAD: robotics 396fc33、giemon d0d3cb4 (giemon は baseline 一致。robotics は
   skill 記載 baseline 9459ca0 から進んでいるが bench-232 と同 HEAD、テスト数は
@@ -20,7 +20,7 @@ measured — 基準値一致、回帰なし。
 - falsify 状態: falsify-034〜037 いずれも refuted 済み、残存なし。コード修正なし。
 
 ## 再現コマンド
-- cd orgs/kotoba-lang/robotics && clojure -M:test
-- cd orgs/kotoba-lang/giemon && clojure -M:test
+- cd orgs/kotoba-lang/robotics && kbb -M:test
+- cd orgs/kotoba-lang/giemon && kbb -M:test
 
 決定的・タイムスタンプなし。コード修正なし。

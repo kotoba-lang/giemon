@@ -22,7 +22,7 @@ IEEE 754 の下で:
 ## 実測
 
 コード: `src/kotoba/giemon/chassis.cljk` turning-radius L33-43, integrate-pose L48-59。
-実行: `clojure -M /tmp/f22.clj` + `clojure -M -e` REPL。
+実行: `kbb -M /tmp/f22.clj` + `kbb -M -e` REPL。
 
 ```
 R1  (turning-radius ##NaN 1.0 2.0)       => ##NaN   (非直進・非pivot速度が NaN 半径)
@@ -66,7 +66,7 @@ R14 (track-speeds->twist nil 0.0 1.0)    => NullPointerException (fail-closed �
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(require (quote [kotoba.giemon.chassis :as ch]))
+kbb -M -e '(require (quote [kotoba.giemon.chassis :as ch]))
 (prn (ch/turning-radius 0.5 ##Inf ##-Inf))  ; => ##NaN  (pivot が NaN 半径に)
 (prn (ch/turning-radius 0.5 ##Inf ##Inf))   ; => nil    (無限大速度が「直進」に)
 (prn (ch/integrate-pose {:pose/x 0.0 :pose/y 0.0 :pose/theta 0.0} 1.0 0.0 ##Inf))

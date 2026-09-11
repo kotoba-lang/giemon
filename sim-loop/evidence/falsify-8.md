@@ -12,7 +12,7 @@ falsify-7 は未知 **keyword** product の `:medium` 黙示降格のみ実測�
 再現コマンド:
 
 ```
-cd orgs/kotoba-lang/giemon && clojure -M -e "
+cd orgs/kotoba-lang/giemon && kbb -M -e "
 (require '[kotoba.giemon.governor :as gov] '[kotoba.robotics :as rob])
 (def allowed #{:low :medium})
 (:action/safety (gov/ops-action \"a1\" \"m1\" :caterpillar :move))      ; 対照

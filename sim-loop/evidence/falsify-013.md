@@ -14,7 +14,7 @@ tau 1e6 payload とは無相関である (例外は安全側 :deny または :in
 payload や governor 経路で decision が変わる、または決定性が破れる
 (同一入力で別 decision) ケースが 1 件でもあれば H15 は破れる。
 
-## 測定 (probe_gate_input_contract_edges.py — clojure -M -e)
+## 測定 (probe_gate_input_contract_edges.py — kbb -M -e)
 - 入力空間:
   - Part 1 allowed-set 契約エッジ 9 種 (vector `[:low]` / list / sorted-set /
     lazy-seq / 文字列 `":low"` / `#{:low}` / 混在型 set `#{:low "low" 1}` /
@@ -76,8 +76,8 @@ payload の滅菌点は gate にも governor にも arm にも存在しない。
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 python3 sim-loop/evidence/probe_gate_input_contract_edges.py > /tmp/h15.clj
-clojure -M -e "$(cat /tmp/h15.clj)" > /tmp/h15.txt 2>&1
-clojure -M -e "$(cat /tmp/h15.clj)" > /tmp/h15b.txt 2>&1
+kbb -M -e "$(cat /tmp/h15.clj)" > /tmp/h15.txt 2>&1
+kbb -M -e "$(cat /tmp/h15.clj)" > /tmp/h15b.txt 2>&1
 diff /tmp/h15.txt /tmp/h15b.txt   # 0 行差 (決定的)
 ```
 

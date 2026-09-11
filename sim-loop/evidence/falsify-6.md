@@ -33,7 +33,7 @@ torque 検証を行うと、nil の actuator リストはデフォルト BOM に
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e "
+kbb -M -e "
 (require '[clojure.edn] '[kotoba.giemon.arm :as arm])
 (def m (first (clojure.edn/read-string (slurp \"fixtures/giemon_arm6/giemon_arm6.edn\"))))
 (def arm-spec {:arm/chain (clojure.edn/read-string (:arm/chain m))

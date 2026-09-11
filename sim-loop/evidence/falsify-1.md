@@ -32,7 +32,7 @@ chain 文字列をさらに read-string する回避ルートを持たない限�
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e "(require '[clojure.edn]) (prn (mapv (comp type val) (first (clojure.edn/read-string (slurp \"fixtures/giemon_arm6/giemon_arm6.edn\")))))"
+kbb -M -e "(require '[clojure.edn]) (prn (mapv (comp type val) (first (clojure.edn/read-string (slurp \"fixtures/giemon_arm6/giemon_arm6.edn\")))))"
 # => :arm/chain が java.lang.String であることを確認
 grep -c ':joint/name "j1"' fixtures/giemon_arm6/giemon_arm6.edn   # => 0
 ```

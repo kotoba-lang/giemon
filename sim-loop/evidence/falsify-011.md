@@ -10,7 +10,7 @@ H13: 「`:action/params` の `:joints` map 形 payload (存在しない joint �
 sim 側受容経路の不在測定)。payload で decision が変わる、または arm 側で
 拒否/例外が 1 件でも起これば H13 は破れる。
 
-## 測定 (probe_joint_payload_reception.py — clojure -M -e)
+## 測定 (probe_joint_payload_reception.py — kbb -M -e)
 - 入力空間: `:joints` map payloads 6 種
   (`{"j99" {:tau 1e6}}` 存在しない joint / `{"j2"… :j3…}` 文字列・キーワード key 混在 /
   全 6 joint に tau 1e6 / 負値 tau -500 / 非数値 tau "huge" /
@@ -61,8 +61,8 @@ gate 54 ケース :permit 36 件 payload 無関係・arm 関数は全受理 (tor
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 python3 sim-loop/evidence/probe_joint_payload_reception.py > /tmp/h13.clj
-clojure -M -e "$(cat /tmp/h13.clj)" > /tmp/h13.txt 2>&1
-clojure -M -e "$(cat /tmp/h13.clj)" > /tmp/h13b.txt 2>&1
+kbb -M -e "$(cat /tmp/h13.clj)" > /tmp/h13.txt 2>&1
+kbb -M -e "$(cat /tmp/h13.clj)" > /tmp/h13b.txt 2>&1
 diff /tmp/h13.txt /tmp/h13b.txt   # 0 行差 (決定的)
 ```
 

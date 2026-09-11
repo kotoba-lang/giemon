@@ -7,7 +7,7 @@
   (`(is (= (arm/forward-kinematics two-joint-arm [0.0 0.0])
            (arm/forward-kinematics two-joint-arm []))))`) と **干渉することなく**
   A/B 走行可能である (実行系観点)。
-- 実測 (決定的、/tmp redirect + read_file、`clojure -M -i` で実バイト実行):
+- 実測 (決定的、/tmp redirect + read_file、`kbb -M -i` で実バイト実行):
   - run A (現行 runtime, guard なし):
     - joint-count: 2
     - `(= (fk [0.0 0.0]) (fk []))`  ⇒ **true** (test 20-22 緑 — 空 angle は
@@ -30,7 +30,7 @@
 - 再現手順:
   ```sh
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-  clojure -M -i /tmp/probe_h33_fk_guard.clj > /tmp/h33_out.txt 2>&1   # 現行+guard を A/B
+  kbb -M -i /tmp/probe_h33_fk_guard.clj > /tmp/h33_out.txt 2>&1   # 現行+guard を A/B
   # A: (= (fk [0 0]) (fk [])) → true / B: (guarded-fk [] ) → THREW / C: assertion THROWS
   # (probe は write_file で /tmp に置き、terminal の foreground stdout 空 障害を回避して
   #   `/tmp` redirect → read_file で実測回収; falsify-032 と同一手法)

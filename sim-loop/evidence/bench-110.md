@@ -11,7 +11,7 @@
 - 実行バックエンド: terminal 直接 stdout は空のまま (echo 空、search_files は "could not stat" 応答不能) だが、`/tmp` write + read_file workaround は成立
   (falsify-031→033・bench-105/107/108/109 と同手)。本 walk もこの手で test 出力・git HEAD・uptime を実測取得。execute_code は cron mode で BLOCKED。
 
-## テスト（clojure -M:test 実測、/tmp redirect + read_file）
+## テスト（kbb -M:test 実測、/tmp redirect + read_file）
 - **kotoba-lang/robotics**: `Ran 14 tests containing 50 assertions. 0 failures,  ̂0 errors.` exit rc=0
 - **kotoba-lang/giemon**:   `Ran 46 tests containing 115 assertions. 0 failures,  ̂0 errors.` exit rc=0
 
@@ -36,5 +36,5 @@
 
 
 ##再現コマンド
-- 実行: `clojure -M:test` (workdir: orgs/kotoba-lang/robotics → 14/50/0 rc=0; orgs/kotoba-lang/giemon →  ̂46/115/0 rc=0)
+- 実行: `kbb -M:test` (workdir: orgs/kotoba-lang/robotics → 14/50/0 rc=0; orgs/kotoba-lang/giemon →  ̂46/115/0 rc=0)
 - seeded 再現: 対象なし (sim-loop L0、学習ジョブ未実装)。未実行。

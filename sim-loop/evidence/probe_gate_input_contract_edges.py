@@ -6,13 +6,13 @@
 id・mission-id の型エッジでも decision が payload 無相関か — falsify-012
 (allowed-set nil/空/set 3 種のみ) の入力空間を allowed-set 契約面 + governor 層に拡張。
 
-測定のみ。コード修正なし。clojure -M -e で kotoba.robotics を require し列挙。
+測定のみ。コード修正なし。kbb -M -e で kotoba.robotics を require し列挙。
 
 再現:
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
   python3 sim-loop/evidence/probe_gate_input_contract_edges.py > /tmp/h15.clj
-  clojure -M -e "$(cat /tmp/h15.clj)" > /tmp/h15.txt 2>&1
-  clojure -M -e "$(cat /tmp/h15.clj)" > /tmp/h15b.txt 2>&1
+  kbb -M -e "$(cat /tmp/h15.clj)" > /tmp/h15.txt 2>&1
+  kbb -M -e "$(cat /tmp/h15.clj)" > /tmp/h15b.txt 2>&1
   diff /tmp/h15.txt /tmp/h15b.txt   # clojure 出力本体 0 行差 (決定的)
 """
 CLOJURE = r'''

@@ -35,8 +35,8 @@ test スイート実測完走 (robotics・giemon 両方、exit 0 両方)。per-p
   FK guard repair (実装側タスク) のまま継続。
 
 ## 再現コマンド
-- (実測完走): `cd .../kotoba-lang/robotics && clojure -M:test` → 14/50/0 (exit 0)、
-  `cd .../kotoba-lang/giemon && clojure -M:test` → 46/115/0 (exit 0)
+- (実測完走): `cd .../kotoba-lang/robotics && kbb -M:test` → 14/50/0 (exit 0)、
+  `cd .../kotoba-lang/giemon && kbb -M:test` → 46/115/0 (exit 0)
 - (実測 fixture): /tmp/b_rob_207.txt (RC=0 / DONE-MARKER / rob_head=9459ca0d5b31...)、
   /tmp/b_gie_207.txt (RC=0 / DONE-MARKER / gie_head=d0d3cb45fcc8...)
 

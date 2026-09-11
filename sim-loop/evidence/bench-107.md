@@ -11,5 +11,5 @@ tests_run: none (not executed)
 seeded_repro: none (not executed)
 baseline: bench-066/102 (robotics 14/50/0, giemon 46/115/0)
 regression: UNMEASURED — assert しない (回帰なしとは言わない)
-command: skipped — clojure -M:test は load 60.47 + backend 応答不能で省略
+command: skipped — kbb -M:test は load 60.47 + backend 応答不能で省略
 maturity: bench-106 受領どおり回帰なし status 継続。本系未検証。

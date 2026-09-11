@@ -60,7 +60,7 @@ actuator 未割当 joint は「要件を満たす」とは評価されず、**�
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(require (quote [clojure.edn]) (quote [kotoba.giemon.arm :as arm]))
+kbb -M -e '(require (quote [clojure.edn]) (quote [kotoba.giemon.arm :as arm]))
 (def m (first (clojure.edn/read-string (slurp "fixtures/giemon_arm6/giemon_arm6.edn"))))
 (def ch (clojure.edn/read-string (:arm/chain m)))
 (def unrated {:arm/chain (mapv #(if (= (:joint/name %) "j1") (dissoc % :joint/actuator) %) ch)})

@@ -10,7 +10,7 @@ probe: probe_gate_input_space_widening.py (実測 probe に差し替え済み)�
 falsify-013 と同一の gate 呼び出し経路 (`rob/action` + `rob/gate`) で
 14 ケースを列挙し、2 回実行で照合。
 
-結果 (clojure -M -e、exit 0):
+結果 (kbb -M -e、exit 0):
 - A 文字列化 / 構造エッジ (5 ケース + clean baseline):
   "120" / "1e6" / 5 層深入れ tau 1e6 / vector 包み / quoted-map —
   すべて `:permit`、clean (tau 0.0) baseline と同一 decision、
@@ -38,8 +38,8 @@ mission レベルのペイロード搬送経路は設計上不在 (新しい赤�
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 python3 sim-loop/evidence/probe_gate_input_space_widening.py > /tmp/h16.clj
-clojure -M -e "$(cat /tmp/h16.clj)" > /tmp/h16.txt 2>&1
-clojure -M -e "$(cat /tmp/h16.clj)" > /tmp/h16b.txt 2>&1
+kbb -M -e "$(cat /tmp/h16.clj)" > /tmp/h16.txt 2>&1
+kbb -M -e "$(cat /tmp/h16.clj)" > /tmp/h16b.txt 2>&1
 diff /tmp/h16.txt /tmp/h16b.txt   # 0 行差
 ```
 

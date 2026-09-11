@@ -25,7 +25,7 @@
 - falsify-056 (H57) 据え置き — 今回新規 falsy なし、新仮説判定なし (code 無変更で判定対象なし)。HEAD giemon d0d3cb4 / robotics 9459ca0 不変・tracked diff 空 (?? sim-loop/ のみ)、`within-limits?` (arm.cljc L15-20) は FK 経路 (forward-kinematics L22-41 / end-effector L43-46) から呼出 0 回、L38 silent zero-fill 不変、governor.cljc 参照 0 のまま — FK guard repair 未着手のまま継続。ステータス正本 (status/maturity.md) の NEXT は none のまま、継続。
 
 ## 再現コマンド
-- (実測完走): `cd .../kotoba-lang/robotics && clojure -M:test` →　14/50/0 (exit 0)、`cd .../kotoba-lang/giemon && clojure -M:test` →　46/115/0 (exit 0)
+- (実測完走): `cd .../kotoba-lang/robotics && kbb -M:test` →　14/50/0 (exit 0)、`cd .../kotoba-lang/giemon && kbb -M:test` →　46/115/0 (exit 0)
 
 ##備考
 - 基準値は bench-066 確定 (robotics 14/50/0、giemon 46/115/0)。前回 bench-196 は load 超過 (≈7.0×) で skip だったが、今回負荷が ≈4.8× へ低下し backend 応答で measured 復帰 (bench-191 以来の実測完走)。

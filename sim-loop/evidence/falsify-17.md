@@ -22,7 +22,7 @@ falsify-11 で `:cont-nm` / `:effort` の `##NaN` が headroom に無音侵入�
 
 コード: `src/kotoba/giemon/export.cljk` (`torque->json` L71-79 の直接補間、
 `bom->json` L109-121 の `(or ... "null")`、CSV は `csv-cell` = `(str v)`)。
-実行: `clojure -M -e` (giemon deps.edn)、fixture は falsify-2〜5 確立の
+実行: `kbb -M -e` (giemon deps.edn)、fixture は falsify-2〜5 確立の
 2 段階 read。`##NaN` は j3 の `:joint/actuator :cont-nm` に注入
 (合法 EDN リテラル)。検証は cheshire 5.13.0 と Python `json`
 (parse_constant=raise、RFC 8259 準拠) の双方で実施。
@@ -64,7 +64,7 @@ underrated (##-Inf)    1 件検出 (j3 headroom ##-Inf — neg? で捕捉され�
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '
+kbb -M -e '
 (require (quote [kotoba.giemon.export :as ex]) (quote [clojure.edn :as edn]))
 (def base (first (edn/read-string (slurp "fixtures/giemon_arm6/giemon_arm6.edn"))))
 (def spec (assoc (edn/read-string (:arm/base base))

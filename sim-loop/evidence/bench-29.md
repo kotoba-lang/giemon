@@ -1,8 +1,8 @@
 # bench-29 (2026-09-04 15:43 JST, cron)
 
 ## テスト
-- robotics: `clojure -M:test` → Ran 14 tests containing 50 assertions. 0 failures, 0 errors.
-- giemon:   `clojure -M:test` → Ran 46 tests containing 115 assertions. 0 failures, 0 errors.
+- robotics: `kbb -M:test` → Ran 14 tests containing 50 assertions. 0 failures, 0 errors.
+- giemon:   `kbb -M:test` → Ran 46 tests containing 115 assertions. 0 failures, 0 errors.
 - 前回 (bench-28) 比: 同値。回帰なし。
 
 ## seeded 再現
@@ -18,7 +18,7 @@
 
 ## 再現コマンド
 ```
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon   && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon   && kbb -M:test
 grep -rl seed src
 ```

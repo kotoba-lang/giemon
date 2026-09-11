@@ -38,7 +38,7 @@ FK guard repair (arm.cljc forward-kinematics への within-limits? 配線 + arm_
 緑完走のまま (46/115 内)。repair 未実装の静的再 grep は本 run 未実施 (budget 限界・捏造回避)。
 
 ## 再現コマンド
-cd orgs/kotoba-lang/robotics && clojure -M:test > /tmp/b_rob.txt 2>&1; echo RC=$? >> /tmp/b_rob.txt
-cd orgs/kotoba-lang/giemon   && clojure -M:test > /tmp/b_gie.txt 2>&1; echo RC=$? >> /tmp/b_gie.txt
+cd orgs/kotoba-lang/robotics && kbb -M:test > /tmp/b_rob.txt 2>&1; echo RC=$? >> /tmp/b_rob.txt
+cd orgs/kotoba-lang/giemon   && kbb -M:test > /tmp/b_gie.txt 2>&1; echo RC=$? >> /tmp/b_gie.txt
 (本 run 実施済み・実測完走。/tmp redirect + read_file workaround 使用)
 END

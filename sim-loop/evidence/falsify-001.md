@@ -22,7 +22,7 @@ H: `fixtures/giemon_arm6` の parity oracle 主張
   loader が 0-default しない実装ならここが破れ点になる — コア側で要確認。
 
 ### 2. テスト一式
-- `cd orgs/kotoba-lang/giemon && clojure -M:test`
+- `cd orgs/kotoba-lang/giemon && kbb -M:test`
 - **Ran 46 tests containing 115 assertions. 0 failures, 0 errors.** (exit 0)
 
 ### 3. 動的照合 (Clojure 実行、-e 測定)
@@ -66,9 +66,9 @@ giemon-sim へ: `arm_edn_test` が読むのは EDN のみ — URDF を実際に 
 ## 再現手順
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M:test                                    # 46 tests / 115 assertions / 0 failures
+kbb -M:test                                    # 46 tests / 115 assertions / 0 failures
 python3 sim-loop/evidence/probe_parity_arm6.py     # mismatches: 0, exit 0
-clojure -M -e '(require (quote [kotoba.giemon.arm :as arm]) (quote [clojure.edn :as edn]) (quote [clojure.java.io :as io])) ...'
+kbb -M -e '(require (quote [kotoba.giemon.arm :as arm]) (quote [clojure.edn :as edn]) (quote [clojure.java.io :as io])) ...'
 # (end-effector 測定 — 本ファイル「実測 3」のコード)
 ```
 

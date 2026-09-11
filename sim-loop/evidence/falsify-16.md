@@ -22,7 +22,7 @@ width を一切検査していないのではないか:
 ## 実測
 
 コード: `src/kotoba/giemon/chassis.cljk` (track-speeds->twist L28-35,
-twist->track-speeds L37-44)。実行: `clojure -M /tmp/f16.clj` (giemon deps.edn)。
+twist->track-speeds L37-44)。実行: `kbb -M /tmp/f16.clj` (giemon deps.edn)。
 
 ```
 :fwd-zero-width  Divide by zero 例外 (fail-closed 正常)
@@ -66,7 +66,7 @@ twist->track-speeds L37-44)。実行: `clojure -M /tmp/f16.clj` (giemon deps.edn
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(require (quote [kotoba.giemon.chassis :as ch]))
+kbb -M -e '(require (quote [kotoba.giemon.chassis :as ch]))
 (prn :neg-width (ch/track-speeds->twist -0.5 1.0 2.0))
 (prn :zero-width-inv (ch/twist->track-speeds 0.0 0.0 1.0))'
 ;; => :neg-width #:twist{:linear 1.5, :angular -2.0}

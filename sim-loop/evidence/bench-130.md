@@ -16,4 +16,4 @@
 
 - 回帰 assert: **なし** ( unmeasured) — 実行不能帯のため回帰判定せず、新規 falsy なし ( H25～H41 全決着・未決残存なし、code 無変更で新仮説判定なし)。verdict: unmeasured (load above gate) / no new regression signal
 
-再現コマンド: 未実行 ( load gate 超過で skip、`clojure -M:test` 省略)。seeded 再現は L0 で N/A。
+再現コマンド: 未実行 ( load gate 超過で skip、`kbb -M:test` 省略)。seeded 再現は L0 で N/A。

@@ -13,7 +13,7 @@ tests: robotics 14/50/0、giemon 46/115/0 (両者 exit 0)。
 
 
 
-## テスト (clojure -M:test 実測、/tmp redirect + read_file、cwd スクリプト内 cd 固定)
+## テスト (kbb -M:test 実測、/tmp redirect + read_file、cwd スクリプト内 cd 固定)
 - **kotoba-lang/robotics**: `Ran 14 tests containing. 50 assertions. 0 failures.  ̂0 errors.` exit rc=0 (HEAD 9459ca0)
 - **kotoba-lang/giemon**: `Ran  46 tests containing.  ̂115 assertions.  0 failures.̂  0 errors.` exit rc=0 (HEAD d0d3cb4%
 
@@ -30,5 +30,5 @@ tests: robotics 14/50/0、giemon 46/115/0 (両者 exit 0)。
 
 
 ## 再現コマンド
-- 実行: `/tmp/runbench.sh` (cwd をスクリプト内 `cd` で固定): `clojure -M:test` (robotics →  ̂14/50/0 rc=0; giemon →  46/115/0 rc=0)
+- 実行: `/tmp/runbench.sh` (cwd をスクリプト内 `cd` で固定): `kbb -M:test` (robotics →  ̂14/50/0 rc=0; giemon →  46/115/0 rc=0)
 - seeded 再現: 対象なし (sim-loop L0、学習ジョブ未実装)。未実行。

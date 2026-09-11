@@ -24,7 +24,7 @@ arm_test 緑 assertion が変更された — 28 連続 refuted の 29 回目が
 
 ## 負荷判定
 HOST LOAD 15min ≈119-121 (≈12× ncpu=10, 1min 102.93 / 5min 132.34) — Load
-gate (15min ≥ 2×ncpu=20) 大幅超過のため clojure -M:test / seeded 再現は
+gate (15min ≥ 2×ncpu=20) 大幅超過のため kbb -M:test / seeded 再現は
 省略、test 計数 unmeasured (honest, 数字捏造ゼロ)。本判定は純静的読取で
 負荷非依存。
 

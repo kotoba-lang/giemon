@@ -27,8 +27,8 @@ falsify-034 (FK guard repair 未実装) 残存。falsify-060〜062 まで記録�
 ```
 sysctl -n hw.ncpu    # 10
 uptime               # 11:19, load averages: 11.76 20.08 41.51
-cd orgs/kotoba-lang/robotics && clojure -M:test   # 14/50/0, RC=0
-cd orgs/kotoba-lang/giemon && clojure -M:test     # 46/115/0, RC=0
+cd orgs/kotoba-lang/robotics && kbb -M:test   # 14/50/0, RC=0
+cd orgs/kotoba-lang/giemon && kbb -M:test     # 46/115/0, RC=0
 git rev-parse HEAD   # robotics 396fc33 / giemon d0d3cb4
 ```
 

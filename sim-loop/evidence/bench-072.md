@@ -10,7 +10,7 @@ HOST LOAD (pre-run 取得): 19:49 up 1d 12:32, 15 users, load averages 43.18 46.
 高負荷かつ実行バックエンド無応答。
 
 ## 測定項目 (全て skipped — 数字を捏造しない)
-- test 数 / assertion 数 / failures (clojure -M:test, kotoba-lang/robotics および kotoba-lang/giemon):
+- test 数 / assertion 数 / failures (kbb -M:test, kotoba-lang/robotics および kotoba-lang/giemon):
   **測定不能 — 実行バックエンド無応答のため実行せず**。
 - seeded 再現 (L1 以降学習ジョブ): giemon リポジトリ内に実装なし (L0)。軽量 seeded 再現 surrogate も
   実行バックエンド無応答のため実施せず。**verdict: skipped (load / backend unresponsive)**。
@@ -22,8 +22,8 @@ HOST LOAD (pre-run 取得): 19:49 up 1d 12:32, 15 users, load averages 43.18 46.
 - 回帰の有無: 判定不可 (test 未実行のため)。回帰なしとも言わない、基準値保持とも断言しない。
 
 ## 再現コマンド (今回実行できなかったもの / 次回実行するもの)
-- `clojure -M:test` (orgs/kotoba-lang/robotics)
-- `clojure -M:test` (orgs/kotoba-lang/giemon)
+- `kbb -M:test` (orgs/kotoba-lang/robotics)
+- `kbb -M:test` (orgs/kotoba-lang/giemon)
 - seeded 再現: bench-061 以前の軽量 surrogate 手順 (同一 seed 2 回実行一致)
 
 ## 判定基準

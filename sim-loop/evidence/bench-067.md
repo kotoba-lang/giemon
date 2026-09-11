@@ -3,7 +3,7 @@
 - 測定日: 2026-09-06 JST
 - HOST LOAD (uptime 記載): 1min 74.29→92.70→99.45 / 5min 77.85→81.80→83.38 / 15min 79.29→80.67→81.23 (avg, users 14)。
   5 秒間隔の再計測で 92.70 → 99.45 と高負荷が持続・上昇 (一過性のスパイクではない)。
-- 実行コマンド: `clojure -M:test` (robotics, giemon) → **skipped (load)**。
+- 実行コマンド: `kbb -M:test` (robotics, giemon) → **skipped (load)**。
   bench-064 で明記した再実行条件 (load 1min < 60 程度) を満たしていないため、
   2 リポジトリのテストスイート + seeded 再現 (重量実験) は省略。
 

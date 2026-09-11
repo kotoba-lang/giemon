@@ -1,6 +1,6 @@
 # bench-106 (日次 bench) — skipped (load + backend 応答不能)
 
-状態: giemon sim-loop bench イテレーション (robotics / giemon の clojure -M:test、
+状態: giemon sim-loop bench イテレーション (robotics / giemon の kbb -M:test、
 seeded 再現) を実行不可。以下を正直に記録する。
 
 ## 実行不能の理由
@@ -22,8 +22,8 @@ seeded 再現) を実行不可。以下を正直に記録する。
 - 回帰: **未判定 (unmeasured)**
 
 ## 再現コマンド (実行不可だったもの)
-- `clojure -M:test` (orgs/kotoba-lang/robotics)
-- `clojure -M:test` (orgs/kotoba-lang/giemon)
+- `kbb -M:test` (orgs/kotoba-lang/robotics)
+- `kbb -M:test` (orgs/kotoba-lang/giemon)
 - sim-loop seeded 再現 (同一 seed 2 回走行)
 
 ## 継続

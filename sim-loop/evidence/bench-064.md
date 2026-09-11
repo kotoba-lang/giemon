@@ -2,7 +2,7 @@
 
 - 測定日: 2026-09-06 JST
 - HOST LOAD (uptime 記載): 1min 188.36 / 5min 157.31 / 15min 95.88 (avg, users 13)
-- 実行コマンド: `clojure -M:test` (robotics, giemon) → **skipped (load)**。
+- 実行コマンド: `kbb -M:test` (robotics, giemon) → **skipped (load)**。
   システム負荷が極端 (1min 188。`uptime`/`ls` でさえ応答が timeout/空出力に
   なる状況) のため、重量実験 (2 リポジトリのテストスイート + seeded 再現) は省略。
 

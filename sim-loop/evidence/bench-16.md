@@ -2,9 +2,9 @@
 
 ## テスト実行 (軽量テストは負荷高でも実施)
 
-- `cd orgs/kotoba-lang/robotics && clojure -M:test`
+- `cd orgs/kotoba-lang/robotics && kbb -M:test`
   → Ran 14 tests containing 50 assertions. 0 failures, 0 errors.
-- `cd orgs/kotoba-lang/giemon && clojure -M:test`
+- `cd orgs/kotoba-lang/giemon && kbb -M:test`
   → Ran 46 tests containing 115 assertions. 0 failures, 0 errors.
 
 前回比: bench-4〜15 と同一数字 (robotics 14/50 + giemon 46/115)。回帰なし。
@@ -26,8 +26,8 @@
 ## 再現コマンド
 
 ```sh
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon && kbb -M:test
 grep -rl seed orgs/kotoba-lang/giemon/src | wc -l   # 0 → 再現対象不在
 uptime                                               # 負荷確認
 ```

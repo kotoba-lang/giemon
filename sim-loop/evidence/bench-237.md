@@ -5,7 +5,7 @@
 Load gate (15min ≥ 2×ncpu=20) は未満 — 負荷自体は問題なし。
 
 ## Verdict: skipped (execution backend) — unmeasured (honest 据え置き)
-clojure -M:test (robotics / giemon) は実施不能。実行 backend が本 run 応答不能:
+kbb -M:test (robotics / giemon) は実施不能。実行 backend が本 run 応答不能:
 - terminal 系: echo / sysctl / uptime / ls を含む全コマンドが exit 0 で stdout 空出力
   (bench-225/226/227/231 と同一症状、6+ コマンドで一貫)。
 - browser 系 workaround (subprocess 実行) も exit 1・空出力で応答なし。
@@ -38,7 +38,7 @@ FK guard repair (arm.cljc forward-kinematics への within-limits? 配線 + arm_
 本 run は backend 応答不能で静的再確認も実測不能 — 記録のみ、コード変更なし。
 
 ## 再現コマンド
-cd orgs/kotoba-lang/robotics && clojure -M:test > /tmp/b_rob.txt 2>&1; echo RC=$? >> /tmp/b_rob.txt
-cd orgs/kotoba-lang/giemon   && clojure -M:test > /tmp/b_gie.txt 2>&1; echo RC=$? >> /tmp/b_gie.txt
+cd orgs/kotoba-lang/robotics && kbb -M:test > /tmp/b_rob.txt 2>&1; echo RC=$? >> /tmp/b_rob.txt
+cd orgs/kotoba-lang/giemon   && kbb -M:test > /tmp/b_gie.txt 2>&1; echo RC=$? >> /tmp/b_gie.txt
 (/tmp redirect + read_file workaround。本 run は backend 応答不能で未実施 — 未実施を正直記録)
 END

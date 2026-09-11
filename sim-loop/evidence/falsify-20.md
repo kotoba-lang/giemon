@@ -20,7 +20,7 @@ JSON 構文トークンとしてそのまま出るはず。
 ## 実測
 
 コード: `src/kotoba/giemon/export.cljk` — `bom->json` の
-`(or (:cont-nm r) "null")` 生補間。実行: `clojure -M -e` (giemon
+`(or (:cont-nm r) "null")` 生補間。実行: `kbb -M -e` (giemon
 deps.edn)、fixture は falsify-2〜5 確立の 2 段階 read。検証は
 Python `json` (strict)。
 
@@ -63,7 +63,7 @@ falsify-17 の非有限検査に加え **数値型 (Number かつ finite) 検査
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '
+kbb -M -e '
 (require (quote [kotoba.giemon.export :as ex]) (quote [clojure.edn :as edn]))
 (def base (first (edn/read-string (slurp "fixtures/giemon_arm6/giemon_arm6.edn"))))
 (def spec (assoc (edn/read-string (:arm/base base))

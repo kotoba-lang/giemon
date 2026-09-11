@@ -16,4 +16,4 @@
 
   - 回帰 assert: **なし** ( unmeasured) — コード無変更・HEAD 不変で回帰信号なし。新規 falsy なし。verdict: unmeasured ( load gate) / no new regression signal
 
-再現コマンド: 今回 skip ( `clojure -M:test` は負荷 gate 超過で未実行)。次回 15min < 20 ( 2×ncpu) で実測再開予定。
+再現コマンド: 今回 skip ( `kbb -M:test` は負荷 gate 超過で未実行)。次回 15min < 20 ( 2×ncpu) で実測再開予定。

@@ -9,7 +9,7 @@
   確認した `find` 1 件は 60s タイムアウト (exit 124)。read_file (実在ファイル) のみ
   成立。bench-069〜079 と同型の応答不能・過負荷条件。
 
-## テストスイート (kotoba-lang/robotics + kotoba-lang/giemon: clojure -M:test)
+## テストスイート (kotoba-lang/robotics + kotoba-lang/giemon: kbb -M:test)
 
 - 結果: **skipped (load + backend unresponsive)**
 - テスト数 / assertion 数 / failures: 計測せず（単一値・検証なしに捏造しない）

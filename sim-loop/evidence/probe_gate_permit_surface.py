@@ -3,13 +3,13 @@
 payload (torque) と mission 境界 (:mission/boundaries, :mission/max-steps)
 に無相関か — maturity NEXT の残り深掘り候補 1 つを測定。
 
-測定のみ。コード修正なし。clojure -M -e で kotoba.robotics を require し列挙。
+測定のみ。コード修正なし。kbb -M -e で kotoba.robotics を require し列挙。
 
 再現:
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
   python3 sim-loop/evidence/probe_gate_permit_surface.py > /tmp/h17.clj
-  clojure -M -e "$(cat /tmp/h17.clj)" > /tmp/h17.txt 2>&1
-  clojure -M -e "$(cat /tmp/h17.clj)" > /tmp/h17b.txt 2>&1
+  kbb -M -e "$(cat /tmp/h17.clj)" > /tmp/h17.txt 2>&1
+  kbb -M -e "$(cat /tmp/h17.clj)" > /tmp/h17b.txt 2>&1
   diff /tmp/h17.txt /tmp/h17b.txt   # clojure 出力本体 0 行差 (決定的)
 """
 CLOJURE = r'''

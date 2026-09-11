@@ -19,7 +19,7 @@ nil-safety action は生マップでしか作れない点も確認する。
 ## 実測
 
 コード: `../robotics/src/kotoba/robotics.cljc` (gate L120-129 /
-action-permitted? L131-142)。実行: `clojure -M -e ...` (giemon deps.edn、pinned robotics)。
+action-permitted? L131-142)。実行: `kbb -M -e ...` (giemon deps.edn、pinned robotics)。
 
 対象 action: `(rob/action "op-x" "op-m-1" :actuate :none {:spray "chemical"})`
 (正規生成、`:action/safety :none`)。
@@ -73,7 +73,7 @@ action を `:invalid` に落とす (または両方) まで未修理。
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(require (quote [kotoba.robotics :as rob]))
+kbb -M -e '(require (quote [kotoba.robotics :as rob]))
 (def raw {:action/id "op-h" :action/mission "op-m-1" :action/kind :actuate
           :action/safety nil :action/params {}})
 (prn (rob/gate raw (conj #{:low :medium} nil)))'

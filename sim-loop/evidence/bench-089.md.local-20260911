@@ -1,7 +1,7 @@
 # bench-089 — SKIPPED (load & unresponsive backend)
 
 ## verdict
-- test スイート (robotics / giemon `clojure -M:test`): **skipped (load & backend 応答不能)**
+- test スイート (robotics / giemon `kbb -M:test`): **skipped (load & backend 応答不能)**
 - seeded 再現 (sim-loop L1 以降, 同一 seed 2 回): **skipped (load & backend 応答不能)**
 - 回帰: **判定不能**（測定できず）— unmeasured のため assert しない (honesty-first)
 
@@ -28,7 +28,7 @@
   (変化なし、FK の shape/numeric 破れを検証する断言なし → falsify-029/H31)。
 
 ## 再現コマンド (今回実行不可。負荷収束・backend 回復後に実行すべき)
-- clojure -M:test   # orgs/kotoba-lang/robotics と orgs/kotoba-lang/giemon 両方
+- kbb -M:test   # orgs/kotoba-lang/robotics と orgs/kotoba-lang/giemon 両方
 - seeded 再現: sim-loop 学習ジョブを同一 seed で 2 回実行し結果一致を検査
 
 ## 索引・NEXT

@@ -1,7 +1,7 @@
 # bench-094 — SKIPPED (load & unresponsive backend)
 
 ## verdict
-- test スイート (robotics / giemon `clojure -M:test`): **skipped (load & backend 応答不能)**
+- test スイート (robotics / giemon `kbb -M:test`): **skipped (load & backend 応答不能)**
 - seeded 再現 (sim-loop L1 以降, 同一 seed 2 回): **skipped (load & backend 応答不能)**
 - 回帰: **判定不能**(測定できず — unmeasured のため assert しない (honesty-first)
 

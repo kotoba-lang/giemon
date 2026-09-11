@@ -2,8 +2,8 @@
 
 ## テスト実行
 
-- robotics: `clojure -M:test` → Ran 14 tests containing 50 assertions. 0 failures, 0 errors.
-- giemon:   `clojure -M:test` → Ran 46 tests containing 115 assertions. 0 failures, 0 errors.
+- robotics: `kbb -M:test` → Ran 14 tests containing 50 assertions. 0 failures, 0 errors.
+- giemon:   `kbb -M:test` → Ran 46 tests containing 115 assertions. 0 failures, 0 errors.
 
 前回 (bench-4〜19) と同一数字: robotics 14/50 + giemon 46/115, 0 failures 0 errors。
 回帰なし。
@@ -20,7 +20,7 @@ load 約 60-61 / 15分平均 約 54 (コア 10 相当比で高負荷)。軽量�
 ## 再現コマンド
 
 ```
-cd orgs/kotoba-lang/robotics && clojure -M:test
-cd orgs/kotoba-lang/giemon && clojure -M:test
+cd orgs/kotoba-lang/robotics && kbb -M:test
+cd orgs/kotoba-lang/giemon && kbb -M:test
 grep -rl seed orgs/kotoba-lang/giemon/src   # → 0 件
 ```

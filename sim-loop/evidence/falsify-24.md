@@ -28,7 +28,7 @@ before it ever reaches hardware**」と宣言し、`action-kinds` の docstring 
 コード: gitlibs `io.github.kotoba-lang/robotics/1d1f93e.../src/kotoba/robotics.cljc`
 gate L120-129 (`:action/safety` のみ参照、`:action/params` 参照 0 件)、
 action L60-71 (id/mission/params 無検査)。
-実行: `clojure -M /tmp/f/f24.clj` (repl 出力は evidence 末尾の手順と同一)。
+実行: `kbb -M /tmp/f/f24.clj` (repl 出力は evidence 末尾の手順と同一)。
 
 ```
 :H1-params-inf           => {:gate/decision :permit, :action "a1"}   (:actuate :medium, params {:velocity ##Inf :torque ##NaN})
@@ -64,7 +64,7 @@ action L60-71 (id/mission/params 無検査)。
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(require (quote [kotoba.robotics :as rob]))
+kbb -M -e '(require (quote [kotoba.robotics :as rob]))
 (def a (rob/action "a1" "m1" :actuate :medium :params {:velocity ##Inf :torque ##NaN}))
 (prn (rob/gate a #{:low :medium}))
 (prn (rob/action-permitted? a #{:low :medium}))

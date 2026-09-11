@@ -16,7 +16,7 @@
             (arm/forward-kinematics two-joint-arm []))))` の緑零fill assertion が
     無変更で存続。git HEAD d0d3cb4 不変、tracked diff 空 (`git diff HEAD --stat` 空 /
     `git diff --cached --stat` 空、IN-FLIGHT は sim-loop/ 系のみ)。
-  - **実行系**: `clojure -M:test -n kotoba.giemon.arm-test` を実測で完走 →
+  - **実行系**: `kbb -M:test -n kotoba.giemon.arm-test` を実測で完走 →
     **Ran 5 tests / 11 assertions / 0 failures / 0 errors, exit 0**。test 20-22 は
     依然 green で pass — 修復が入っていれば loud 失敗 (非 zero exit) になるはずの
     箇所が silent zero-fill のまま緑。guard 実装の行動的痕跡なし。
@@ -33,7 +33,7 @@
   sed -n '38p' src/kotoba/giemon/arm.cljk         # → `(or (first angles) 0.0)` (no guard)
   sed -n '20,22p' test/kotoba/giemon/arm_test.cljk # → silent zero-fill equality 存続
   git diff HEAD --stat                            # → 空 (コアに変更なし)
-  clojure -M:test -n kotoba.giemon.arm-test > /tmp/o.txt 2>&1; echo $?
+  kbb -M:test -n kotoba.giemon.arm-test > /tmp/o.txt 2>&1; echo $?
   # (terminal foreground stdout 空 障害を回避して /tmp redirect → read_file で回収)
   # → "Ran 5 tests containing 11 assertions. 0 failures, 0 errors." exit 0
   ```

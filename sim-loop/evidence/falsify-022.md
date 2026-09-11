@@ -67,7 +67,7 @@ falsify-022: H24 refuted — within-limits? は欠落/nil/逆転 limit で
 ## 再現手順
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(load-file "sim-loop/evidence/probe_within_limits_missing.cljk")'
+kbb -M -e '(load-file "sim-loop/evidence/probe_within_limits_missing.cljk")'
 ```
 2 回実行し出力 byte 一致を確認済み (/tmp/h24a vs /tmp/h24b、cmp exit 0)。
 測定値は `falsify-022_measured.txt` に保存。

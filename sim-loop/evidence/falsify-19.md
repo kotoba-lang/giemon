@@ -25,7 +25,7 @@ assoc で差し替えた半正規マップ (キー構造は正規) を使う。
 ## 実測
 
 コード: robotics.cljc (gate L124-129 / requires-sign-off? L78-82 /
-safety-classes L26-29)。実行: `clojure -M -e` (giemon deps.edn、
+safety-classes L26-29)。実行: `kbb -M -e` (giemon deps.edn、
 pinned robotics 1d1f93e3c9ac06ce475ebcfd4df1d908602792d5)。
 
 ```
@@ -78,7 +78,7 @@ pinned robotics 1d1f93e3c9ac06ce475ebcfd4df1d908602792d5)。
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e '(require (quote [kotoba.robotics :as rob]))
+kbb -M -e '(require (quote [kotoba.robotics :as rob]))
 (def raw (assoc (rob/action "op-s" "op-m-1" :actuate :low) :action/safety "low"))
 (prn (rob/gate raw (conj #{:low :medium} "low")))'
 ;; => {:gate/decision :permit, :gate/action "op-s"}

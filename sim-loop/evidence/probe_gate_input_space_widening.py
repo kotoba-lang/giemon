@@ -4,13 +4,13 @@
 mission メタデータ経由 / バッチアクション内の 1 極端 torque) でも
 決定的に不変か — falsify-014 (ENV-BLOCKED, inconclusive) の再試行。
 
-測定のみ。コード修正なし。clojure -M -e で kotoba.robotics を require し列挙。
+測定のみ。コード修正なし。kbb -M -e で kotoba.robotics を require し列挙。
 
 再現:
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
   python3 sim-loop/evidence/probe_gate_input_space_widening.py > /tmp/h16.clj
-  clojure -M -e "$(cat /tmp/h16.clj)" > /tmp/h16.txt 2>&1
-  clojure -M -e "$(cat /tmp/h16.clj)" > /tmp/h16b.txt 2>&1
+  kbb -M -e "$(cat /tmp/h16.clj)" > /tmp/h16.txt 2>&1
+  kbb -M -e "$(cat /tmp/h16.clj)" > /tmp/h16b.txt 2>&1
   diff /tmp/h16.txt /tmp/h16b.txt   # clojure 出力本体 0 行差 (決定的)
 """
 CLOJURE = r'''

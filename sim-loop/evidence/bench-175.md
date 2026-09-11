@@ -14,7 +14,7 @@ Load gate 大幅超過帯だったが実行バックエンドは応答し、test
   (15min≥2×ncpu) を大きく超えたが backend 応答・実測完走のため measured 記録
   (skip は backend 非応答のときのみ、bench-108・167・168 前例に従う)。
 
-## テスト（clojure -M:test 実測、/tmp redirect + read_file、一意ファイル b175_*.txt）
+## テスト（kbb -M:test 実測、/tmp redirect + read_file、一意ファイル b175_*.txt）
 - **kotoba-lang/robotics**: `Ran 14 tests containing 50 assertions. 0 failures, 0 errors.` exit 0 (HEAD 9459ca0)
 - **kotoba-lang/giemon**:   `Ran 46 tests containing 115 assertions. 0 failures, 0 errors.` exit 0 (HEAD d0d3cb4)
 
@@ -38,8 +38,8 @@ FK guard repair 未着手のまま)。既存 falsify-001〜049 は全て決着 (
 
 ## 再現コマンド
 ```
-cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && clojure -M:test   # 14/50/0 exit 0
-cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon  && clojure -M:test   # 46/115/0 exit 0
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && kbb -M:test   # 14/50/0 exit 0
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon  && kbb -M:test   # 46/115/0 exit 0
 # FK guard 未配線の静的再確認:
 grep -rn "within-limits?" src test   # arm.cljc L15 def / L28 doc / arm_test L29-30 のみ、FK 内呼出 0 回
 ```

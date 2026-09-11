@@ -31,7 +31,7 @@
 
 
 ## 再現コマンド
-- (実測完走): `cd .../kotoba-lang/robotics && clojure -M:test` →　14/50/0 (exit 0)、`cd .../kotoba-lang/giemon && clojure -M:test` →　46/115/0 (exit 0)
+- (実測完走): `cd .../kotoba-lang/robotics && kbb -M:test` →　14/50/0 (exit 0)、`cd .../kotoba-lang/giemon && kbb -M:test` →　46/115/0 (exit 0)
 
 ##備考
 - 基準値は bench-066 確定 (robotics 14/50/0、giemon 46/115/0)。前回 bench-198/197 に続き high-load 帯 (≈4.4×) でも backend 応答で measured 実測完走 (robotics と giemon 両方完走)。回帰なし。

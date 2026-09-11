@@ -43,8 +43,8 @@ test 出力実測取得・完走確認。基準値一致、回帰なし measured
 
 ## 再現コマンド
 
-- `cd .../kotoba-lang/robotics && clojure -M:test` → 基準 14/50/0 (本日 exit 0)
-- `cd .../kotoba-lang/giemon && clojure -M:test` → 基準 46/115/0 (本日 exit 0)
+- `cd .../kotoba-lang/robotics && kbb -M:test` → 基準 14/50/0 (本日 exit 0)
+- `cd .../kotoba-lang/giemon && kbb -M:test` → 基準 46/115/0 (本日 exit 0)
 - seeded L1+ 再現: sim-loop が L0 のため対象 job 無し。
 
 ## メモ

@@ -5,14 +5,14 @@
 - ホスト負荷: load averages 12.02 / 11.41 / 10.55 (ncpu=10) → **高負荷**
 - 判定: 重い実験(seed 2 回再現の長時間実行)は **skipped (load)** として正直に記録。
 
-## 1. テスト実行 (clojure -M:test)
+## 1. テスト実行 (kbb -M:test)
 
 ### orgs/kotoba-lang/robotics
-- コマンド: `cd orgs/kotoba-lang/robotics && clojure -M:test`
+- コマンド: `cd orgs/kotoba-lang/robotics && kbb -M:test`
 - 結果: **Ran 14 tests containing 50 assertions. 0 failures, 0 errors.** (exit 0)
 
 ### orgs/kotoba-lang/giemon
-- コマンド: `cd orgs/kotoba-lang/giemon && clojure -M:test`
+- コマンド: `cd orgs/kotoba-lang/giemon && kbb -M:test`
 - 結果: **Ran 46 tests containing 115 assertions. 0 failures, 0 errors.** (exit 0)
 
 ## 2. Seeded 再現実行 (sim-loop 学習ジョブ L1 以降)
@@ -27,8 +27,8 @@
 
 ## 再現コマンド
 ```
-cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && clojure -M:test
-cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon  && clojure -M:test
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && kbb -M:test
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon  && kbb -M:test
 ```
 
 ## 補足

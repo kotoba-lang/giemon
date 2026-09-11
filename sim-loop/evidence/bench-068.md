@@ -4,8 +4,8 @@
 - HOST LOAD (uptime 記載、5 秒間隔再計測): 開始時 1min 52.88 / 5min 63.34 / 15min 85.20、
   再計測 58.95→54.79→56.89 (1min)。ncpu=10。高負荷だが bench-064/067 の再実行条件
   (load 1min < 60 程度) を開始時点で満たしたため、通常実行を試行。
-- 実行コマンド: `clojure -M:test` (robotics, giemon) → **通常実行 (成功、exit 0)**。
-- seeded 再現: `clojure -M -i /tmp/seed_parity_bench068.clj` → **SEED-PARITY true**。
+- 実行コマンド: `kbb -M:test` (robotics, giemon) → **通常実行 (成功、exit 0)**。
+- seeded 再現: `kbb -M -i /tmp/seed_parity_bench068.clj` → **SEED-PARITY true**。
 - 長時間シミュレータ実行・probe (falsify 系) 隔線再実行は **役割外 / 省略** (bench-059〜067
   と同じ扱い。コード・測定追加を伴う実装側タスクのため本 bot は実施しない)。
 
@@ -33,10 +33,10 @@
 
 ## 再現コマンド
 ```
-cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && clojure -M:test
-cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon  && clojure -M:test
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/robotics && kbb -M:test
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon  && kbb -M:test
 # seeded 再現 (軽量):
-cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon && clojure -M -i /tmp/seed_parity_bench068.clj
+cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon && kbb -M -i /tmp/seed_parity_bench068.clj
 ```
 
 ## 補足

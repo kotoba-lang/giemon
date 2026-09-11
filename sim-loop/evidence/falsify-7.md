@@ -10,7 +10,7 @@ gate に合法アクションとして流れる迂回路になる。
 
 ## 実測 (2026-09-03, JST)
 
-実コード (`kotoba.giemon.governor` + `kotoba.robotics`) を clojure -M -e で実行:
+実コード (`kotoba.giemon.governor` + `kotoba.robotics`) を kbb -M -e で実行:
 
 1. **typo safety** `(gov/kaigo-action "A1" "M1" :otete :grasp :safety :safety-criticl)`
    → **nil** (`rob/action` が不明クラスで nil を返す)
@@ -39,7 +39,7 @@ product typo で ops-roles の `:high` が `:medium` に黙示的に置き換わ
 
 ```
 cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
-clojure -M -e "
+kbb -M -e "
 (require '[kotoba.giemon.governor :as gov] '[kotoba.robotics :as rob])
 (prn (gov/ops-action \"A6\" \"M1\" :caterpilar :move)) ; => :safety :medium (本名 :caterpillar は :high)
 (prn (rob/action-permitted? *1 #{:low :medium}))        ; => true"

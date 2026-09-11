@@ -10,7 +10,7 @@
 ;; number the core uses to justify actuator assignment.
 ;; Measurement only — reads the implementation via clojure REPL, changes nothing.
 ;;
-;; Usage: clojure -M -e "(load-file \"sim-loop/evidence/probe_bom_name_parity.cljk\")"
+;; Usage: kbb -M -e "(load-file \"sim-loop/evidence/probe_bom_name_parity.cljk\")"
 ;; (run from repo root /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon)
 
 (require '[kotoba.giemon.arm :as arm])
