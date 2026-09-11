@@ -102,7 +102,7 @@ wrap-generic`, schema in `schema.edn`, both generated — do not hand-edit):
 a single-entity `[{:db/id -1 ...}]` vector whose non-scalar values are
 `pr-str`'d blobs. Callers reconstitute the original nested map before
 passing it to `kotoba.giemon.arm`/`kotoba.giemon.chassis` (see
-`test/kotoba/giemon/arm_edn_test.clj` / `chassis_edn_test.clj`'s
+`test/kotoba/giemon/arm_edn_test.cljk` / `chassis_edn_test.clj`'s
 `unblob`/`reconstitute-*` helpers) — production code itself stays
 oblivious to this on-disk encoding, per the "caller reads/parses the EDN
 fixture, no I/O here" contract above.

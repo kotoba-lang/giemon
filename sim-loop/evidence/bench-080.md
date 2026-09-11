@@ -28,7 +28,7 @@
 
 - 結果: **未記録 (gating 遵守)**。falsify-026 は backend 応答不能のため本イテレーションで
   記録しない。gating 規則「falsify-026 記録まで next を進めない」を遵守、NEXT=H28 のまま据え置き。
-- read_file (実在 src/kotoba/giemon/arm.cljc 1–121) のみ成立し、H28 の集計対象面を
+- read_file (実在 src/kotoba/giemon/arm.cljk 1–121) のみ成立し、H28 の集計対象面を
   静的再確認 (bench-079 と同一内容、src 変化なし):
   (a) FK loop 終端 `(empty? chain)` のみで長さ比較・assert・throw なし (行 35–41)、
   (b) `end-effector` は `last`-only (行 43–46)、

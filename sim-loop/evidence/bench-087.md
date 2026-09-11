@@ -18,12 +18,12 @@
 - clojure test、seeded 再現いずれも実行不能（実行数字を捏造せず skipped 記録）。
 
 ## 静的読取 (read_file のみ成立、負荷非依存・決定的)
-- `src/kotoba/giemon/arm.cljc` (1–121) は bench-084/085/086 と byte 一致 (コード変化なし):
+- `src/kotoba/giemon/arm.cljk` (1–121) は bench-084/085/086 と byte 一致 (コード変化なし):
   FK 22–41 loop 終端 `(empty? chain)` のみ・行 38 `(or (first angles) 0.0)` は NaN を 0.0
   にせず isNaN/isInfinite/長さ assert 皆無、end-effector 43–46 は `last` のみ、
   within-limits? 15–20 は RANGE-only・src caller 不在、torque-headroom/underrated-joints
   は FK 呼び出しなし。
-- `test/kotoba/giemon/arm_test.cljc` (1–40) は prior record と byte 一致 (変化なし):
+- `test/kotoba/giemon/arm_test.cljk` (1–40) は prior record と byte 一致 (変化なし):
   forward-kinematics 15–22 は zero/missing-default のみ (NaN/長さ破れの拒否断言なし)、
   end-effector 24–26 恒等のみ、within-limits 28–30 RANGE-only、torque-headroom 32–40
   角度破れに関与せず (→ falsify-029/H31 の static base、変更なし)。

@@ -9,7 +9,7 @@
    反証は「`within-limits?` は定義されているが FK 経路から 0 回も呼ばれず、
    越境 angles が silent に受理され世界変換 (pose) を返す」のとき。
 - 実測 (決定的、静的読取 + grep 実測数、実行 backend 不要のため REPL は走らせず — 捏造なし):
-  - **`within-limits?` 定義:** `src/kotoba/giemon/arm.cljc` L15-20 —
+  - **`within-limits?` 定義:** `src/kotoba/giemon/arm.cljk` L15-20 —
     `(and (some? lower) (some? upper) (<= lower angle upper))` と宣言 limit を検査する関数は
     存在する (`fixtures/giemon_arm6/giemon_arm6.edn` に j1..j6 全 6 joint の `:joint/limit {:lower :upper}` が
     j1 [-3.0,3.0] / j2 [-2.2,2.2] / j3 [-2.5,2.5] / j5 [-2.0,2.0] / j6 [-3.0,3.0] 等で実在)。
@@ -21,7 +21,7 @@
     (falsify-034/036 と同根の既知点)。越境 angle に対し検査・クランプ・拒否・nil は一切なし —
     docstring 自体 (L27-28) が「an angle outside a joint's declared limit still produces
     a pose. Check `within-limits?` first if that matters」と明言 (自白)。
-  - **門 (governor) と FK/torque の接続:** `src/kotoba/giemon/governor.cljc` は mission/action を
+  - **門 (governor) と FK/torque の接続:** `src/kotoba/giemon/governor.cljk` は mission/action を
     安全クラス (`kaigo-roles` / `ops-roles` の `:default-safety`) に分類する層のみ (:require
     [kotoba.robotics :as rob]) で、`:joint/limit`・`torque-headroom`・FK への参照は **0**
     (grep `gate\|reject\|refuse\|clamp\|violat` src/ は arm.cljc L27 docstring と governor.cljc
@@ -42,7 +42,7 @@
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
   grep -rn 'within-limits?' src/ test/        # → arm.cljc L15(定義)/L28(doc)/arm_test.cljc L29,L30(テストのみ、FK 内呼出 0
   grep -n 'clamp\|gate\|reject\|refuse\|violat' src/   # → arm.cljc L27(doc)/governor.cljc L6,L32,L65(kotoba.robotics/gate 言及のみ — arm 接続なし)
-  read src/kotoba/giemon/arm.cljc L22-41              # forward-kinematics 本体、L38 zero-fill、limit 検査なし
+  read src/kotoba/giemon/arm.cljk L22-41              # forward-kinematics 本体、L38 zero-fill、limit 検査なし
   ```
 - 検証内訳 (本 walk の 1 仮説・1 実測判定): 1 仮説 (H40) / 測定 1 (静的読取
   within-limits? 定義 vs FK 呼出 0 回 + governor 接続 grep 2 本) / 判定 refuted (FK guard 未配線)。

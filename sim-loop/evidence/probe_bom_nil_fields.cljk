@@ -1,6 +1,6 @@
 ;; falsify-018 probe part 2 — nil-field isolation, each case in its own
 ;; subprocess-safe block. Run each form separately if one throws.
-;; Usage: clojure -M -e '(load-file "sim-loop/evidence/probe_bom_nil_fields.clj")'
+;; Usage: clojure -M -e '(load-file "sim-loop/evidence/probe_bom_nil_fields.cljk")'
 (require '[kotoba.giemon.arm :as arm])
 
 (defn show [label thunk]

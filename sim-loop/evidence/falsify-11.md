@@ -7,7 +7,7 @@
 falsify-6〜10 は「欠落 (nil / typo / 未割当)」の fail-open を実測した。
 未反証の隣接面は **数値センチネル**:
 `underrated-joints` は `(filter #(neg? (:torque/headroom %)) ...)` で判定しており
-(`src/kotoba/giemon/arm.cljc` L120-121)、IEEE 例外値は例外も投げず比較も素通しする。
+(`src/kotoba/giemon/arm.cljk` L120-121)、IEEE 例外値は例外も投げず比較も素通しする。
 `:cont-nm` か `:joint/limit :effort` が `##NaN` なら headroom は `##NaN`、
 `neg? ##NaN` は false → 「未満ではない」= 合格扱いで違反 0 件になるのではないか。
 falsify-10 で nil/文字列の `:cont-nm` は ClassCastException/NPE で fail-closed だったのに対し、
@@ -15,7 +15,7 @@ NaN は**例外も違反検出も無い**第 3 の経路のはず。
 
 ## 実測
 
-コード: `src/kotoba/giemon/arm.cljc` L95-121 (`torque-headroom` / `underrated-joints`)。
+コード: `src/kotoba/giemon/arm.cljk` L95-121 (`torque-headroom` / `underrated-joints`)。
 fixture: 2 段階 read (falsify-2 手順) で `:arm/chain` joint 6 を復元し
 j1 の値だけ差し替えて arm に渡す (falsify-5/10 と同一手法)。
 

@@ -14,16 +14,16 @@
     省略し read_file / grep / rev-parse の静的判定で決着 (falsify-042/043 と同一手法)。
   - `grep -rn "within-limits?" src/` (実測): ヒット **L15 (defn) / L28 (docstring 言及) の 2 箇所のみ**、
     src 全体に `within-limits?` 呼出 (caller) 0 箇所。
-  - `read src/kotoba/giemon/arm.cljc` (121 行): `within-limits?` は **L15-20 定義のみ** (lower/upper 比較)。
+  - `read src/kotoba/giemon/arm.cljk` (121 行): `within-limits?` は **L15-20 定義のみ** (lower/upper 比較)。
     `forward-kinematics` (L22-41) のループは `angle (or (first angles) 0.0)` (**L38 silent zero-fill**) のまま、
     `within-limits?` 呼出・クランプ・拒否・nil 配線 **なし** (L31-41 確認)。docstring L27-29 自白「This is
     pure kinematics, not the safety gate … Check `within-limits?` first」。`end-effector` (L43-46) は FK を呼ぶのみ。
-  - `read test/kotoba/giemon/arm_test.cljc` (40 行): L20-22 "missing angles default to 0.0" 緑 assertion
+  - `read test/kotoba/giemon/arm_test.cljk` (40 行): L20-22 "missing angles default to 0.0" 緑 assertion
     (`forward-kinematics [0.0 0.0]` == `forward-kinematics []`) で silent zero-fill 緑固定。
     `within-limits-test` (L28-30) は FK 経由でなく直接呼ぶ単体のみ。
-  - `read src/kotoba/giemon/governor.cljc` (68 行): 全 6 関数は gate 安全クラス分類専用で arm / within-limits? /
+  - `read src/kotoba/giemon/governor.cljk` (68 行): 全 6 関数は gate 安全クラス分類専用で arm / within-limits? /
     torque / joint limit 参照 **0** — arm limit/torque 無接続のまま。
-  - `read src/kotoba/giemon/kinematics.cljc` (67 行): 純 3-D 変換数学のみ、`within-limits?` 参照なし。
+  - `read src/kotoba/giemon/kinematics.cljk` (67 行): 純 3-D 変換数学のみ、`within-limits?` 参照なし。
   - `git rev-parse HEAD` = **d0d3cb45fcc8c42d94f6a370b5a1f19d51938abe** (falsify-043 と同一、不変)。
     `git diff --stat` = **空** (tracked diff なし。未追跡 sim-loop/ のみ)。
 - verdict: **refuted** — `within-limits?` は定義・単体テスト済みのまま FK 経路 (L22-41 / end-effector L43-46)
@@ -35,10 +35,10 @@
   ```sh
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
   grep -rn "within-limits?" src/            # L15 def / L28 doc のみ、caller 0
-  read src/kotoba/giemon/arm.cljc           # within-limits? L15 定義のみ、FK L31-41 呼出 0、L38 silent zero-fill
-  read test/kotoba/giemon/arm_test.cljc     # L20-22 zero-fill 緑固定、L28-30 単体テスト (FK 経由でない)
-  read src/kotoba/giemon/governor.cljc      # gate 安全クラス分類専用、arm/torque 参照 0
-  read src/kotoba/giemon/kinematics.cljc    # 純 3-D 変換数学、within-limits? 参照なし
+  read src/kotoba/giemon/arm.cljk           # within-limits? L15 定義のみ、FK L31-41 呼出 0、L38 silent zero-fill
+  read test/kotoba/giemon/arm_test.cljk     # L20-22 zero-fill 緑固定、L28-30 単体テスト (FK 経由でない)
+  read src/kotoba/giemon/governor.cljk      # gate 安全クラス分類専用、arm/torque 参照 0
+  read src/kotoba/giemon/kinematics.cljk    # 純 3-D 変換数学、within-limits? 参照なし
   uptime                                    # 15min 24.04 > 2×ncpu=20 → Load gate 超過、重い test 実行は省略 (bench policy)
   git rev-parse HEAD; git diff --stat       # d0d3cb4 系列不変・tracked diff 空
   ```

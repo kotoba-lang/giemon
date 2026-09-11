@@ -69,10 +69,10 @@ cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 # honesty-first で skipped。H29 は IEEE-754 の決定的性質 + 行レベル静的読取のみで確定 —
 # 実行数字を捏造せず「静的読取」として記録。
 # 環境回復後に以下を読めば各面の確定内容を byte 一致で再確認できる:
-#   src/kotoba/giemon/kinematics.cljc 22–27 (normalize: zero? のみ),
+#   src/kotoba/giemon/kinematics.cljk 22–27 (normalize: zero? のみ),
 #     42–50 (axis-angle->rot: Math/cos+Math/sin 直接・検査なし → NaN),
 #     56–61 (combine: NaN 汚染), 63–67 (joint-transform: 通過のみ)
-#   src/kotoba/giemon/arm.cljc 22–41 (FK: (or (first angles) 0.0) は NaN を返す,
+#   src/kotoba/giemon/arm.cljk 22–41 (FK: (or (first angles) 0.0) は NaN を返す,
 #     loop 終端 (empty? chain) のみ・検査なし), 43–46 (end-effector: last のみ)
 ```
 

@@ -13,7 +13,7 @@
     (grep 2 本 + read) のため実行 backend 不要で完遂、load 超過/unmeasured の bench policy (bench-135/136) とは独立。
   - `grep -rn 'within-limits?' src/ test/` (実測): **4 行のみ、うち FK 経路内呼出は 0**。
     内訳: arm.cljc L15 (定義)/ L28 (docstring 言及)/ arm_test.cljc L29, L30 (単体テスト 2 行)。— falsify-039/040 と**同値**。
-  - `read src/kotoba/giemon/arm.cljc L22-41`: `forward-kinematics` 本体のループは `angle (or (first angles) 0.0)` (L38
+  - `read src/kotoba/giemon/arm.cljk L22-41`: `forward-kinematics` 本体のループは `angle (or (first angles) 0.0)` (L38
     silent zero-fill) のまま、`within-limits?` 呼出・クランプ・拒否・nil の配線は**なし** (L31-41 全行確認)。
     `end-effector` (L43-46) は FK を呼ぶのみで FK に検査はない。
   - git 状態: HEAD **d0d3cb45** (不変, falsify-040 bench-120 から)、`git diff --stat` 空 (tracked 変更なし)、
@@ -29,7 +29,7 @@
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
   git rev-parse HEAD                          # → d0d3cb45 (不変, 前回から)
   grep -rn 'within-limits?' src/ test/        # → arm.cljc L15(定義)/L28(doc)/arm_test.cljc L29,L30(テストのみ、FK 内呼出 0)
-  read src/kotoba/giemon/arm.cljc L22-41      # → forward-kinematics 本体 (L38 zero-fill, limit 検査なし) / L43-46 end-effector
+  read src/kotoba/giemon/arm.cljk L22-41      # → forward-kinematics 本体 (L38 zero-fill, limit 検査なし) / L43-46 end-effector
   uptime                                      # → Load gate (15min ≥ 2×ncpu=20) 超過なら重い test 実行は省略
   ```
 - 検証内訳 (本 walk の 1 仮説・1 実測判定): 1 仮説 (H42) / 測定 2 (grep within-limits? 呼出回数 + FK 本体 read、

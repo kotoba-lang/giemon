@@ -17,14 +17,14 @@ out-of-range (upper+50 rad per joint): [53.0 52.2 52.5 53.0 52.0 53.0]
     {:returned [[0.0 0.0 0.08] [0.0 0.0 0.14] [0.0 0.0 0.32] [0.0 0.0 0.46] [0.0 0.0 0.56] [0.0 0.0 0.6200000000000001]], :count 6}
 
 --- within-limits? 参照箇所の全 src 機械列挙 (caller 存在判定) ---
-    src/kotoba/giemon.cljc -> []
-    src/kotoba/giemon/arm.cljc -> [15 28]
-    src/kotoba/giemon/chassis.cljc -> []
-    src/kotoba/giemon/export.cljc -> []
-    src/kotoba/giemon/governor.cljc -> []
-    src/kotoba/giemon/kinematics.cljc -> []
-    src/kotoba/giemon/ui.cljc -> []
-    src/kotoba/giemon/viewer.cljc -> []
+    src/kotoba/giemon.cljk -> []
+    src/kotoba/giemon/arm.cljk -> [15 28]
+    src/kotoba/giemon/chassis.cljk -> []
+    src/kotoba/giemon/export.cljk -> []
+    src/kotoba/giemon/governor.cljk -> []
+    src/kotoba/giemon/kinematics.cljk -> []
+    src/kotoba/giemon/ui.cljk -> []
+    src/kotoba/giemon/viewer.cljk -> []
 
 == 判定 ==
   (a) 範囲外角 (upper+50 rad): FK は  無検査で :xf/pos を受理 (RANGE 検査不在)

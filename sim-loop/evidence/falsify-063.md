@@ -21,9 +21,9 @@
   測定影響はゼロ。
 - 再現手順:
   git rev-parse HEAD && git status --porcelain
-  grep -n within-limits src/kotoba/giemon/arm.cljc src/kotoba/giemon/governor.cljc \
-    test/kotoba/giemon/arm_test.cljc
-  sed -n '22,46p' src/kotoba/giemon/arm.cljc   # L38 zero-fill, guard 呼出 0 回を確認
-  sed -n '18,24p' test/kotoba/giemon/arm_test.cljc
+  grep -n within-limits src/kotoba/giemon/arm.cljk src/kotoba/giemon/governor.cljk \
+    test/kotoba/giemon/arm_test.cljk
+  sed -n '22,46p' src/kotoba/giemon/arm.cljk   # L38 zero-fill, guard 呼出 0 回を確認
+  sed -n '18,24p' test/kotoba/giemon/arm_test.cljk
 - コアへの 1 行メッセージ: guard は 25 iterations 丸ごと未配線 — within-limits? を FK
   経路に繋ぐか越境入力で fail-loud にする repair を実装しない限りこの赤は消えない。

@@ -18,7 +18,7 @@ falsify-9 は facade の caller 指定 `:safety :low` 迂回を実測した。�
 ## 実測
 
 コード: `../robotics/src/kotoba/robotics.cljc` (action L60-71 / gate L120-129 /
-action-permitted? L131-142) + `src/kotoba/giemon/governor.cljc` facade (L29-33, L54-58)。
+action-permitted? L131-142) + `src/kotoba/giemon/governor.cljk` facade (L29-33, L54-58)。
 実行: `clojure -M -e ...` (giemon deps.edn、pinned robotics)。
 
 ```

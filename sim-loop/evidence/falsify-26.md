@@ -66,7 +66,7 @@ clojure -M -e '(require (quote [clojure.java.io :as io]))
 python3 -c "import xml.etree.ElementTree as ET; ET.parse('fixtures/giemon_caterpillar_facade/giemon_caterpillar_facade.urdf')"
 # => ParseError: not well-formed (invalid token): line 9, column 25
 # 対照: fixtures/giemon_arm6/giemon_arm6.urdf は両パーサで OK
-# (b) パリティ本体: コメント剥がし URDF vs test/kotoba/giemon/chassis_edn_test.clj
+# (b) パリティ本体: コメント剥がし URDF vs test/kotoba/giemon/chassis_edn_test.cljk
 #     の unblob/reconstitute-chassis 2 段階 read — 上記実測欄の通り 4 joint / 5 link 全一致
 ```
 

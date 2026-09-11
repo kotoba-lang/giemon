@@ -22,7 +22,7 @@
   (21.35/24.47/26.73) — これは実測値であり捏造ではない。
 
 ## 静的読取 (read_file のみ成立、負荷非依存・決定的)
-- `src/kotoba/giemon/arm.cljc` (1–50 読取, 全 121 行) は bench-091/092 と内容一致
+- `src/kotoba/giemon/arm.cljk` (1–50 読取, 全 121 行) は bench-091/092 と内容一致
   (コード変化なし): FK 22–41 loop 終端 `(empty? chain)` のみ (行 35)・行 38
   `(or (first angles) 0.0)` は NaN (truthy) を 0.0 にせず isNaN/isInfinite/長さ
   assert 皆無、end-effector 43–46 は `last` のみ、within-limits? 15–20 は

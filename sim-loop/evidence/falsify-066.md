@@ -29,10 +29,10 @@
   cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
   git rev-parse HEAD    # d0d3cb45fcc8c42d94f6a370b5a1f19d51938abe
   git status --porcelain   # ?? sim-loop/ のみ
-  grep -n "within-limits" src/kotoba/giemon/arm.cljc  # L15, L28 のみ
-  sed -n '22,46p' src/kotoba/giemon/arm.cljc  # zero-fill 不変, guard 呼出 0 回
-  sed -n '18,24p' test/kotoba/giemon/arm_test.cljc
-  grep -c "within-limits" src/kotoba/giemon/governor.cljc  # 0
+  grep -n "within-limits" src/kotoba/giemon/arm.cljk  # L15, L28 のみ
+  sed -n '22,46p' src/kotoba/giemon/arm.cljk  # zero-fill 不変, guard 呼出 0 回
+  sed -n '18,24p' test/kotoba/giemon/arm_test.cljk
+  grep -c "within-limits" src/kotoba/giemon/governor.cljk  # 0
   ```
 - コアへの 1 行: guard は 28 iterations 丸ごと未配線 — `within-limits?` を FK 経路に
   繋ぐか越境入力で fail-loud にする repair (arm_test 20-22 期待値変更込み) を実装しない限り

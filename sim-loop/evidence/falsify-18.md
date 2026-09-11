@@ -19,7 +19,7 @@ RFC 4180 の引用規則を満たした CSV でも formula injection は成立�
 
 ## 実測
 
-コード: `src/kotoba/giemon/export.cljc` — `csv-cell` L8-18 は
+コード: `src/kotoba/giemon/export.cljk` — `csv-cell` L8-18 は
 `re-find #"[\",\\n\\r]"` の 3 文字のみ検査 (L16 のコメント自体が
 「RFC 4180 requires」を根拠に `\r` 追加を主張しており、意味検査の
 不在は規準にすら入っていない)。実行: `clojure -M -e` (giemon

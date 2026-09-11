@@ -14,7 +14,7 @@ design requirement (`:joint/limit :effort`) を持つ joint に actuator が 1 �
 
 ## 実測
 
-コード: `src/kotoba/giemon/arm.cljc` L48-64 (`chain-actuators` の `keep`+`when-let`)、
+コード: `src/kotoba/giemon/arm.cljk` L48-64 (`chain-actuators` の `keep`+`when-let`)、
 L104-121 (`torque-headroom` の `:when a` / `underrated-joints`)。
 fixture: 2 段階 read (falsify-2 手順) で `:arm/chain` joint 6 を復元し
 `{:arm/chain ...}` として arm に渡す (falsify-5 と同一手法)。

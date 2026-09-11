@@ -41,9 +41,9 @@
   git rev-parse HEAD                                      # d0d3cb45fcc8c42d94f6a370b5a1f19d51938abe (不変)
   git status --short                                      # ?? sim-loop/ のみ (tracked diff 空)
   grep -rn 'within-limits' src/ test/                     # arm.cljc L15(def)/L28(doc)/arm_test L29-30(単体) の計 3 箇所のみ、FK 内呼出 0
-  read src/kotoba/giemon/arm.cljc L22-41                  # forward-kinematics loop、L38 `angle (or (first angles) 0.0)`、limit 検査なし
-  read test/kotoba/giemon/arm_test.cljc L20-22            # zero-fill 緑 assertion 無変更: (= (fk [0.0 0.0]) (fk []))
-  grep -n 'within-limits\|:joint/limit\|torque\|forward-kinematics\|end-effector' src/kotoba/giemon/governor.cljc  # → 0 行 (無接続)
+  read src/kotoba/giemon/arm.cljk L22-41                  # forward-kinematics loop、L38 `angle (or (first angles) 0.0)`、limit 検査なし
+  read test/kotoba/giemon/arm_test.cljk L20-22            # zero-fill 緑 assertion 無変更: (= (fk [0.0 0.0]) (fk []))
+  grep -n 'within-limits\|:joint/limit\|torque\|forward-kinematics\|end-effector' src/kotoba/giemon/governor.cljk  # → 0 行 (無接続)
   ```
 - 検証内訳 (1 仮説・1 実測判定): 1 仮説 (H52) / 測定 1 (純静的読取 — within-limits? grep 分布
   (FK 内呼出 0) + L38 zero-fill 不変 + governor 接続 0 + HEAD/tracked diff の 4 観測点) /

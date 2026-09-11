@@ -29,8 +29,8 @@ falsify-034/036/039/040/041/042/043/044/045/046/047/048/049/050/051/052/053/054/
 ## 再現手順
 ```
 grep -rn "within-limits?" src/            # L15 def / L28 doc の計 2 箇所のみ
-sed -n '22,46p' src/kotoba/giemon/arm.cljc # L38 silent zero-fill 不変, FK 内呼出 0
-grep -nE "arm|limit|torque|joint" src/kotoba/giemon/governor.cljc  # 0 行
+sed -n '22,46p' src/kotoba/giemon/arm.cljk # L38 silent zero-fill 不変, FK 内呼出 0
+grep -nE "arm|limit|torque|joint" src/kotoba/giemon/governor.cljk  # 0 行
 git rev-parse HEAD                         # d0d3cb45fcc8... (不変)
 git status --porcelain                     # ?? sim-loop/ のみ
 ```

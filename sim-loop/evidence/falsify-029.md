@@ -69,11 +69,11 @@ cd /Users/junkawasaki/github/com-junkawasaki/orgs/kotoba-lang/giemon
 # (bench-077〜085 同型条件、高負荷、ncpu=10) のため REPL 実行は honesty-first で skipped。
 # H31 は FK を呼ぶ giemon test namespace の逐読のみで確定 — 実行数字を捏造せず「静的読取」で記録。
 # 環境回復後に以下を αbyte 一致で読めば再確認できる:
-#   test/kotoba/giemon/arm_test.cljc 1–40   (特別に 行 20–22 のゼロ充填期待固定)
-#   test/kotoba/giemon/kinematics_test.cljc 1–36
-#   test/kotoba/giemon/export_test.cljc 1–71
-#   test/kotoba/giemon/governor_test.cljc 1–47
-#   src/kotoba/giemon/arm.cljc 15–46 (FK 長さ guard 面の不在、falsify-024〜030 と独立に再確認可)
+#   test/kotoba/giemon/arm_test.cljk 1–40   (特別に 行 20–22 のゼロ充填期待固定)
+#   test/kotoba/giemon/kinematics_test.cljk 1–36
+#   test/kotoba/giemon/export_test.cljk 1–71
+#   test/kotoba/giemon/governor_test.cljk 1–47
+#   src/kotoba/giemon/arm.cljk 15–46 (FK 長さ guard 面の不在、falsify-024〜030 と独立に再確認可)
 # 検索: grep -n "##NaN\|##Inf\|isNaN\|Double/NaN" test/  → 0 件 (全 namespace)
 ```
 

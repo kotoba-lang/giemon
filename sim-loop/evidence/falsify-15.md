@@ -18,8 +18,8 @@ falsify-14 は運動学の**入力値**の縮退 (零 axis / ±Inf リミット)
 
 ## 実測
 
-コード: `src/kotoba/giemon/arm.cljc` (forward-kinematics L27-41)、
-`src/kotoba/giemon/kinematics.cljc` (joint-transform L63-66)。
+コード: `src/kotoba/giemon/arm.cljk` (forward-kinematics L27-41)、
+`src/kotoba/giemon/kinematics.cljk` (joint-transform L63-66)。
 実行: `clojure -M -e ...` (giemon deps.edn、2 段階 read の fixture — falsify-2/3 済)。
 
 ```
