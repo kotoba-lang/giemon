@@ -1,0 +1,36 @@
+(require '[clojure.edn :as edn]
+         '[clojure.java.io :as io]
+         '[kotoba.giemon.arm :as arm])
+
+(defn- unblob [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- reconstitute-arm [tx-data]
+  (into {} (map (fn [[k v]] [k (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
+(def giemon-arm6
+  (reconstitute-arm
+   (edn/read-string (slurp (io/file "fixtures" "giemon_arm6" "giemon_arm6.edn")))))
+
+;; DR initial-posture family (j2 shoulder pitch, j3 elbow pitch;
+;; wrist (z,y,y,z,y,z), links stack +z — falsify-016 probe family)
+(def postures
+  {"extended-q0" [0.0 1.5707963267948966 0.0 0.0 0.0 0.0]
+   "mid-q0"      [0.0 1.5707963267948966 -0.7853981633974483 0.0 0.0 0.0]
+   "folded-q0"   [0.0 1.5707963267948966 -1.5707963267948966 0.0 0.0 0.0]
+   "bench-q0"    [0.0 0.2 -0.3 0.0 0.5 0.0]})
+
+(doseq [[nm q] postures]
+  (let [r1 (arm/end-effector giemon-arm6 q)
+        r2 (arm/end-effector giemon-arm6 q)
+        ok (= r1 r2)]
+    (println (str "POSTURE " nm " SEED-PARITY " ok))
+    (println (str "  POS " (pr-str (:xf/pos r1))))
+    (println (str "  DETERMINISM-FAIL " (boolean (not ok))))))
+
+(println "POSTURES-MEASURED" (count postures))
+(System/exit 0)
