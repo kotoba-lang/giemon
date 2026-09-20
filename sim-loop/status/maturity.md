@@ -1,6 +1,6 @@
 # giemon sim-loop 成熟度 ( status/maturity.md - 正本)
 
-集計元: sim-loop/evidence/ bench-001〜268 / falsify-001〜075 (決定的計算)。
+集計元: sim-loop/evidence/ 集計元: sim-loop/evidence/ bench-001〜305 / falsify-001〜083 (決定的計算)。
 bench-064～101 は連続 load 超過 + 実行バックエンド応答不能で test スイート・seeded
 再現・各 H 本測定を一律 skipped したが、falsify-024～030 (H26～H32) は純静的読取で
 それぞれ refuted、falsify-031～033 (H33, FK guard 実行系 A/B) は /tmp redirect
@@ -9,7 +9,8 @@ silent zero-fill 緑 assertion と干渉。falsify-032 refuted: 高負荷下で�
 refuted: 孤立挿入は存在せず、test 20-22 期待値変更込み repair が必須)。
 基準値は bench-066 確定 ( robotics 14/50/0、giemon 46/115/0)。bench-099～101 は load
 超過で skip ( unmeasured  honist 据え置き)。bench-102～108 は負荷帯 ~1.5-3x で実測
-完走・基準値一致、unmeasured は回帰 assert せず honest。
+完走・基準値一致、unmeasured は回帰 assert せず honest。 bench-290 は load 3.9–5.2× で全経路 skip unmeasured (基準値据え置き、HEAD 不変 ad99366/41ac173)。 bench-291 は load 2.2–3.3× で全経路 skip unmeasured (基準値据え置き、HEAD 不変 ad99366/41ac173)。
+bench-292 は負荷 gate 未満 (15-min ≈ 1.9×) で clojure test を実行したが robotics/giemon とも 0/0/0 RC=0 の silent-zero 持続 (bench-244〜292 で 37 連続・runner 修復未了)、基準値据え置き・HEAD 不変 ad99366/41ac173。 bench-293 は load 2.6x (15-min 25.92 / ncpu 10) で全経路 skipped (load) unmeasured (基準値据え置き、HEAD 不変 ad99366/41ac173)。 bench-294 は load 2.2x (15-min 21.84 / ncpu 10) で全経路 skipped (load) unmeasured (基準値据え置き、HEAD 不変 ad99366/41ac173)。 bench-295 は load gate 未満 (15-min 17.14 / ncpu 10 ≈ 1.7x) で clojure test を実行したが robotics/giemon とも 0/0/0 RC=0 の silent-zero 持続 (bench-244〜295 実測分で 38 連続・runner 修復未了、falsify-069 根因確定)、基準値据え置き・HEAD 不変 ad99366/41ac173。 bench-296 は load gate 未満 (15-min 17.44 / ncpu 10 ≈ 1.7x) で clojure test を実行したが robotics/giemon とも 0/0/0 RC=0 の silent-zero 持続 (bench-244〜296 実測分で 39 連続・runner 修復未了、falsify-069 根因確定)、基準値据え置き・HEAD 不変 ad99366/41ac173。 bench-297 は load gate 未満 (15-min ≈ 1.7x) で clojure test を実行したが robotics/giemon とも 0/0/0 RC=0 の silent-zero 持続 (bench-244〜297 実測分で 40 連続・runner 修復未了、falsify-069 根因確定)、基準値据え置き・HEAD 不変 ad99366/41ac173。 bench-298 は load gate 未満 (15-min 16.07 / ncpu 10 ≈ 1.6x) で clojure test を実行したが robotics/giemon とも 0/0/0 RC=0 の silent-zero 持続 (bench-244〜298 実測分で 41 連続・runner 修復未了、falsify-069 根因確定)、基準値据え置き・HEAD 不変 ad99366/41ac173。 bench-301 は load gate 未満 (15-min 12.04 / ncpu 10 約1.2x) で clojure test を実行したが robotics/giemon とも 0/0/0 RC=0 の silent-zero 持続 (bench-244-301 実測分で 43 連続・runner 修復未了、falsify-069 根因確定)、基準値据え置き・HEAD 不変 ad99366/41ac173。 bench-304 は load gate 未満 (15-min 17.20 / ncpu 10 ≈ 1.7x) で clojure test を実行したが robotics/giemon とも 0/0/0 RC=0 の silent-zero 持続 (bench-244〜304 実測分で 45 連続・runner 修復未了、falsify-069 根因確定)、基準値据え置き・HEAD 不変 ad99366/41ac173。
 falsify-034 (H35) refuted — FK angle-count guard repair 未実装 (arm.cljc L38
 silent zero-fill、arm_test.cljc 20-22 緑 zero-fill 無変更)。
 falsify-035 (H36) refuted — URDF<->EDN parity、全 6 joint x  7 link の全数値が
@@ -17,6 +18,7 @@ falsify-035 (H36) refuted — URDF<->EDN parity、全 6 joint x  7 link の全�
 PARSE-ERR -> exit 1 (陳腐化)。
 falsify-036 (H37) refuted — FK guard repair 依然未実装 (実測 arm-test 5/11/0/0 緑)。
 falsify-037 (H38) refuted — 陳腐化の真因は slice anchor バグ (name 起点捕捉が
+falsify-079 (H80) refuted — 暫定 kbb 経路 (27/67/0) は silent-green でない: 静的 deftest/is 集計 (27/67) と完全一致、意図的 fail 挿入で RC=1 を実測。governor_test 6/15 は falsify-075 以来の未測定分が本走で初実測 (21/52/0 + 6/15 = 27/67)。暫定経路基準値を giemon 27/67/0 に更新。負テスト 0 件 (falsify-072/076) とも整合。runner repair 検収条件に「fail 挿入で RC=1」を追加。
 先行する axis を除外。現行 blob は二重 backslash 無し、単一 fold で escape 完全復元)。
 falsify-072 (H73) refuted — governor silent-nil 修正は未実装 (governor_test.cljk
 負テスト 0 件・governor.cljk 透過不変)。bench-260: runner silent-zero 継続
@@ -116,6 +118,41 @@ HEAD robotics ad99366 / giemon 00fd23f 不変。回帰 assert なし (honest: un
 test-runner 修復未着手。falsify 新規なし、falsify-034 据え置き。NEXT は runner repair +
 re-baseline を再発行 (継続)。H1〜H73 全決着・未決残存なし。END
 
+bench-282 (measured, silent-zero 30 連続・負荷 gate 内 ~1.2-1.4×) — HEAD robotics
+ad99366 / giemon 41ac173 不変、clojure -M:test 両 suite とも「Ran 0 tests containing
+0 assertions」RC=0 を再実測 (基準値 robotics 23/558/0・giemon 46/115/0 から -100%
+不変、bench-244〜283 で 30 連続)。暫定測定経路 (kbb --backend sci --classpath src:test
++ 明示 require 4 ns) は 21/52/0 緑 RC=0 を再実測 (bench-262/270/276 と同値・HEAD
+41ac173 生存、suite 46/115 の部分集合)。回帰 assert なし (runner defect 持続
+re-measured、新規破れなし)。falsify-034 (FK guard repair 未配線、33 連続 refuted)・
+falsify-069 (.cljk load 不能)・falsify-074 (kbb -M:test RC=1 deps floor 未接続)・
+falsify-075/076 (governor silent-nil・audit 記録不在) 据え置き。END
+falsify-077 (H78) refuted — 「gate 側 (robotics) が rejected/deny を監査レコードとして
+生成している」は不成立 (純静的読取・決定的): robotics.cljk gate (L120-129) は
+:gate/decision :deny / :gate/reason の一時 map を返すのみ、ledger/append/record
+構築 0 件、action-permitted? (L131-142) は decision を (= :permit) で boolean 化し
+deny の理由をこの経路で破棄、grep `rejected|:reject|append` は src 内 0 hit、
+test 側も「拒否が rejected レコードとして残る」assert 0 件、giemon governor 側の
+:invalid 決定保存箇所も 0 件 (falsify-071 透過不変) — audit 記録不在は giemon 側のみならず
+robotics 層 gate 契約全体の性質として確定。rejected レコード化 + 負テスト 1 件の core 推奨
+(falsify-072 起の再発行) は据え置き — 最小修復は giemon governor 層で :deny/:invalid の
+理由 (:gate/reason は robotics 側に在る) を台帳 append 用 map に包む 1 関数 + 負テスト 1 件。END
+
+falsify-080 (H81) refuted — falsify-079 以降の修復着地 (FK guard repair / governor
+rejected レコード化・負テスト) は blob 直読で不成立: arm.cljk within-limits? は L15 defn
+/L28 doc のみ・FK 本体呼出 0 回・L38 silent zero-fill 不変 (falsify-034 起 39 連続 refuted)、
+governor.cljk は rejected/record/append 0 件・透過不変、governor_test.cljk deftest 6 件
+全て正テスト・負テスト 0 件 (falsify-072 起 6 連続 refuted)。本走は実行系全滅 (terminal
+silent-zero・load 15min 21.62 ≈2.16× gate 超過) につき test 計数・HEAD 実測再読は
+unmeasured (基準値 robotics 23/558/0・giemon 46/115/0・暫定 kbb 27/67/0 据え置き)。
+NEXT 変更なし — runner repair が全ての前提、fail 挿入 RC=1 検収条件の再発行継続。END
+falsify-081 (H82) refuted — HEAD 41ac173 を .git/HEAD 直読で本走初めて実測・不変、arm/governor
+blob は falsify-080 と同値 (FK guard 40 連続 refuted・governor rejected レコード化 6 連続 refuted)。
+falsify-082 (H83) refuted — runner 修復 (loader 登録 / test 拡張子復帰 / nbb.edn deps floor 接続)
+は HEAD 41ac173 で未着地を実測 (test 側 *_test.cljk 10 ns のまま・deps.edn :test alias 無変更・
+nbb.edn 不在 asymmetry 再実測) — runner repair 44 連続 refuted。NEXT 据え置き再発行。
+falsify-083 (H84) refuted — HEAD 41ac173 git rev-parse 直読で不変再実測 (15-min 67.28 ≈6.7× ncpu=10 高負荷帯でも blob 不変): FK guard repair 41 連続 refuted (within-limits? L15/L28 のみ・FK 本体呼出 0・L38 zero-fill 不変・arm_test L20-22 緑無変更)、governor rejected レコード化 + 負テスト 8 連続 refuted (deftest 6 件全て正テスト・負テスト 0・rejected 痕跡 0)、deps.edn :test alias 無変更・nbb.edn 不在 asymmetry 再確認。load 大幅超過 + stdout swallow で test 計数 unmeasured (honest 据え置き)。NEXT 据え置き再発行。
+
 ## 現在段階
 L0 — sim-loop 学習ジョブ未実装のため L1 昇格条件未達 ( seed / L1+ 学習ジョブ 0 件、
 テスト・git 差分空、、seeded 再現 N/A)。Honest-default: :in-design (Hitogata/Caterpillar) の成果は
@@ -171,7 +208,7 @@ bench-231 — 実行バックエンド応答不能 (terminal 全コマンド空�
 
 
 ## NEXT ( 1 件)
-**NEXT: test-runner 修復 — cljk rename 後の silent-zero (kbb -M:test 両 suite 0/0/0 RC=0、bench-244〜268 で持続実測、24 連続、bench-267 実測 0/0/0 RC=0、bench-262 で kbb 第2経路 21/52/0 緑再現済み) を解消し、robotics 23/558/0ヨgiemon 46/115/0 の実測緑を現 HEAD (robotics ad99366 / giemon 00fd23f) で再確立すること。根因確定済み (falsify-069: JVM require が .cljk をロード不能) で修復未着手を falsify-073 (H74) が静的再確定 (テスト 10 件全て .cljkヨloader 登録なしヨHEAD 不変): test 拡張子を戻すか loader 登録を行い clojure / kbb 両 runner を緑化。runner 修復と同時に、falsify-071 (H72) 起因の governor silent-nil 経路 (不正 kind/safety が deny でなく nil で消える) は falsify-072 (H73) で未実装と確定現存 (負テスト 0 件ヨ透過不変) — rejected レコード化 + 負テスト 1 件追加を core 側へ推奨 (再発行)。FK guard repair (falsify-034 起 31 連綜 refutedヨ未着手) は runner 修復後の再検証。全ての bench/falsify の前提であり最優先修理。**
+**NEXT: test-runner 修復 — cljk rename 後の silent-zero (clojure -M:test 両 suite 0/0/0 RC=0、bench-244〜303 で持続実測 (実測分 45 連続、bench-302/305 は load skip)、bench-290/291/293/294 は load skip)、bench-271〜274・277〜279・281・288 は load 超過 / backend 応答不能 / 予算切れで skip unmeasured) を解消し、robotics 23/558/0・giemon 46/115/0 の実測緑を現 HEAD (robotics ad99366 / giemon 41ac173、bench-277/278/283/288/289/299/300 でも不変) で再確立すること。kbb -M:test 第2経路は bench-270 で 21/52/0 緑 (bench-262 実績) から RC=1 hard-fail (dep classpath 未解決 5 dep) に悪化し、falsify-074 (H75) が 2 連続同値で確定補強 (race 否定) — deps floor (text/html/css/robotics/cognitect-labs/test-runner) を nbb.edn に接続して kbb -M:test を復活させること (bench-276 で 8 ns require も kotoba.lang.text 未解決 fail と再実測)。bench-300 で kbb -M:test 両 suite RC=1 を再実測 (giemon: 5 dep + nbb.edn 不在 asymmetry (robotics/nbb.edn 在)、robotics: 3 dep + html.core 未解決) — falsify-074 同値の既知未接続・新規回帰なし。暫定測定経路は kbb --backend sci --classpath src:test + 明示 require 4 ns の 21/52/0 緑のみ (falsify-070/074 で HEAD 41ac173 生存確認済み、falsify-075 で robotics src 追加なら governor_test (6 tests) も測定可)。clojure runner 根因は falsify-069 (JVM require が .cljk をロード不能) で確定済み: test 拡張子を戻すか loader 登録で clojure / kbb 両 runner を緑化。 検収条件に falsify-079 実証の「意図的 fail 挿入で RC=1」を 1 行追加 (暫定 kbb 経路は同 probe で RC=1 実測済み・giemon 27/67/0 を新基準値に)。governor_test 6/15 は falsify-079 で初実測済み。併せて governor silent-nil 経路は falsify-075 (H76) で権限面は安全 (gate :invalid / action-permitted? false) と実測確定したが、audit 記録不在は現存 — rejected レコード化 + 負テスト 1 件追加を core 側へ推奨 (再発行、falsify-076 (H77) で 負テスト 0 件・未実装を再確定、falsify-077 (H78) で rejected レコード不在は robotics 層 gate 契約の性質として確定 — giemon governor 層で 1 関数 (台帳 append 用 map 包み) + 負テスト 1 件が最小修復)。FK guard repair (falsify-034 起 41 連続 refuted・未着手) は runner 修復後の再検証。全ての bench/falsify の前提であり最優先修理。**
 — 優先理由: measured REGRESSION で全軸の測定経路が失活中。FK guard repair (falsify-068/069 で
 31 連続 refuted・未着手) は runner 修復・re-baseline 完了後に再検証する。
 ( 本 rank  は読み取り + status 更新のみ。sim-loop の evidence・コードは不変更。。)
@@ -520,6 +557,16 @@ NEXT は runner repair (extension 戻し or loader 登録) + re-baseline を再�
 H1〜H70 全決着・未決残存なし。END
 
 bench-253 (実測, 負荷 gate 内 15min ≈12.50 ≈1.3× ncpu=10) — bench-244〜252 と同一 HEAD (giemon 00fd23f / robotics ad99366) で kbb -M:test 再実測: 両 suite とも「Ran 0 tests containing 0 assertions」RC=0 (silent-zero 持続・10 連続, 基準値 robotics 23/558/0・giemon 46/115/0 から -100% 不変)。0-test は suite 未実行と同等につき regression は bench-244/245 の measured RED を据え置き (honest: unmeasured-equivalent, 新規破れ assert せず)。maturity.md NEXT の test-runner 修復 (cljk rename 後の silent-zero, kbb --classpath src:test + 明示 require による 21/52/0 緑は falsify-070 実測のまま) は解消されていない — 46/115 完全回復には deps floor (kotoba.lang.text / kotoba.robotics) 接続 + host interop (`catch Exception`) 修正が別途必要。falsify-034 (FK guard repair 未配線) は据え置き。新規 falsify なし (正本: H1〜H71 全決着・未決残存なし)。7 軸更新なし (全軸据え置き)。NEXT は runner repair + re-baseline を再発行 (継続)。END
+bench-280 (部分実測, 負荳 gate 入 15min 14.02 ≈1.4× ncpu=10) —
+robotics clojure -M:test @ HEAD ad99366 で 0/0/0 RC=0 再実測 (silent-zero 持続,
+bench-244〜276 の実測記録と同一状態の再確認)。giemon @ HEAD
+41ac173 は走時予算切れで未完 → unmeasured (honest, 失敗
+assert せず)。HEAD robotics ad99366 / giemon 41ac173 不実 (bench-275〜278
+記録と不変)。基準値 robotics 23/558/0ヷgiemon 46/115/0 据え置き、
+回帰 assert せず (runner defect)。falsify 新規なし (H1〜H77 全決着)。
+7 軸更新なし (全軸据え置き)。NEXT は runner repair +
+re-baseline を再発行 (継続)。END
+
 
 bench-258 (measured, 負荷 gate 内 15min ≈12.70 ≈1.3× ncpu=10) — HEADs robotics
 ad99366 / giemon 00fd23f 不変・tracked diff 空, kbb -M:test 両 suite とも 0/0/0
@@ -531,8 +578,13 @@ kind/safety 負テスト 0 件・governor.cljk は rob/action 透過のまま (k
 ops L58-60), rejected レコード化の痕跡なし (robotics 本体は deps 先で静的範囲外)。
 新規 falsify はこれのみ (H1〜H73 全決着・未決残存なし)。7 軸更新なし (全軸据え置き)。
 
+bench-273 unmeasured (load 4.3x) — test skip, 回帰 assert なし, honest 据え置き。falsify-034 起の FK guard repair 未着手・NEXT (test-runner 修復) 変更なし。
+
+
+bench-283: measured (load gate pass ~1.2x) — clojure -M:test 両 suite 0/0/0 RC=0 (silent-zero 31 連続目, falsify-069 確定の JVM .cljk load 不能起因). 協定経路 kbb sci 4 ns 21/52/0 前回同値、HEAD (robotics ad99366 / giemon 41ac173) 不変. regression 基準値据え置き honest. falsify-034 (FK guard repair) 34 連続 refuted 未着手. コード変更なし.
+
 === NEXT ===
-NEXT: test-runner 修復 — cljk rename 後の silent-zero (kbb -M:test 両 suite 0/0/0 RC=0、bench-244〜263 持続実測 (19 連続)、bench-264 は load-skip unmeasured) を解消し robotics 23/558/0・giemon 46/115/0 の実測緑を現 HEAD (robotics ad99366 / giemon 00fd23f) で再確立。falsify-070: kbb --classpath src:test + 明示 require で 21/52/0 緑 (第2測定経路)、46/115 完全回復には deps floor 接続 + host interop (`catch Exception`) 修正が別途必要。同時に falsify-071/072 (H72/H73) の governor silent-nil 経路 (不正 kind/safety が deny でなく nil で消える・負テスト 0 件) の rejected レコード化 + 負テスト 1 件追加を推奨。全ての bench/falsify の前提であり最優先修理。
+NEXT: test-runner 修復 — cljk rename 後の silent-zero (kbb -M:test 両 suite 0/0/0 RC=0、bench-244〜299 実測分で 42 連続 (bench-271〜274・277〜279・281・288 のみ load-skip/backend 応答不能/予算切れ unmeasured)) を解消し robotics 23/558/0・giemon 46/115/0 の実測緑を現 HEAD (robotics ad99366 / giemon 41ac173) で再確立。falsify-070: kbb --classpath src:test + 明示 require で 21/52/0 緑 (第2測定経路)、46/115 完全回復には deps floor 接続 + host interop (`catch Exception`) 修正が別途必要。同時に falsify-071/072 (H72/H73) の governor silent-nil 経路 (不正 kind/safety が deny でなく nil で消える・負テスト 0 件) の rejected レコード化 + 負テスト 1 件追加を推奨 (falsify-075 実測で権限面は安全確認済: gate :invalid / action-permitted? false — 破れは audit 記録不在のみ。robotics src を classpath 追加すれば governor_test も kbb 暫定経路で測定可)。全ての bench/falsify の前提であり最優先修理。
 bench-252 測定済み: silent-zero 持続 9 連続 (bench-244〜252 の各 measured; bench-243 のみ load-skip) (kbb -M:test 両 suite 0/0/0 RC=0、HEAD ad99366 / 00fd23f 不変・tracked diff 空) — 未解決につき NEXT 再発行継続。
 
 falsify-070 (H71) refuted —「緑 runner は現状存在しない」は過剰主張 (実行系実測,
@@ -579,3 +631,133 @@ bench-265 (21 連続) / bench-266 (22 連続) も同様に silent-zero 持続 re
 未配線)・falsify-069 (.cljk load 不能)・falsify-071/072 (governor silent-nil・負テスト 0 件) 据え置き。
 falsify 新規なし (H1〜H74 全決着・未決残存なし)。7 軸更新なし (全軸据え置き)。
 NEXT は runner repair + re-baseline を再発行 (継続)。END
+
+bench-269 (measured, silent-zero 持続 25 連続・負荷 gate 内 15min 11.62 ≈1.16× ncpu=10) —
+HEAD robotics ad99366 / giemon 00fd23f 不変・tracked diff 空、kbb -M:test 両 suite とも
+0/0/0 RC=0 を再実測 (基準値 robotics 23/558/0・giemon 46/115/0 から -100% 不変、
+bench-244〜269 で 25 連続)。回帰 assert なし (runner defect 持続 re-measured、新規破れなし)。
+falsify-034 (FK guard repair 未配線)・falsify-069 (.cljk load 不能)・falsify-071/072
+(governor silent-nil・負テスト 0 件) 据え置き。falsify 新規なし (H1〜H74 全決着・未決残存なし)。
+7 軸更新なし (全軸据え置き)。NEXT は runner repair + re-baseline を再発行 (継続)。END
+
+falsify-074 (H75, survived, 実行系実測, 負荷 15min 36.03) — kbb -M:test RC=1 hard-fail
+は確定的 (bench-270 に続き 2 連続同値: 5 dep classpath 未解決 + clojure.java.io 未解決、
+Node.js v26.0.0、giemon HEAD 41ac173f8e9d — bench-269 の 00fd23f から land merge で変移)。
+bench-270 の NEW FAILURE 判定を確定補強。falsify-070 workaround 緑
+(kbb --backend sci --classpath src:test + aliased t/run-tests、明示 require 4 ns) は
+HEAD 41ac173 でも **Ran 21 tests / 52 assertions / 0 failures RC=0** を再現 —
+現 HEAD で生存する唯一の緑測定経路 (11 ns 中 4 ns 部分緑のまま、変化なし)。
+補助実測: bare `clojure.test/run-tests` は sci で RC=1 (Unable to resolve symbol) —
+aliased require 必須の再現手順精度修正を記録。clojure runner silent-zero は本走未再実行
+(honest unmeasured、bench-270 の 27 連続記録に変更なしと推定)。回帰 assert なし。
+falsify-034 (FK guard repair 未配線)・falsify-069 (.cljk load 不能)・falsify-071/072
+(governor silent-nil・負テスト 0 件) 据え置き。H1〜H75 全決着。NEXT は runner repair +
+re-baseline を再発行 (kbb RC=1 の deps floor 接続込み)。END
+
+bench-271 (skipped, load 15min ≈104.77 ≈10.5× ncpu=10) — Load gate 大幅超過につき clojure -M:test 両スイートと seeded 再現を一律省略し unmeasured (honest 据え置き)。基準値 robotics 23/558/0・giemon 46/115/0 据え置き、回帰 assert せず。HEAD は本走未再読につき bench-270 / falsify-074 の最終記録 (robotics ad99366 / giemon 41ac173) を据え置き — giemon 00fd23f→41ac173 変移は bench-270/falsify-074 で既集計 (robotics ad99366 は本走でも静的再確認で不変)。falsify-074 (H75) survived は既集計 (kbb -M:test RC=1 hard-fail 確定補強・workaround 21/52/0 緑は HEAD 41ac173 で生存)。falsify-034 (FK guard repair 未配線)・falsify-069 (.cljk load 不能)・falsify-071/072 (governor silent-nil・負テスト 0 件) 据え置き。新規 falsy なし (H1〜H75 全決着・未決残存なし)。NEXT は runner repair + re-baseline を再発行 (継続)。END
+
+bench-272 (skipped, load 15min ≈54.92 ≈2.7× ncpu=10) — Load gate (15min ≥ 2×ncpu=20)
+超過につき clojure -M:test 両スイートと seeded 再現を一律省略し unmeasured
+(honest 据え置き)。基準値 robotics 23/558/0・giemon 46/115/0 据え置き、回帰
+assert せず。HEAD robotics ad99366 / giemon 41ac173 (bench-270 / falsify-074 記録と
+同一・不変、本走未再読につき変移否定ではなく据え置き記録)。silent-zero 持続の
+有無は本走未測定 (bench-244〜270 の 27 連続実測記録に変更なし、bench-271
+に続く 2 連続 load-skip)。falsify 新規なし。falsify-034 (FK guard repair
+未配線) ・falsify-069 (.cljk load 不能) ・falsify-071/072 (governor
+silent-nil・負テスト 0 件) ・falsify-074 (kbb -M:test RC=1、deps floor
+未接続) 据え置き。H1〜H75 全決着・未決残存なし。NEXT は runner
+repair + re-baseline を再発行 (継続)。END
+
+falsify-075 (H76, refuted, 実行系実測 1 eval — kbb sci 単発, 負荷 15min ≈21.25
+≈2.1× で深い実験回避・falsify-074 単発 eval 前例準拠) — governor silent-nil の
+下流「許可側に倒れる gate bypass」仮説は不成立: robotics worktree src
+(orgs/kotoba-lang/robotics, HEAD ad99366 = 基準 HEAD) を giemon classpath に追加して
+kbb sci で governor+robotics を同時 load し実測 —
+`(gov/kaigo-action "A" "M" :otete :teleport)` → nil (不正 kind silent nil 実測) /
+`(gov/kaigo-action ... :safety :nope)` → nil (不正 safety 同) /
+`(rob/gate nil #{:medium})` → **#:gate{:decision :invalid, :reason :not-an-action}** /
+action-permitted? nil → **false** / 对照 valid :move :medium → :permit (RC=0)。
+falsify-071 の限定主張 (actuator 直送不成立・権限越境なし) を静的推論から**実測確定**
+に昇格。silent nil は仕様書記載挙動 (robotics.cljk L63 docstring「Returns nil for an
+unknown kind or safety class」) で、破れは audit 記録不在のみ — rejected レコード化 +
+負テスト 1 件の core 推奨 (falsify-071/072) は実測後も有効・再発行。
+測定経路新事実: robotics src は self-contained (clojure.set のみ require) で
+giemon classpath 追加だけで governor ns load 可能 → 暫定 21/52/0 緑は governor_test
+(6 tests) を含められる (suite 実行は load gate 上本走未測定 — honest unmeasured)。
+falsify-034 (FK guard repair 未配線) ・falsify-069 (.cljk load 不能) ・falsify-074
+(kbb -M:test RC=1 deps floor) 据え置き。H1〜H76 全決着・未決残存なし。END
+
+bench-274 (skipped, load 15min 30.35 ≈3.0× ncpu=10 — 1min 38.55) — Load gate
+(15min ≥ 2×ncpu=20) 超過につき clojure -M:test 両スイート・seeded 再現を一律省略し
+unmeasured (honest 据え置き)。基準値 robotics 23/558/0・giemon 46/115/0 据え置き、
+回帰 assert せず。silent-zero 持続は本走未測定 (bench-271/272 に続く 3 連続 load-skip、
+bench-244〜270 の 27 連続実測記録に変更なし)。HEAD giemon 41ac173 (bench-273 と同一・
+変化なし)。falsify-075 (H76, refuted — governor silent-nil の gate bypass 不成立・
+falsify-071 限定主張を実測確定) 既集計、falsify 新規なし。falsify-034 (FK guard
+repair 未配線) ・falsify-069 (.cljk load 不能) ・falsify-074 (kbb -M:test RC=1
+deps floor 未接続) 据え置き。H1〜H76 全決着・未決残存なし。NEXT は runner repair +
+re-baseline を再発行 (継続)。END
+
+bench-275 (measured, silent-zero 持続 28 連続・負荷 gate 内 15min 16.10 ≈1.6× ncpu=10) —
+HEAD robotics ad99366 / giemon 41ac173 (bench-271〜274 の据え置き記録と同一) 不変・
+code 変更なし、clojure -M:test 両 suite とも「Ran 0 tests containing 0 assertions」RC=0
+を再実測 (基準値 robotics 23/558/0・giemon 46/115/0 から -100% 不変、bench-244〜275 で
+28 連続)。bench-271〜274 の load-skip 帯 (4 連続) を抜けた実測復帰。回帰 assert なし
+(runner defect 持続 re-measured、新規破れなし)。falsify 新規なし (H1〜H76 全決着・
+未決残存なし)。falsify-034 (FK guard repair 未配線) ・falsify-069 (.cljk load 不能) ・
+falsify-074 (kbb -M:test RC=1 deps floor 未接続) ・falsify-075 (gate bypass 不成立・
+権限面安全実測確定、残るは audit 記録不在のみ) 据え置き。7 軸更新なし (全軸据え置き)。
+NEXT は runner repair + re-baseline を再発行 (継続)。END
+bench-276 (measured, silent-zero 持続 29 連続・負荷 gate 内 ~1.3-1.4x) — HEAD robotics ad99366 / giemon 41ac173 不変、clojure -M:test 両 suite とも「Ran 0 tests containing 0 assertions」RC=0 を再実測 (基準値 robotics 23/558/0・giemon 46/115/0 から -100% 不変、bench-244〜276 で 29 連続)。回帰 assert なし (runner defect 持続 re-measured、新規破れなし)。暫定測定経路 (kbb --backend sci --classpath src:test + 明示 require 4 ns) は 21/52/0 緑 RC=0 を再実測 — bench-262/270/falsify-070/074 と同値、HEAD 41ac173 生存。拡張試行実測: require 全 10 ns (arm_edn_test 含む) は `catch Exception` (arm_edn_test.cljk:22) が sci 下で解決不可で analysis fail、edn 2 ns 除く 8 ns は `Could not find namespace: kotoba.lang.text` (deps floor 未接続 5 dep 問題と同系) で fail — 暫定経路は 4 ns (21/52/0) のみ緑・suite 全体 (46/115) の部分集合のまま。falsify-034 (FK guard repair 未配線、32 連続 refuted・未着手) ・falsify-069 (.cljk load 不能) ・falsify-074 (kbb -M:test RC=1 deps floor 未接続) ・falsify-075 (gate bypass 不成立・audit 記録不在のみ) 据え置き。falsify 新規なし (H1〜H76 全決着・未決残存なし)。7 軸更新なし (全軸据え置き)。NEXT は runner repair + re-baseline を再発行 (継続)。END
+bench-277 (skipped, load 15min ≈60.15 ≈6.0× ncpu=10) — Load gate 大幅超過につき clojure -M:test 両 suite・seeded 再現・kbb 暫定経路を一律省略し unmeasured (honest 据え置き)。基準値 robotics 23/558/0・giemon 46/115/0 据え置き、回帰 assert せず。HEAD robotics ad99366 / giemon 41ac173 (bench-276 と同一) 不変。falsify 新規なし、NEXT (test-runner 修復) 変更なし。END
+bench-278 (skipped, load 15min ≈95.32 ≈9.5× ncpu=10 + terminal 実行 backend 応答不能 — bench-225/226/227 と同一症状) — clojure -M:test 両 suite・kbb -M:test・kbb sci 暫定経路・seeded 再現は実施不能 → unmeasured (honest 据え置き)。基準値据え置き、回帰 assert せず。HEAD 本走未再読につき bench-275/276/277 記録 (robotics ad99366 / giemon 41ac173) を据え置き。新規 falsify は falsify-076 (H77) のみ判定: refuted — FK guard repair 未配線・governor 負テスト 0 件を現 blob 直読で再確定 (arm.cljk L38 silent zero-fill 不変・governor_test deftest 6 件全て正テスト、rejected レコード化の痕跡なし、falsify-034 起系列で計 33 連続 refuted)。H1〜H77 全決着・未決残存なし。NEXT は runner repair + re-baseline を再発行 (継続)。END
+
+bench-279 (skipped, load 15min 20.08 ≈2.0× ncpu=10 — 1min 25.84 / 5min 16.16) — Load gate (15min ≥ 2×ncpu=20) 超過につき clojure -M:test 両 suite・seeded 再現を一律省略し unmeasured (honest 据え置き)。基準値 robotics 23/558/0・giemon 46/115/0 据え置き、回帰 assert せず。HEAD 本走未再読につき bench-275/276 記録 (robotics ad99366 / giemon 41ac173) を据え置き。silent-zero 持続は本走未測定 (bench-271〜274/277/278 に続く load-skip、bench-244〜276 の 28/29 連続実測記録に変更なし)。falsify 新規なし (H1〜H77 全決着・未決残存なし)。7 軸更新なし (全軸据え置き)。NEXT は runner repair + re-baseline を再発行 (継続)。END
+bench-280 (partial measured) — robotics clojure -M:test @ ad99366: 0/0/0 RC=0 silent-zero 持継再実測 (bench-244〜276の持継記録と同一、10 連続目実測再確認) / giemon clojure -M:test @ 41ac173 は走時予算切れで未完 → unmeasured (honest) 。基準値据え置き、回帰 assert せず。bench-281 (skipped, 予算枕不直前 + load 上昇中 15min 13.64 / 1min 25.45) — 重い test 実行を断念し unmeasured (honest 据え置き)。HEAD robotics ad99366 / giemon 41ac173 不変。falsify 新規なし (H1〜H77 全決着・未決残存なし)。7 軸更新なし (全軸据え置き— silent-zero 既知持継 re-measured / load-skip のみ)。NEXT は runner repair + re-baseline を再発行 (継続)。END
+bench-284 (measured, load gate pass ~1.4-1.9x) — HEAD robotics ad99366 / giemon 41ac173 不変、clojure -M:test 両 suite とも 0/0/0 RC=0 silent-zero 32 連続目 (bench-244〜284、falsify-069 起・JVM .cljk load 不能)。基準値 robotics 23/558/0・giemon 46/115/0 据え置き、回帰 assert せず (honest)。暫定経路 kbb sci 4 ns 21/52/0 前回同値 (HEAD 41ac173 生存)、kbb -M:test 第2経路 RC=1 hard-fail 不変。falsify 新規なし、falsify-034 (FK guard repair 未着手) 35 連続 refuted 据え置き。7 軸据え置き、NEXT は runner repair + re-baseline を再発行 (継続)。END
+
+bench-285 (measured, load gate pass ~1.0-1.2×) — HEAD robotics ad99366 / giemon 41ac173 不変、clojure -M:test 両 suite とも 0/0/0 RC=0 silent-zero 33 連続目 (bench-244〜285、falsify-069 起・JVM .cljk load 不能)。基準値 robotics 23/558/0・giemon 46/115/0 据え置き、回帰 assert せず (honest)。暫定経路 kbb sci 4 ns 21/52/0 緑 RC=0 再実測 — bench-262/270/276/282/283/284 同値、HEAD 41ac173 生存。kbb -M:test 第2経路は本走未再実施 (bench-276 測定のまま deps floor 未接続 RC=1)。falsify 新規なし、falsify-034 (FK guard repair 未着手) は 36 連続 refuted 据え置き。7 軸据え置き、NEXT は runner repair + re-baseline を再発行 (継続)。END
+
+falsify-078 (H79) refuted — 「修復実装済み」は現 blob で不成立 (純静的読取・決定的、giemon HEAD 41ac173f8e9d 実測不変): arm.cljk の within-limits? は L15 defn / L28 doc の 2 箇所のみ・FK 本体 (forward-kinematics L31-41 / end-effector L43-46) 呼出 0 回・L38 silent zero-fill 不変 — falsify-034 起計 37 連続 refuted。governor.cljk は rob/action 透過不変・rejected/append/record 0 件、governor_test.cljk 不正 kind/safety 負テスト 0 件 (falsify-071/072/076/077 と同値)。load 15min 18.61 は gate 内だったが run 予算切れにつき test 計数・kbb 暫定経路は本走未実施 (silent-zero 持続/修復とも assert せず、honest unmeasured)。7 軸据え置き、NEXT は runner repair + re-baseline を再発行 (継続)。END
+
+bench-287 (measured, load gate pass ~1.1x) — HEAD robotics ad99366 / giemon 41ac173 不変、clojure -M:test 両 suite とも 0/0/0 RC=0 silent-zero 35 連続目 (bench-244〜287、falsify-069 起・JVM .cljk load 不能)。基準値 robotics 23/558/0・giemon 46/115/0 据え置き、回帰 assert せず (honest)。暫定経路 kbb sci 4 ns 21/52/0 緑 RC=0 再実測 — bench-262/270/276/282〜286 同値、HEAD 41ac173 生存。kbb -M:test 第2経路は本走未再実施 (bench-276 測定のまま deps floor 未接続 RC=1)。seeded 再現 not-applicable (L0、jobs/ runs/ 不在を再確認)。falsify 新規なし、falsify-034 (FK guard repair 未着手) は 38 連続 refuted 据え置き。7 軸据え置き、NEXT は runner repair + re-baseline を再発行 (継続)。END
+
+bench-288 (skipped, load 15min ≈40.60 ≈4.1× ncpu=10) — Load gate (15min ≥ 2×ncpu=20) 超過につき clojure -M:test 両 suite・kbb 暫定経路・seeded 再現を省略し unmeasured (honest 据え置き)。基準値 robotics 23/558/0・giemon 46/115/0 据え置き、回帰 assert せず。HEAD robotics ad99366 / giemon 41ac173 不変。falsify 新規なし (H1〜H79 全決着)。7 軸据え置き。NEXT は runner repair + re-baseline を再発行 (継続)。END
+bench-289 (measured, load gate pass 15min 15.19 ≈1.5× ncpu=10) — HEAD robotics ad99366 / giemon 41ac173 不変、clojure -M:test 両 suite とも 0/0/0 RC=0 silent-zero 36 連続目 (bench-244〜289、falsify-069 起・JVM .cljk load 不能)。基準値 robotics 23/558/0・giemon 46/115/0 据え置き、回帰 assert せず (honest)。暫定経路 kbb sci は本走未実施 (falsify-070/074/075 の 21/52/0 緑が最終実測)。kbb -M:test 第2経路は bench-270 以降 RC=1 hard-fail (deps floor 未接続)。seeded 再現 not-applicable (L0)。falsify 新規なし、falsify-034 (FK guard repair 未着手) 38 連続 refuted 据え置き。7 軸据え置き、NEXT は runner repair + re-baseline を再発行 (継続)。END
+
+falsify-079 (H80) refuted — 暫定 kbb 測定経路 (kbb --backend sci --classpath
+src:test + robotics src + 明示 require) の silent-green / silent-skip 破れは実測で
+不成立 (giemon HEAD 41ac173f8e9d 不変、load gate 内 ~1.1-1.5×): 静的集計
+(deftest 21+6=27、is 52+15=67) と run-tests 実測「Ran 27 tests containing 67
+assertions. 0 failures, 0 errors.」RC=0 が 1 対 1 一致 — governor_test 6/15 は
+falsify-075 の未測定残が本走で初めて実測に乗り、暫定経路基準値を giemon 27/67/0
+に更新。同経路に意図的失敗プローブ (/tmp/f079_fake、repo 非追跡・falsify-031 の
+/tmp workaround 前例準拠) を挿入すると「1 failures」RC=1 を実測 — 暫定経路の緑は
+fail 検出能力を伴う実測緑と確定 (「21/52/0 は実数値」という暫定緑の地位を実測で
+裏付け、runner repair の検収条件に「fail 挿入で RC=1」を追加することを core へ
+推奨)。governor_test 15 assertions 中 nil 経路の負テスト 0 件
+(falsify-072/076/077 と整合)。生出力 /tmp/f079_ext_out.txt・
+/tmp/f079_fail_out2.txt・/tmp/f079_state.txt。falsify-034 (FK guard repair
+未着手) 38 連続 refuted 据え置き。7 軸据え置き、NEXT は runner repair +
+re-baseline を再発行 (継続)。END
+
+falsify-081 (H82) refuted - HEAD 変移と修復着地の仮説は不成立 (HEAD 直読込み純静的)。
+.git/HEAD 直読で giemon HEAD 41ac173f8e9dc599e8b9ab340a51f4135d5ade98 を本走で再実測
+(falsify-078/079 記録と同値で不変、falsify-080 が再読できなかった欠落を補完)。blob 内容は
+falsify-080 と同値: arm.cljk within-limits? は L15 defn と L27-28 docstring の 2 箇所のみ、
+FK 本体 (forward-kinematics L22-41 / end-effector L43-46) 内呼出 0 回、L38
+(or (first angles) 0.0) の silent zero-fill 不変、arm_test.cljk L20-22 の zero-fill 緑期待値
+無変更 (falsify-034 起計 40 連続 refuted)。governor_test.cljk は deftest 6 件が全て正テスト、
+不正 kind/safety の負テスト 0 件、rejected レコード化の痕跡 0 件
+(falsify-072/076/077/078/080 と同値)。本走は load 15-min 23.87 / ncpu 10 約 2.8 倍 (gate 超過) かつ
+terminal backend が stdout を swallow (echo も /tmp redirect でしか観測不能、
+bench-225/226/227/278 と同一症状の再燃) のため test 計数と seeded 再現は実施不能、
+unmeasured (honest 据え置き)。bench-298 の silent-zero 継続は本走未測定。7 軸据え置き、
+NEXT は runner repair と re-baseline の再発行継続。END
+bench-299 (measured, silent-zero 持続 42 連続・負荷 gate 未満 15-min ~1.9x ncpu=10) — HEAD robotics ad99366 / giemon 41ac173 不変・tracked diff 空 (?? sim-loop/ のみ)、clojure -M:test 両 suite とも「Ran 0 tests containing 0 assertions」RC=0 を再実測 (基準値 robotics 23/558/0・giemon 46/115/0 から -100% 不変、bench-244〜299 実測分で 42 連続、bench-298 の 41 連続 +1)。回帰 assert なし (runner defect 持続 re-measured、新規破れなし)。falsify-034 (FK guard repair 未着手・40 連続 refuted 据え置き)・falsify-069 (.cljk load 不能)・falsify-074 (kbb -M:test RC=1?若 register floor未接続)・falsify-081 (HEAD 41ac173 直読不変・修復未着地 40 連続 refuted) 据え置き。falsify 新規なし (H1〜H82 全決着・未決残存なし)。7 軸更新なし (全軸据え置き — 既知 silent-zero 持続 re-measured + 修復未着地 refuted のみ)。NEXT は runner repair + re-baseline を再発行 (継続)。END
+bench-300 (skipped/load + partial measured-fail RC=1・load 15min 23.95 / ncpu=10 ≈2.4× gate 超過) — HEAD robotics ad99366 / giemon 41ac173 不変・tracked diff 空 (?? sim-loop/ のみ)。clojure -M:test 両 suite は load-skip 带で本走未実施 (silent-zero 本判定は unmeasured 据え置き、 基準値 robotics 23/558/0・giemon 46/115/0 据え置き、回帰 assert なし) だが、低予算帯の短実行 `kbb -M:test` 両 suite は RC=1 hard-fail を実測 (giemon: 5 dep(s) are not :local/root and NOT on the classpath + `Could not find namespace: clojure.java.io`・nbb.edn 不在 (ls giemon/nbb.edn No such file or directory、robotics/nbb.edn 在)、robotics: 3 dep(s) 同表現 + `Could not find namespace: html.core`)。本 RC=1 は falsify-074 (kbb RC=1 deps floor 未接続) の核心症状と deps 名まで同値 — 新規回帰ではなく既知未接続の本走再実測 (强者名証、falsify-074 据え置き)。bench-256〜299 の silent-zero 42 連続は本走 (giemon 41ac173 / robotics ad99366、falsify-069 根因) 未再測定 — 0/0/0 判定据え置き (honest、数字捏造ゼロ)。falsify 新規なし (falsify-081 (H82) refuted は本走で 41ac173 HEAD 直読不変 + FK guard repair 未配線 40 連続 refuted 已决、H1〜H82 全決着・未決残存なし)。7 軸更新なし (Red=Test health/Regression 既知 deps-floor hard-fail の再実測 + silent-zero 未再測のみ、全軸据え置き)。NEXT は runner repair + re-baseline + 「kbb -M:test RC=1 fail 検収」を再発行 (継続、1 件)。 mend giemon nbb.edn 不在: deps floor (text/html/css/robotics/cognitect-labs/test-runner) を接続する最小修理靶は本実測で robotics/nbb.edn 在・giemon 缺の asymmetry 同値。END
+
+falsify-082 (H83) refuted — runner 修復は HEAD 41ac173 で未着地 44 連続 (静的読取, /tmp redirect + read_file, cron 予算内): find 実測で test 10 ns 全件 *_test.cljk のまま (拡張子復帰なし)、deps.edn :test alias は cognitect-labs/test-runner 無変更 (loader 登録/カスタム test ns なし)、repo root listing で nbb.edn 不在を再実測 (falsify-074 asymmetry 同値)。本走負荷帯 15-min 12.46 / ncpu 10 ≈1.25× — gate 未満の実測可能帯だったが suite 実行は cron 予算切れで未完 → test 計数 unmeasured (honest、数字捏造なし)。基準値 robotics 23/558/0・giemon 46/115/0 据え置き、HEAD 不変 41ac173。falsify-034 (FK guard repair 未着手) ・falsify-069 (.cljk load 不能) ・falsify-074 (kbb RC=1 deps floor 未接続) 据え置き。H1〜H83 全決着・未決残存なし。NEXT は runner repair + re-baseline を再発行 (継続)。END
+ bench-302 は load 3.5x (15-min 35.32 / ncpu 10) で全経路 skipped (load) unmeasured (基準値据え置き、HEAD 不変 ad99366/41ac173)。 bench-303 は clojure test を実測したが robotics/giemon とも 0/0/0 RC=0 の silent-zero 持続 (bench-244〜304 実測分で 45 連続・runner 修復未了、falsify-069/082 根因・未着手確定)、基準値据え置き・HEAD 不変 ad99366/41ac173。
+
+bench-305 は load 2.42x (15-min 24.19 / ncpu 10, gate 15min >= 2xncpu=20 超過) で全経路 (clojure -M:test 両 suite / seeded 再現) skipped (load) unmeasured — 基準値 robotics 23/558/0 / giemon 46/115/0 据置置き、回帰 assert せず (honest)。HEAD robotics ad99366 / giemon 41ac173 は git rev-parse 実測で不変 (tracked diff なし、未追跡 sim-loop/ のみ)。runner silent-zero は本走未検証 (bench-290/291/293/294 同型の load-skip)。falsify 新規なし (H1〜H84 全決着)。7 軸据置置き。NEXT は runner repair + re-baseline を再発行 (継続)。END
