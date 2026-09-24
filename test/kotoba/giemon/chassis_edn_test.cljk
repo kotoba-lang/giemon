@@ -14,7 +14,7 @@
   `:chassis/realization`, `:chassis/units`) are pr-str'd blobs.
   `reconstitute-chassis` rebuilds the original nested map that
   `kotoba.giemon.chassis` expects, unchanged from before the transform."
-  (:require [clojure.edn :as edn]
+  (:require [kotoba.lang.edn :as edn]
             [clojure.java.io :as io]
             [kotoba.test :refer [deftest is testing]]
             [kotoba.giemon.chassis :as chassis]))

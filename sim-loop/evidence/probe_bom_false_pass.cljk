@@ -3,7 +3,7 @@
 ;; the weak (first) row inherits the strong rating -> underrated empty.
 ;; Usage: kbb -M -e '(load-file "sim-loop/evidence/probe_bom_false_pass.cljk")'
 (require '[kotoba.giemon.arm :as arm])
-(require '[clojure.edn :as edn] '[clojure.java.io :as io])
+(require '[kotoba.lang.edn :as edn] '[clojure.java.io :as io])
 
 (defn- unblob [v]
   (if (string? v)

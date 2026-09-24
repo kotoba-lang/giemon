@@ -2,7 +2,7 @@
 ;; same way arm_edn_test does it, then duplicate-name attack on j2.
 ;; Usage: kbb -M -e '(load-file "sim-loop/evidence/probe_bom_real_fixture.cljk")'
 (require '[kotoba.giemon.arm :as arm])
-(require '[clojure.edn :as edn]
+(require '[kotoba.lang.edn :as edn]
          '[clojure.java.io :as io])
 
 (defn- unblob [v]
