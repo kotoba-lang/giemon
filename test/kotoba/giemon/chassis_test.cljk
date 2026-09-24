@@ -1,5 +1,5 @@
 (ns kotoba.giemon.chassis-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [kotoba.giemon.chassis :as chassis]))
 
 (deftest track-speeds->twist-test

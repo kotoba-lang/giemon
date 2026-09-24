@@ -1,6 +1,6 @@
 (ns kotoba.giemon.export-test
   (:require [kotoba.lang.text :as str]
-            [clojure.test :refer [deftest is testing]]
+            [kotoba.test :refer [deftest is testing]]
             [kotoba.giemon.export :as export]))
 
 (def arm-spec
