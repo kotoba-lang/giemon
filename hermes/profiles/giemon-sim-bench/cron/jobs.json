@@ -1,0 +1,26 @@
+{
+  "jobs": [
+    {
+      "base_url": null,
+      "context_from": null,
+      "deliver": "local",
+      "enabled": true,
+      "enabled_toolsets": null,
+      "id": "fcb3cfa2d73d",
+      "model": "qwen3.8-27b-whitehacker",
+      "name": "giemon-sim-bench-iteration",
+      "no_agent": false,
+      "prompt": "giemon sim-loop bench iteration: run clojure -M:test for kotoba-lang/robotics and kotoba-lang/giemon, seeded reproduction check, record results to sim-loop/evidence/bench-*.md. No code changes.",
+      "provider": "kotoba",
+      "schedule": {
+        "kind": "cron",
+        "expr": "4 1-23/3 * * *",
+        "display": "4 1-23/3 * * *"
+      },
+      "script": "giemon_sim_state.sh",
+      "skill": null,
+      "skills": [],
+      "workdir": "~/github/com-junkawasaki/orgs/kotoba-lang/giemon"
+    }
+  ]
+}
