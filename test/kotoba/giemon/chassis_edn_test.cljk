@@ -15,7 +15,7 @@
   `reconstitute-chassis` rebuilds the original nested map that
   `kotoba.giemon.chassis` expects, unchanged from before the transform."
   (:require [kotoba.lang.edn :as edn]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [kotoba.test :refer [deftest is testing]]
             [kotoba.giemon.chassis :as chassis]))
 

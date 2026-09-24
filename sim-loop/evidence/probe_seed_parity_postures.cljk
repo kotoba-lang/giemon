@@ -1,5 +1,5 @@
 (require '[kotoba.lang.edn :as edn]
-         '[clojure.java.io :as io]
+         '[kotoba.io :as io]
          '[kotoba.giemon.arm :as arm])
 
 (defn- unblob [v]

@@ -3,7 +3,7 @@
 ;; Usage: kbb -M -e '(load-file "sim-loop/evidence/probe_bom_real_fixture.cljk")'
 (require '[kotoba.giemon.arm :as arm])
 (require '[kotoba.lang.edn :as edn]
-         '[clojure.java.io :as io])
+         '[kotoba.io :as io])
 
 (defn- unblob [v]
   (if (string? v)
