@@ -9,7 +9,7 @@
 ;; Read-only: kotoba.giemon.arm の公開関数を in-memory EDN joint で直接呼ぶ。
 ;; コード修正なし。決定的 (RUN マーカー無し、タイムスタンプなし)。2 回実行一致確認。
 (require '[kotoba.lang.edn :as edn]
-         '[clojure.java.io :as io]
+         '[kotoba.io :as io]
          '[clojure.string :as str]
          '[kotoba.giemon.arm :as arm])
 

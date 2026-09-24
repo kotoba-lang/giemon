@@ -5,7 +5,7 @@
 ;; RUN マーカー行は正規化対象 (2 回実行の diff 検知用)。決定的・タイムスタンプなし。
 
 (require '[kotoba.lang.edn :as edn]
-         '[clojure.java.io :as io]
+         '[kotoba.io :as io]
          '[clojure.string :as str])
 
 (defn- unblob [v]

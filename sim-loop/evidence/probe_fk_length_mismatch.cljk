@@ -8,7 +8,7 @@
 ;; 実行環境回復後に kbb -M -e '(load-file "sim-loop/evidence/probe_fk_length_mismatch.cljk")'
 ;; で実測し 2 回実行 byte 一致を確認すること。
 (require '[kotoba.lang.edn :as edn]
-         '[clojure.java.io :as io]
+         '[kotoba.io :as io]
          '[kotoba.giemon.arm :as arm])
 
 (defn- unblob [v]
