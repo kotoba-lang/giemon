@@ -7,11 +7,11 @@
       "enabled": true,
       "enabled_toolsets": null,
       "id": "ff4ce2b9f8c1",
-      "model": "qwen3.8-27b-whitehacker",
+      "model": "murakumo/free",
       "name": "giemon-sim-maint-watch",
       "no_agent": false,
       "prompt": "giemon sim-loop red-detection: inspect one of (fixture consistency, robotics gate contract changes, clean-room invariant, loop stalled 48h) and report. Read-only.",
-      "provider": "kotoba",
+      "provider": "murakumo",
       "schedule": {
         "kind": "cron",
         "expr": "23 0-23/6 * * *",

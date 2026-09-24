@@ -7,11 +7,11 @@
       "enabled": true,
       "enabled_toolsets": null,
       "id": "e4141485d0a0",
-      "model": "qwen3.8-27b-whitehacker",
+      "model": "murakumo/free",
       "name": "giemon-sim-rank-iteration",
       "no_agent": false,
       "prompt": "giemon sim-loop rank iteration: aggregate sim-loop/evidence/, update 7-axis scores, issue exactly one NEXT into sim-loop/status/maturity.md. Do not modify code or evidence.",
-      "provider": "kotoba",
+      "provider": "murakumo",
       "schedule": {
         "kind": "cron",
         "expr": "14 0-23/3 * * *",
