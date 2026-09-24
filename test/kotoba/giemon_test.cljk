@@ -1,5 +1,5 @@
 (ns kotoba.giemon-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [kotoba.giemon :as giemon]))
 
 (deftest products-test

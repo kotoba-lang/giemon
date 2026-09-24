@@ -1,5 +1,5 @@
 (ns kotoba.giemon.viewer-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [kotoba.giemon.viewer :as viewer]))
 
 (def two-joint-arm

@@ -1,5 +1,5 @@
 (ns kotoba.giemon.governor-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [kotoba.robotics :as rob]
             [kotoba.giemon.governor :as gov]))
 

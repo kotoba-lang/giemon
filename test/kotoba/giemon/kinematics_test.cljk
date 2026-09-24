@@ -1,5 +1,5 @@
 (ns kotoba.giemon.kinematics-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [kotoba.giemon.kinematics :as k]))
 
 (defn approx= [a b] (< (Math/abs (- a b)) 1e-9))

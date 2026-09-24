@@ -14,7 +14,7 @@
   `kotoba.giemon.arm` expects, unchanged from before the transform."
   (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
-            [clojure.test :refer [deftest is testing]]
+            [kotoba.test :refer [deftest is testing]]
             [kotoba.giemon.arm :as arm]))
 
 (defn- unblob [v]

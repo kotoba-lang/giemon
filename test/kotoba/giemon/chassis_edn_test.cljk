@@ -16,7 +16,7 @@
   `kotoba.giemon.chassis` expects, unchanged from before the transform."
   (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
-            [clojure.test :refer [deftest is testing]]
+            [kotoba.test :refer [deftest is testing]]
             [kotoba.giemon.chassis :as chassis]))
 
 (defn- unblob [v]
