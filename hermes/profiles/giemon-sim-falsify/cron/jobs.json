@@ -1,0 +1,26 @@
+{
+  "jobs": [
+    {
+      "base_url": null,
+      "context_from": null,
+      "deliver": "local",
+      "enabled": true,
+      "enabled_toolsets": null,
+      "id": "7252697d8b44",
+      "model": "qwen3.8-27b-whitehacker",
+      "name": "giemon-sim-falsify-iteration",
+      "no_agent": false,
+      "prompt": "giemon sim-loop falsify iteration: 1 hypothesis, 1 measured verdict, write evidence to sim-loop/evidence/, no code changes.",
+      "provider": "kotoba",
+      "schedule": {
+        "kind": "cron",
+        "expr": "4 11-23/12 * * *",
+        "display": "4 11-23/12 * * *"
+      },
+      "script": "giemon_sim_state.sh",
+      "skill": null,
+      "skills": [],
+      "workdir": "~/github/com-junkawasaki/orgs/kotoba-lang/giemon"
+    }
+  ]
+}
