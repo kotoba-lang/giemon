@@ -4,7 +4,7 @@
 ;; 欠落, 型混在"high", 1000} と振って、全公開決定関数の出力が変化するか機械測定する。
 ;; RUN マーカー行は正規化対象 (2 回実行の diff 検知用)。決定的・タイムスタンプなし。
 
-(require '[clojure.edn :as edn]
+(require '[kotoba.lang.edn :as edn]
          '[clojure.java.io :as io]
          '[clojure.string :as str])
 

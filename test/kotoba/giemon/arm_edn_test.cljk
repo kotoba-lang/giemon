@@ -12,7 +12,7 @@
   values (`:arm/chain`, `:arm/base`, `:arm/realization`) are pr-str'd
   blobs. `reconstitute-arm` rebuilds the original nested map that
   `kotoba.giemon.arm` expects, unchanged from before the transform."
-  (:require [clojure.edn :as edn]
+  (:require [kotoba.lang.edn :as edn]
             [clojure.java.io :as io]
             [kotoba.test :refer [deftest is testing]]
             [kotoba.giemon.arm :as arm]))
