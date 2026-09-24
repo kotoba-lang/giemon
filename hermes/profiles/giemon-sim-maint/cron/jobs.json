@@ -1,0 +1,26 @@
+{
+  "jobs": [
+    {
+      "base_url": null,
+      "context_from": null,
+      "deliver": "local",
+      "enabled": true,
+      "enabled_toolsets": null,
+      "id": "ff4ce2b9f8c1",
+      "model": "qwen3.8-27b-whitehacker",
+      "name": "giemon-sim-maint-watch",
+      "no_agent": false,
+      "prompt": "giemon sim-loop red-detection: inspect one of (fixture consistency, robotics gate contract changes, clean-room invariant, loop stalled 48h) and report. Read-only.",
+      "provider": "kotoba",
+      "schedule": {
+        "kind": "cron",
+        "expr": "23 0-23/6 * * *",
+        "display": "23 0-23/6 * * *"
+      },
+      "script": "giemon_sim_state.sh",
+      "skill": null,
+      "skills": [],
+      "workdir": "~/github/com-junkawasaki/orgs/kotoba-lang/giemon"
+    }
+  ]
+}
