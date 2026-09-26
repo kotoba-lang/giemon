@@ -20,7 +20,7 @@
       "script": "giemon_sim_state.sh",
       "skill": null,
       "skills": [],
-      "workdir": "~/github/com-junkawasaki/orgs/kotoba-lang/giemon"
+      "workdir": null
     }
   ]
 }
