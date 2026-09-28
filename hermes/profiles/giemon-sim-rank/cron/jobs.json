@@ -7,11 +7,11 @@
       "enabled": true,
       "enabled_toolsets": null,
       "id": "e4141485d0a0",
-      "model": "murakumo/free",
+      "model": null,
       "name": "giemon-sim-rank-iteration",
       "no_agent": false,
       "prompt": "giemon sim-loop rank iteration: aggregate sim-loop/evidence/, update 7-axis scores, issue exactly one NEXT into sim-loop/status/maturity.md. Do not modify code or evidence.",
-      "provider": "murakumo",
+      "provider": null,
       "schedule": {
         "kind": "cron",
         "expr": "14 0-23/3 * * *",
@@ -20,7 +20,7 @@
       "script": "giemon_sim_state.sh",
       "skill": null,
       "skills": [],
-      "workdir": "~/github/com-junkawasaki/orgs/kotoba-lang/giemon"
+      "workdir": null
     }
   ]
 }
