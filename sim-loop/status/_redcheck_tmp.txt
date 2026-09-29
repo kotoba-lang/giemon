@@ -103,7 +103,7 @@ drwxr-xr-x@    3 junkawasaki  staff     96 Jul 23 09:25 .github
 drwxr-xr-x@    3 junkawasaki  staff     96 Jul 23 09:25 90-docs
 -rw-r--r--@    1 junkawasaki  staff  10420 Jul 23 09:25 ARCHITECTURE.md
 -rw-r--r--@    1 junkawasaki  staff  14371 Jul 23 09:25 CHARTER-RIDER.md
--rw-r--r--@    1 junkawasaki  staff  35192 Aug 14 13:41 CLAUDE.md
+-rw-r--r--@    1 junkawasaki  staff  35192 Aug 14 13:41 AGENTS.md
 -rw-r--r--@    1 junkawasaki  staff  11357 Jul 23 09:25 LICENSE
 -rw-r--r--@    1 junkawasaki  staff    478 Jul 23 09:25 NOTICE
 -rw-r--r--@    1 junkawasaki  staff   2803 Aug 14 13:41 README.md
